@@ -24,4 +24,30 @@ public class ImprovementCollaborator extends Collaborator implements EfficiencyC
         this.numberLedProjects = numberLedProjects;
         this.ledProjects = new Project[1000];
     }
+
+    //GETTERS AND SETTERS
+    public int getNumberImplementedImprovements() {
+        return numberImplementedImprovements;
+    }
+
+
+    public void setNumberImplementedImprovements(int numberImplementedImprovements) {
+        this.numberImplementedImprovements = numberImplementedImprovements;
+    }
+
+
+    public int getNumberLedProjects() {
+        return numberLedProjects;
+    }
+
+
+    public void setNumberLedProjects(int numberLedProjects) {
+        this.numberLedProjects = numberLedProjects;
+    }
+
+
+    public Project[] getLedProjects() {
+        return ledProjects;
+    }
+    
 }

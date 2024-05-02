@@ -13,8 +13,25 @@ public enum Priority {
     //Methods
     
     //IntToPriority
-    public static Priority intToPriority(){
+    public static Priority intToPriority(int intPriority){
         Priority priority = null;
+
+        switch (intPriority) {
+            case 1:
+                priority = URGENT;
+                break;
+            case 2:
+                priority = HIGH;
+                break;
+            case 3:
+                priority = MEDIUM;
+                break;
+            case 4:
+                priority = LOW;
+                break;
+            default:
+                break;
+        }
 
         return priority;
     }
