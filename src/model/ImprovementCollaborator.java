@@ -9,8 +9,15 @@ public class ImprovementCollaborator extends Collaborator implements EfficiencyC
     private Project[] ledProjects;
 
     //Methods
+
+    //Calculate Efficiency
     public double calculateEfficiency(){
-        double efficiency = 0;
+        double efficiency = -1;
+        
+        if(numberLedProjects!=0){
+            efficiency = numberImplementedImprovements/numberLedProjects;
+        }
+
         return efficiency;
     }
 
