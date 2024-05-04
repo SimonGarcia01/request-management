@@ -1,6 +1,6 @@
 package model;
 
-public class Project {
+public abstract class Project {
     //Attributes
     private String name;
     private String id;
