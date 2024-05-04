@@ -46,7 +46,7 @@ public enum Priority {
      * 
      * <p><b>Preconditions:</b></p>
      * <ul>
-     *   <li>{@code intType} must be an integer between 1 and 4.</li>
+     *   <li>{@code intPriority} must be an integer between 1 and 4.</li>
      * </ul>
      * 
      * <p><b>Postconditions:</b></p>
@@ -55,7 +55,7 @@ public enum Priority {
      *   <li>If the selected number is out of bounds it will return a null literal.</li>
      * </ul>
      * 
-     * @param intType An integer representing the selected option.
+     * @param intPriority An integer representing the selected option.
      * @return A Priority enumeration value associated with the selected option.
      */
     public static Priority intToPriority(int intPriority){

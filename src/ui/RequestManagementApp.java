@@ -79,7 +79,7 @@ public class RequestManagementApp{
      * <p><b>registerCollaborator</b></p>
      * <b>Description:</b> Registers a collaborator based on the user's input.
      * This method guides the user through the process of registering a collaborator by providing options for the type of collaborator (DTI or general) and collecting relevant information such as full name, ID, email, and extension (optional).
-     * It then calls the {@link Controller#registerCollaborator(int, String, String, String, String)} method in the controller class to handle the registration process and returns the message indicating the success or failure of the registration.
+     * It then calls the {@link University#registerCollaborator(int, String, String, String, String)} method in the controller class to handle the registration process and returns the message indicating the success or failure of the registration.
      * 
      * <p><b>Preconditions:</b></p>
      * <ul>
