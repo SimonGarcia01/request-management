@@ -76,20 +76,7 @@ public class RequestManagementApp{
         
         System.out.print("Enter the collaborator's extension (optional): " );
         String extension = sk.nextLine();
-
-        if(intCollabType==1){
-            System.out.print("Enter the number of implemented improvements: ");
-            int numberImplementedImprovements = sk.nextInt();
-            sk.nextLine();
-
-            System.out.print("Enter the number of projects the collaborator has led: ");
-            int numberLedProjects = sk.nextInt();
-            sk.nextLine();
-
-            System.out.println(controller.registerCollaborator(fullName, id, email, extension, numberImplementedImprovements, numberLedProjects));
-
-        } else {
-            System.out.println(controller.registerCollaborator(fullName, id, email, extension));
-        }
+            System.out.println(controller.registerCollaborator(intCollabType, fullName, id, email, extension));
+        
     }
 }

@@ -8,7 +8,7 @@ public class University {
 
     //Methods
 
-    //Register a DTI collaborator
+    //Register a DTI collaborator or generl collaborator
     /**
      * <p><b>registerCollaborator</b></p>
      * <b>Description:</b> Registers a DTI collaborator based on the provided information.
@@ -39,37 +39,22 @@ public class University {
      * @return A message indicating the success or failure of the registration.
      */
 
-    public String registerCollaborator(String fullName, String id, String email, String extension, 
-    int numberImplementedImprovements, int numberLedProjects){
+    public String registerCollaborator(int intType, String fullName, String id, String email, String extension){
         String message = "";
 
         if(searchCollaborator(id) == null){
             int space = availableCollaborator();
 
             if(space != -1){
-                collaborators[space] = new ImprovementCollaborator(id, fullName, email, extension, numberImplementedImprovements, numberLedProjects);
-                message = "The DTI collaborator has been registered successfully.";
-            } else {
-                message = "There is no more space to register a collaborator.";
-            }
 
-        }else{
-            message = "A collaborator with that Id has already been registered.";
-        }
-
-        return message;
-    }
-
-    //Register a general collaborator
-    public String registerCollaborator(String fullName, String id, String email, String extension){
-        String message = "";
-
-        if(searchCollaborator(id) == null){
-            int space = availableCollaborator();
-
-            if(space != -1){
-                collaborators[space] = new Collaborator(id, fullName, email, extension);
-                message = "The general collaborator has been registered successfully.";
+                if(intType == 1){
+                    collaborators[space] = new ImprovementCollaborator(id, fullName, email, extension);
+                    message = "The DTI collaborator has been registered successfully.";
+                } else {
+                    collaborators[space] = new Collaborator(id, fullName, email, extension);
+                    message = "The general collaborator has been registered successfully.";
+                }
+                
             } else {
                 message = "There is no more space to register a collaborator.";
             }
@@ -82,7 +67,7 @@ public class University {
     }
 
     //search collaborator
-        /**
+    /**
     * <p><b>searchProf</b></p>
     * <b>Description:</b> Searches for a professor with the specified first and last name.
     * This method iterates through the array of professors stored in the univesity and checks if there is a professor with the provided first and last name.
