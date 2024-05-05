@@ -4,20 +4,21 @@ public class Knowledge extends Project{
 
     //Attributes
     private Community impactedCommunity;
-    private KnoledgeType type;
+    private KnowledgeType type;
 
     //Relations
 
     //Methods
 
     //CONSTRUCTOR
-    public Knowledge(String name, String id, int intPriority, ImprovementCollaborator leader,
-    Community impactedCommunity, KnoledgeType type) {
-    super(name, id, intPriority, leader);
-    this.impactedCommunity = impactedCommunity;
-    this.type = type;
+    public Knowledge(String name, String id, int intPriority,  ImprovementCollaborator leader,
+    Request approvedRequest, int intImpactedCommunity, int intType) {
+    super(name, id, intPriority, leader, approvedRequest);
+    this.impactedCommunity = Community.intToCommunity(intImpactedCommunity);
+    this.type = KnowledgeType.intToKnowledgeType(intType);
     }
 
+    //GETTERS AND SETTERS
     public Community getImpactedCommunity() {
         return impactedCommunity;
     }
@@ -26,17 +27,12 @@ public class Knowledge extends Project{
         this.impactedCommunity = impactedCommunity;
     }
 
-    public KnoledgeType getType() {
+    public KnowledgeType getType() {
         return type;
     }
 
-    public void setType(KnoledgeType type) {
+    public void setType(KnowledgeType type) {
         this.type = type;
     }
-
-    //GETTERS AND SETTERS
-    
-    
-
     
 }

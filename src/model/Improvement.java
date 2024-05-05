@@ -11,8 +11,9 @@ public class Improvement extends Project{
     //Methods
 
     //CONSTRUCTOR
-    public Improvement(String name, String id, int intPriority, ImprovementCollaborator leader, String processName) {
-        super(name, id, intPriority, leader);
+    public Improvement(String name, String id, int intPriority, ImprovementCollaborator leader, 
+    Request approvedRequest, String processName) {
+        super(name, id, intPriority, leader, approvedRequest);
         this.processName = processName;
     }
 
