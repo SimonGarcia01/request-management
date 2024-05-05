@@ -88,36 +88,149 @@ public class Department {
         this.address = address;
     }
 
+    /**
+     * <p><b>getName</b></p>
+     * <b>Description:</b> Retrieves the name of the department.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The {@code Department} object must not be null.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>The name of the department is returned.</li>
+     * </ul>
+     * 
+     * @return The name of the department.
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * <p><b>setName</b></p>
+     * <b>Description:</b> Sets the name of the department to the specified value.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The {@code Department} object must not be null.</li>
+     *      <li>The {@code name} parameter must be  String.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>The name of the department is updated to the specified value.</li>
+     * </ul>
+     * 
+     * @param name The new name of the department.
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * <p><b>getInternalCode</b></p>
+     * <b>Description:</b> Retrieves the internal code of the department.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The {@code Department} object must not be null.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>The internal code of the department is returned.</li>
+     * </ul>
+     * 
+     * @return The internal code of the department.
+     */
     public String getInternalCode() {
         return internalCode;
     }
 
+    /**
+     * <p><b>setInternalCode</b></p>
+     * <b>Description:</b> Sets the internal code of the department to the specified value.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The {@code Department} object must not be null.</li>
+     *      <li>The {@code internalCode} parameter must be a string.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>The internal code of the department is updated to the specified value.</li>
+     * </ul>
+     * 
+     * @param internalCode The new internal code of the department.
+     */
     public void setInternalCode(String internalCode) {
         this.internalCode = internalCode;
     }
 
+    /**
+     * <p><b>getResponsibleCollaborator</b></p>
+     * <b>Description:</b> Retrieves the responsible collaborator of the department.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The {@code Department} object must not be null.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>The responsible collaborator of the department is returned.</li>
+     * </ul>
+     * 
+     * @return The responsible collaborator of the department.
+     */
     public Collaborator getResponsibleCollaborator() {
         return responsibleCollaborator;
     }
 
+    /**
+     * <p><b>setResponsibleCollaborator</b></p>
+     * <b>Description:</b> Sets the responsible collaborator of the department to the specified value.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The {@code Department} object must not be null.</li>
+     *      <li>The {@code responsibleCollaborator} parameter must be a Collaborator object.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>The responsible collaborator of the department is updated to the specified value.</li>
+     * </ul>
+     * 
+     * @param responsibleCollaborator The new responsible collaborator of the department.
+     */
     public void setResponsibleCollaborator(Collaborator responsibleCollaborator) {
         this.responsibleCollaborator = responsibleCollaborator;
     }
 
+
+    //No need for a setRequests since they are added by other method
+    /**
+     * <p><b>getRequests</b></p>
+     * <b>Description:</b> Retrieves the array of requests associated with the department.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The {@code Department} object must not be null.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>The array of requests associated with the department is returned.</li>
+     * </ul>
+     * 
+     * @return The array of requests associated with the department.
+     */
     public Request[] getRequests() {
         return requests;
-    }
-
-    public void setRequests(Request[] requests) {
-        this.requests = requests;
     }
     
 }

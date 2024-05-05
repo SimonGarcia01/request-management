@@ -47,6 +47,7 @@ public class ImprovementCollaborator extends Collaborator implements EfficiencyC
 
     //GETTERS AND SETTERS
 
+    //No need for set LedProjects since there is a method to add them
     /**
      * <p><b>getLedProjects</b></p>
      * <b>Description:</b> Retrieves the array of projects led by the DTI collaborator.
