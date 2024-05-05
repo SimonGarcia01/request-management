@@ -8,7 +8,7 @@ public class University {
 
     //Methods
 
-    //Register a DTI collaborator or generl collaborator
+    //REGISTER A DTI OR GENERAL COLLABORATOR
     /**
      * <p><b>registerCollaborator</b></p>
      * <b>Description:</b> Registers a collaborator based on the provided information and type.
@@ -64,7 +64,7 @@ public class University {
         return message;
     }
 
-    //search collaborator
+    //SEARCH FOR A COLLABORATOR
     /**
      * <p><b>searchCollaborator</b></p>
      * <b>Description:</b> Searches for a collaborator with the specified ID.
@@ -96,7 +96,7 @@ public class University {
         return collaborator;
     }
 
-    //Available position for a collaborator
+    //AVAILABLE POSOTION TO STORE A COLLABORATOR
     /**
      * <p><b>availableCollaborator</b></p>
      * <b>Description:</b> Determines the index of the next available slot in the array of collaborators.
