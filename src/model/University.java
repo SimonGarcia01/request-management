@@ -163,10 +163,12 @@ public class University {
      */
     public int availableCollaborator(){
         int position = -1;
+        boolean loopController = true;
 
-        for(int n = 0; n < collaborators.length; n++){
+        for(int n = 0; n < collaborators.length && loopController; n++){
             if(collaborators[n]==null){
                 position = n;
+                loopController = false;
             }
         }
 
@@ -201,10 +203,12 @@ public class University {
     //AVAILABLE POSITION TO STORE A DEPARTMENT
     public int availableDepartment(){
         int position = -1;
+        boolean loopController = true;
 
-        for(int n = 0; n < departments.length; n++){
+        for(int n = 0; n < departments.length &&loopController; n++){
             if(collaborators[n]==null){
                 position = n;
+                loopController = false;
             }
         }
 
@@ -228,8 +232,8 @@ public class University {
      * </ul>
      */
     public University(){
-        this.collaborators = new Collaborator[1000];
-        this.departments = new Department[1000];
+        this.collaborators = new Collaborator[10];
+        this.departments = new Department[10];
     }
 
 

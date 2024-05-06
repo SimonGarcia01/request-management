@@ -180,7 +180,7 @@ public RequestManagementApp(){
         int intCollabType = sk.nextInt();
         sk.nextLine();
 
-        System.out.print("Enter the collaboratos full name: ");
+        System.out.print("Enter the collaborator's full name: ");
         String fullName = sk.nextLine();
 
         System.out.print("Enter the collaborator's ID: ");
@@ -204,7 +204,7 @@ public RequestManagementApp(){
             System.out.print("Enter the department's internal code: ");
             String internalCode = sk.nextLine();
 
-            if(controller.searchDepartment(internalCode)!=null){
+            if(controller.searchDepartment(internalCode)==null){
                 System.out.print("Enter the name of the department: ");
                 String name = sk.nextLine();
 
@@ -212,6 +212,7 @@ public RequestManagementApp(){
                 String address = sk.nextLine();
 
                 System.out.println(controller.displayCollaborators());
+                System.out.print("Please enter one of the collaborators: ");
                 int intResponsibleCollaborator = sk.nextInt();
                 sk.nextLine();
 
