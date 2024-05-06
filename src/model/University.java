@@ -5,8 +5,11 @@ public class University {
 
     //Relations
     private Collaborator[] collaborators;
+    private Department[] departments;
 
     //Methods
+
+    //Main Methods
 
     //REGISTER A DTI OR GENERAL COLLABORATOR
     /**
@@ -16,7 +19,7 @@ public class University {
      * If there is a duplicate collaborator, it returns a message indicating that the collaborator has already been registered.
      * If there is no duplicate, it checks for available space to register a new collaborator using the {@link #availableCollaborator()} method.
      * If there is no available space, it returns a message indicating that no more collaborators can be registered.
-     * If space is available, it creates a new instance of either ImprovementCollaborator or Collaborator based on the provided type.
+     * If space is available, it creates a new instance of either ImprovementCollaborator  ({@link ImprovementCollaborator#ImprovementCollaborator(String, String, String, String)})or general Collaborator  ({@link Collaborator#Collaborator(String, String, String, String)})based on the provided type.
      * The newly created collaborator is then added to the array of collaborators.
      * 
      * <p><b>Preconditions:</b></p>
@@ -64,6 +67,21 @@ public class University {
         return message;
     }
 
+    //REGISTER A DEPARTMENT
+
+    public String registerDepartment(String internalCode, String name, String address, int intResponsibleCollaborator){
+
+        int space = availableDepartment();
+
+        departments[space] = new Department(address, name, internalCode, intToCollaborator(intResponsibleCollaborator));
+
+        return "The department has been registered successfully.";
+    }
+
+
+    //General Methods ------------------------------------------------------------------------------------------
+
+
     //SEARCH FOR A COLLABORATOR
     /**
      * <p><b>searchCollaborator</b></p>
@@ -96,7 +114,35 @@ public class University {
         return collaborator;
     }
 
-    //AVAILABLE POSOTION TO STORE A COLLABORATOR
+    //DISPLAY EXISTENT COLLABORATOR
+
+    public String displayCollaborators(){
+        String message = "Available collaborators: ";
+        int counter = 1;
+        boolean loopController = true;
+
+        for(int n = 0; n < collaborators.length && loopController; n++){
+            if(collaborators[n] != null){
+
+                message += String.format("\n\t%d. Full name: %s - ID: %s", counter, collaborators[n].getFullName(), 
+                collaborators[n].getId());
+
+                counter++;
+            } else {
+                loopController = false;
+            }
+        }
+
+        return message;
+    }
+    
+    //INT TO COLLABORATOR
+
+    public Collaborator intToCollaborator(int intResponsibleCollaborator){
+        return collaborators[intResponsibleCollaborator -1];
+    }
+
+    //AVAILABLE POSiTION TO STORE A COLLABORATOR
     /**
      * <p><b>availableCollaborator</b></p>
      * <b>Description:</b> Determines the index of the next available slot in the array of collaborators.
@@ -127,6 +173,44 @@ public class University {
         return position;
     }
 
+    //ATLEAST ONE COLLABORATOR
+
+    public boolean oneMinCollaborator(){
+        boolean oneCollaborator = false;
+
+        if(collaborators[0]!=null){
+            oneCollaborator = true;
+        }
+
+        return oneCollaborator;
+    }
+
+    //SEARCH DEPARTMENT
+    public Department searchDepartment(String internalCode){
+        Department instDepartment = null;
+
+        for(Department department  : departments) {
+            if(department != null && department.getInternalCode().equalsIgnoreCase(internalCode)){
+                instDepartment = department;
+            }
+        }
+
+        return instDepartment;
+    }
+    
+    //AVAILABLE POSITION TO STORE A DEPARTMENT
+    public int availableDepartment(){
+        int position = -1;
+
+        for(int n = 0; n < departments.length; n++){
+            if(collaborators[n]==null){
+                position = n;
+            }
+        }
+
+        return position;
+    }
+    
     //CONSTRUCTOR
     /**
      * <p><b>University</b></p>
@@ -145,6 +229,7 @@ public class University {
      */
     public University(){
         this.collaborators = new Collaborator[1000];
+        this.departments = new Department[1000];
     }
 
 
@@ -165,9 +250,12 @@ public class University {
      * 
      * @return The array of collaborators stored in the university.
      */
-
     public Collaborator[] getCollaborators() {
         return collaborators;
     }
     
+    
+    public Department[] getDepartments(){
+        return departments;
+    }
 }

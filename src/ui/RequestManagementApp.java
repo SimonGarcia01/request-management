@@ -27,7 +27,7 @@ public class RequestManagementApp{
                     objMain.registerCollaborator();
                     break;
                 case 2: //To register a department
-                    objMain.registerCollaborator();
+                    objMain.registerDepartment();
                     break;
                 case 3: //To register a request
                     objMain.registerCollaborator();
@@ -191,9 +191,37 @@ public RequestManagementApp(){
         
         System.out.print("Enter the collaborator's extension (optional): " );
         String extension = sk.nextLine();
-        System.out.println(controller.registerCollaborator(intCollabType, fullName, id, email, extension));
-        
+        System.out.println(controller.registerCollaborator(intCollabType, fullName, id, email, extension)); 
     }
 
-    
+    //REGISTER A DEPARTMENT
+
+    public void registerDepartment(){
+        System.out.println("REGISTERING A DEPARTMENT:");
+        
+        if(controller.oneMinCollaborator()){
+
+            System.out.print("Enter the department's internal code: ");
+            String internalCode = sk.nextLine();
+
+            if(controller.searchDepartment(internalCode)!=null){
+                System.out.print("Enter the name of the department: ");
+                String name = sk.nextLine();
+
+                System.out.print("Enter the department's address: ");
+                String address = sk.nextLine();
+
+                System.out.println(controller.displayCollaborators());
+                int intResponsibleCollaborator = sk.nextInt();
+                sk.nextLine();
+
+                System.out.println(controller.registerDepartment(internalCode, name, address, intResponsibleCollaborator));
+
+            } else {
+                System.out.println("A Department with that internal code has already been registered. Please try another one.");
+            }
+        } else {
+            System.out.println("There must be at least one saved collaborator in order to enter a Department.");
+        }
+    }
 }
