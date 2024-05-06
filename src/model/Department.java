@@ -13,6 +13,30 @@ public class Department {
 
     //Methods
 
+    //IS DUPLICATE REQUEST
+    public boolean isDuplicateRequest(String subject){
+        boolean isDuplicate = false;
+
+        if(searchRequest(subject)!=null){
+            isDuplicate = true;
+        }
+    
+        return isDuplicate;
+    }
+
+    //SEARCH REQUEST
+    public Request searchRequest(String subject){
+        Request searchedRequest = null;
+
+        for(Request request : requests){
+            if(request.getSubject().equalsIgnoreCase(subject)) {
+                searchedRequest = request;
+            }
+        }
+
+        return searchedRequest;
+    }
+
     //CONSTRUCTOR
     /**
      * <p><b>Department</b></p>

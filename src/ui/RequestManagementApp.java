@@ -30,7 +30,7 @@ public class RequestManagementApp{
                     objMain.registerDepartment();
                     break;
                 case 3: //To register a request
-                    objMain.registerCollaborator();
+                    objMain.registerRequest();
                     break;
                 case 4: //To change the status of a request. 
                     //To create a knowledge or improvement project is request is accepted.
@@ -248,4 +248,44 @@ public RequestManagementApp(){
             System.out.println("There must be at least one saved collaborator in order to enter a Department.");
         }
     }
+
+    //REGISTER A REQUEST
+    
+    public void registerRequest(){
+        System.out.println("REGISTERING A REQUEST:");
+
+        if(controller.oneMinCollaborator()){
+            System.out.println(controller.displayCollaborators());
+            System.out.print("Enter the collaborator responsible for the new request: ");
+            int intResponsibleCollaborator = sk.nextInt();
+            sk.nextLine();
+
+            if(controller.oneMinDepartment()){
+                System.out.println(controller.displayDepartments());
+                System.out.print("Enter one of the displayed departments, responsable for the request: ");
+                int intResponsibleDepartment = sk.nextInt();
+                sk.nextLine();
+
+                System.out.print("Enter the requests subject:  ");
+                String subject = sk.nextLine();
+
+                if(controller.searchRequest(intResponsibleDepartment, subject)==null){
+
+                    System.out.print("Enter the description of the request: ");
+                    String description = sk.nextLine();
+    
+                    System.out.println(controller.registerRequest(intResponsibleCollaborator, intResponsibleDepartment, subject, description));
+                    
+                } else {
+                    System.out.println("A Request with that subject inside that department has already been submitted. Please try another one.");
+                }
+            } else {
+                System.out.println("There must be at least one saved department to mark as reponsible for the request.");
+            }
+        } else {
+            System.out.println("There must be at least one saved collaborator to be able to relate a request to one person.");
+        }
+    }
+
+
 }

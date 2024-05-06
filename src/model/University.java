@@ -125,7 +125,7 @@ public class University {
         return collaborator;
     }
 
-    //DISPLAY EXISTENT COLLABORATOR
+    //DISPLAY EXISTING COLLABORATORS
 
     /**
      * <p><b>displayCollaborators</b></p>
@@ -236,6 +236,40 @@ public class University {
         return instDepartment;
     }
     
+    //ATLEAST ONE DEPARTMENT
+
+    public boolean oneMinDepartment(){
+        return !departments.isEmpty();
+    }
+
+    //DISPLAY EXISTING DEPARMENTS
+
+    public String displayDepartments(){
+        String message = "Available departments: ";
+        int counter = 1;
+
+        for(Department department : departments){
+
+            message += String.format("\n\t%d. Name: %s - Internal Code: %s", counter, department.getName(), 
+            department.getInternalCode());
+            counter++;
+
+        }
+
+        return message;
+    }
+
+    //INT TO DEPARTMENT
+    public Department intToDepartment(int intDepartment){
+        return departments.get(intDepartment-1);
+    }
+
+    //SEARCH REQUEST
+    public boolean isDuplicateRequest(int intResponsableDepartment, String subject){
+        Department department = intToDepartment(intResponsableDepartment);
+        return department.isDuplicateRequest(subject);
+    }
+
     //CONSTRUCTOR
     /**
      * <p><b>University</b></p>
