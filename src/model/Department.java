@@ -1,4 +1,5 @@
 package model;
+import java.util.ArrayList;
 
 public class Department {
     //Attributes
@@ -8,7 +9,7 @@ public class Department {
 
     //Relations
     private Collaborator responsibleCollaborator;
-    private Request[] requests;
+    private ArrayList<Request> requests;
 
     //Methods
 
@@ -26,7 +27,7 @@ public class Department {
      * <p><b>Postconditions:</b></p>
      * <ul>
      *   <li>A new Department object is created with the provided address, name, internal code, and responsible collaborator.</li>
-     *   <li>The Department object is also initialized with an empty array of Requests.</li>
+     *   <li>The Department object is also initialized with an empty ArrayList of Requests.</li>
      * </ul>
      * 
      * @param address The address of the department.
@@ -34,14 +35,14 @@ public class Department {
      * @param internalCode The internal code of the department.
      * @param responsibleCollaborator The collaborator responsible for the department.
      */
+
     public Department(String address, String name, String internalCode, Collaborator responsibleCollaborator){
         this.address = address;
         this.name = name;
         this.internalCode = internalCode;
 
         this.responsibleCollaborator = responsibleCollaborator;
-        this.requests = new Request[1000];
-
+        this.requests = new ArrayList<>();
     }
 
 
@@ -215,7 +216,7 @@ public class Department {
     //No need for a setRequests since they are added by other method
     /**
      * <p><b>getRequests</b></p>
-     * <b>Description:</b> Retrieves the array of requests associated with the department.
+     * <b>Description:</b> Retrieves the list of requests associated with the department.
      * 
      * <p><b>Preconditions:</b></p>
      * <ul>
@@ -224,12 +225,12 @@ public class Department {
      * 
      * <p><b>Postconditions:</b></p>
      * <ul>
-     *      <li>The array of requests associated with the department is returned.</li>
+     *      <li>The ArrayList of requests associated with the department is returned.</li>
      * </ul>
      * 
-     * @return The array of requests associated with the department.
+     * @return The ArrayList of requests associated with the department.
      */
-    public Request[] getRequests() {
+    public ArrayList<Request> getRequests() {
         return requests;
     }
     

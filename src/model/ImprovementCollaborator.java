@@ -1,10 +1,11 @@
 package model;
+import java.util.ArrayList;
 
 public class ImprovementCollaborator extends Collaborator implements EfficiencyCalculable {
     //Attributes
 
     //Relations
-    private Project[] ledProjects;
+    private ArrayList<Project> ledProjects;
 
     //Methods
 
@@ -15,23 +16,22 @@ public class ImprovementCollaborator extends Collaborator implements EfficiencyC
         return efficiency;
     }
 
-
     //CONSTRUCTOR
     /**
      * <p><b>ImprovementCollaborator</b></p>
      * <b>Description:</b> Constructs a new ImprovementCollaborator object with the provided information.
      * This constructor initializes the ImprovementCollaborator object with the provided ID, full name, email, and extension.
-     * Additionally, it initializes the array of led projects with a fixed size of 1000.
+     * Additionally, it initializes the ArrayList of led projects.
      * 
      * <p><b>Preconditions:</b></p>
      * <ul>
-     *   <li>The {@code id}, {@code fullName}, {@code email} and {@code extension} parameters must be Strings.</li>
+     *   <li>The {@code id}, {@code fullName}, {@code email}, and {@code extension} parameters must be of type String.</li>
      * </ul>
      * 
      * <p><b>Postconditions:</b></p>
      * <ul>
      *   <li>A new ImprovementCollaborator object is created with the provided ID, full name, email, and extension.</li>
-     *   <li>An array of led projects is initialized with a size of 1000.</li>
+     *   <li>An ArrayList of led projects is initialized.</li>
      * </ul>
      * 
      * @param id The ID of the collaborator.
@@ -39,10 +39,11 @@ public class ImprovementCollaborator extends Collaborator implements EfficiencyC
      * @param email The email address of the collaborator.
      * @param extension The extension number of the collaborator (optional).
      */
+
     public ImprovementCollaborator(String id, String fullName, String email, String extension){
         super(id, fullName, email, extension);
         
-        this.ledProjects = new Project[1000];
+        this.ledProjects = new ArrayList<>();
     }
 
     //GETTERS AND SETTERS
@@ -50,7 +51,7 @@ public class ImprovementCollaborator extends Collaborator implements EfficiencyC
     //No need for set LedProjects since there is a method to add them
     /**
      * <p><b>getLedProjects</b></p>
-     * <b>Description:</b> Retrieves the array of projects led by the DTI collaborator.
+     * <b>Description:</b> Retrieves the list of projects led by the DTI collaborator.
      * 
      * <p><b>Preconditions:</b></p>
      * <ul>
@@ -59,12 +60,13 @@ public class ImprovementCollaborator extends Collaborator implements EfficiencyC
      * 
      * <p><b>Postconditions:</b></p>
      * <ul>
-     *   <li>The array of projects led by the collaborator is returned.</li>
+     *   <li>The list of projects led by the DTI collaborator is returned.</li>
      * </ul>
      * 
-     * @return The array of projects led by the DTI collaborator.
+     * @return The list of projects led by the DTI collaborator.
      */
-    public Project[] getLedProjects() {
+
+    public ArrayList<Project> getLedProjects() {
         return ledProjects;
     }
     

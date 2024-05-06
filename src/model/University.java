@@ -1,11 +1,13 @@
 package model;
 
+import java.util.ArrayList;
+
 public class University {
     //Attributes
 
     //Relations
-    private Collaborator[] collaborators;
-    private Department[] departments;
+    private ArrayList<Collaborator> collaborators;
+    private ArrayList<Department> departments;
 
     //Methods
 
@@ -17,15 +19,13 @@ public class University {
      * <b>Description:</b> Registers a collaborator based on the provided information and type.
      * This method checks for duplicate collaborators with the same ID using the {@link #searchCollaborator(String)} method.
      * If there is a duplicate collaborator, it returns a message indicating that the collaborator has already been registered.
-     * If there is no duplicate, it checks for available space to register a new collaborator using the {@link #availableCollaborator()} method.
-     * If there is no available space, it returns a message indicating that no more collaborators can be registered.
-     * If space is available, it creates a new instance of either ImprovementCollaborator  ({@link ImprovementCollaborator#ImprovementCollaborator(String, String, String, String)})or general Collaborator  ({@link Collaborator#Collaborator(String, String, String, String)})based on the provided type.
-     * The newly created collaborator is then added to the array of collaborators.
+     * If there is no duplicate, it creates a new instance of either ImprovementCollaborator or general Collaborator based on the provided type.
+     * The newly created collaborator is then added to the list of collaborators.
      * 
      * <p><b>Preconditions:</b></p>
      * <ul>
-     *   <li>{@code collaborators} array must be initialized.</li>
-     *   <li>{@code searchCollaborator} and {@code availableCollaborator} methods should be in place.</li>
+     *   <li>{@code collaborators} list must be initialized.</li>
+     *   <li>{@code searchCollaborator} method should be in place.</li>
      * </ul>
      * 
      * <p><b>Postconditions:</b></p>
@@ -44,20 +44,13 @@ public class University {
         String message = "";
 
         if(searchCollaborator(id) == null){
-            int space = availableCollaborator();
 
-            if(space != -1){
-
-                if(intType == 1){
-                    collaborators[space] = new ImprovementCollaborator(id, fullName, email, extension);
-                    message = "The DTI collaborator has been registered successfully.";
-                } else {
-                    collaborators[space] = new Collaborator(id, fullName, email, extension);
-                    message = "The general collaborator has been registered successfully.";
-                }
-                
+            if(intType == 1){
+                collaborators.add(new ImprovementCollaborator(id, fullName, email, extension));
+                message = "The DTI collaborator has been registered successfully.";
             } else {
-                message = "There is no more space to register a collaborator.";
+                collaborators.add(new Collaborator(id, fullName, email, extension));
+                message = "The general collaborator has been registered successfully.";
             }
 
         }else{
@@ -75,14 +68,14 @@ public class University {
      * <p><b>Preconditions:</b></p>
      * <ul>
      *      <li>{@code internalCode}, {@code name}, and {@code address} must be valid strings.</li>
-     *      <li>{@code departments} array must be initialized.</li>
+     *      <li>{@code departments} list must be initialized.</li>
      *      <li>{@code intResponsibleCollaborator} must be a valid index representing the responsible collaborator in the list of available collaborators.</li>
      * </ul>
      * 
      * <p><b>Postconditions:</b></p>
      * <ul>
      *      <li>A new department is registered in the university system with the provided internal code, name, address, and responsible collaborator.</li>
-     *      <li>If there is available space in the {@code departments} array, the new department is added to the array.</li>
+     *      <li>If there is available space in the {@code departments} list, the new department is added to the list.</li>
      * </ul>
      * 
      * @param internalCode The internal code of the department.
@@ -92,11 +85,7 @@ public class University {
      * @return A message indicating the success of the department registration.
      */
     public String registerDepartment(String internalCode, String name, String address, int intResponsibleCollaborator){
-
-        int space = availableDepartment();
-
-        departments[space] = new Department(address, name, internalCode, intToCollaborator(intResponsibleCollaborator));
-
+        departments.add(new Department(address, name, internalCode, intToCollaborator(intResponsibleCollaborator)));
         return "The department has been registered successfully.";
     }
 
@@ -113,7 +102,7 @@ public class University {
      * 
      * <p><b>Preconditions:</b></p>
      * <ul>
-     *   <li>{@code collaborators} array must be initialized.</li>
+     *   <li>{@code collaborators} list must be initialized.</li>
      * </ul>
      * 
      * <p><b>Postconditions:</b></p>
@@ -141,17 +130,16 @@ public class University {
     /**
      * <p><b>displayCollaborators</b></p>
      * <b>Description:</b> Generates a message listing the available collaborators with their full names and IDs.
-     *  The system loops along all the collaborators until it finds an empty spot. 
-     *  To the other collaborators that were found, their full name and Id is extracted and added to the list.
+     *  The system loops along all the collaborators and extracts their full name and Id and is added to the list.
      * 
      * <p><b>Preconditions:</b></p>
      * <ul>
-     *      <li>{@code collaborators} array must be initialized.</li>
+     *      <li>{@code collaborators} list must be initialized.</li>
      * </ul>
      * 
      * <p><b>Postconditions:</b></p>
      * <ul>
-     *      <li>A message holding a numbered list of  the available collaborators with their full names and IDs is generated.</li>
+     *      <li>A message holding a numbered list of the available collaborators with their full names and IDs is generated.</li>
      * </ul>
      * 
      * @return A message listing the available collaborators with their full names and IDs.
@@ -159,18 +147,13 @@ public class University {
     public String displayCollaborators(){
         String message = "Available collaborators: ";
         int counter = 1;
-        boolean loopController = true;
 
-        for(int n = 0; n < collaborators.length && loopController; n++){
-            if(collaborators[n] != null){
+        for(Collaborator collaborator : collaborators){
 
-                message += String.format("\n\t%d. Full name: %s - ID: %s", counter, collaborators[n].getFullName(), 
-                collaborators[n].getId());
+            message += String.format("\n\t%d. Full name: %s - ID: %s", counter, collaborator.getFullName(), 
+            collaborator.getId());
+            counter++;
 
-                counter++;
-            } else {
-                loopController = false;
-            }
         }
 
         return message;
@@ -185,7 +168,7 @@ public class University {
      * 
      * <p><b>Preconditions:</b></p>
      * <ul>
-     *      <li>{@code collaborators} array must be initialized.</li>
+     *      <li>{@code collaborators} list must be initialized.</li>
      *      <li>{@code intResponsibleCollaborator} must be a valid index representing the collaborator.</li>
      * </ul>
      * 
@@ -198,40 +181,7 @@ public class University {
      * @return The collaborator corresponding to the provided index.
      */
     public Collaborator intToCollaborator(int intResponsibleCollaborator){
-        return collaborators[intResponsibleCollaborator -1];
-    }
-
-    //AVAILABLE POSiTION TO STORE A COLLABORATOR
-    /**
-     * <p><b>availableCollaborator</b></p>
-     * <b>Description:</b> Determines the index of the next available slot in the array of collaborators.
-     * This method iterates through the array of collaborators stored in the university and returns the index of the first null slot found.
-     * If no null slot is found, it returns -1, indicating that there is no available space to register a new collaborator.
-     * 
-     * <p><b>Preconditions:</b></p>
-     * <ul>
-     *   <li>{@code collaborators} array must be initialized.</li>
-     * </ul>
-     * 
-     * <p><b>Postconditions:</b></p>
-     * <ul>
-     *   <li>The index of the next available slot in the array of collaborators, if found; otherwise, -1 is returned.</li>
-     * </ul>
-     * 
-     * @return The index of the next available slot in the array of collaborators, if found; otherwise, -1.
-     */
-    public int availableCollaborator(){
-        int position = -1;
-        boolean loopController = true;
-
-        for(int n = 0; n < collaborators.length && loopController; n++){
-            if(collaborators[n]==null){
-                position = n;
-                loopController = false;
-            }
-        }
-
-        return position;
+        return collaborators.get(intResponsibleCollaborator-1);
     }
 
     //ATLEAST ONE COLLABORATOR
@@ -241,24 +191,18 @@ public class University {
      * 
      * <p><b>Preconditions:</b></p>
      * <ul>
-     *      <li>{@code collaborators} array must be initialized.</li>
+     *      <li>{@code collaborators} list must be initialized.</li>
      * </ul>
      * 
      * <p><b>Postconditions:</b></p>
      * <ul>
-     *      <li>Returns {@code true} if there is at least one saved collaborator in the system; otherwise, returns {@code false}.</li>
+     *      <li>Returns {@code true} if there are no collaborators saved in the system; otherwise, returns {@code false}.</li>
      * </ul>
      * 
-     * @return {@code true} if there is at least one saved collaborator in the system; otherwise, {@code false}.
+     * @return {@code true} if there are no collaborators saved in the system; otherwise, {@code false}.
      */
     public boolean oneMinCollaborator(){
-        boolean oneCollaborator = false;
-
-        if(collaborators[0]!=null){
-            oneCollaborator = true;
-        }
-
-        return oneCollaborator;
+        return !collaborators.isEmpty();
     }
 
     //SEARCH DEPARTMENT
@@ -268,7 +212,7 @@ public class University {
      * 
      * <p><b>Preconditions:</b></p>
      * <ul>
-     *      <li>{@code departments} array must be initialized.</li>
+     *      <li>{@code departments} list must be initialized.</li>
      *      <li>{@code internalCode} must be a String.</li>
      * </ul>
      * 
@@ -292,42 +236,10 @@ public class University {
         return instDepartment;
     }
     
-    //AVAILABLE POSITION TO STORE A DEPARTMENT
-    /**
-     * <p><b>availableDepartment</b></p>
-     * <b>Description:</b> Determines the position of the first available slot in the array of departments.
-     * 
-     * <p><b>Preconditions:</b></p>
-     * <ul>
-     *      <li>{@code departments} array must be initialized.</li>
-     * </ul>
-     * 
-     * <p><b>Postconditions:</b></p>
-     * <ul>
-     *      <li>Returns the index of the first available slot in the {@code departments} array, or {@code -1} if no slot is available.</li>
-     * </ul>
-     * 
-     * @return The index of the first available slot in the {@code departments} array, or {@code -1} if no slot is available.
-     */
-    public int availableDepartment(){
-        int position = -1;
-        boolean loopController = true;
-
-        for(int n = 0; n < departments.length &&loopController; n++){
-            if(collaborators[n]==null){
-                position = n;
-                loopController = false;
-            }
-        }
-
-        return position;
-    }
-    
     //CONSTRUCTOR
     /**
      * <p><b>University</b></p>
-     * <b>Description:</b> Constructs a new University object.
-     * This constructor initializes the array of collaborators with a fixed size of 1000.
+     * <b>Description:</b> Constructs a new University object with empty lists of collaborators and departments.
      * 
      * <p><b>Preconditions:</b></p>
      * <ul>
@@ -336,53 +248,53 @@ public class University {
      * 
      * <p><b>Postconditions:</b></p>
      * <ul>
-     *   <li>A new University object is created with an array of collaborators initialized to a size of 1000.</li>
+     *   <li>A new University object is created with empty lists of collaborators and departments.</li>
      * </ul>
      */
     public University(){
-        this.collaborators = new Collaborator[10];
-        this.departments = new Department[10];
+        this.collaborators = new ArrayList<>();
+        this.departments = new ArrayList<>();
     }
 
 
     //GETTERS AND SETTERS
     /**
      * <p><b>getCollaborators</b></p>
-     * <b>Description:</b> Retrieves the array of collaborators stored in the university.
+     * <b>Description:</b> Retrieves the list of collaborators stored in the university.
      * 
      * <p><b>Preconditions:</b></p>
      * <ul>
-     *   <li>{@code collaborators} array must be initialized.</li>
+     *   <li>{@code collaborators} list must be initialized.</li>
      * </ul>
      * 
      * <p><b>Postconditions:</b></p>
      * <ul>
-     *   <li>The array of collaborators stored in the university is returned.</li>
+     *   <li>The list of collaborators stored in the university is returned.</li>
      * </ul>
      * 
-     * @return The array of collaborators stored in the university.
+     * @return The list of collaborators stored in the university.
      */
-    public Collaborator[] getCollaborators() {
+    public ArrayList<Collaborator> getCollaborators() {
         return collaborators;
     }
     
     /**
      * <p><b>getDepartments</b></p>
-     * <b>Description:</b> Retrieves the array of departments stored in the university.
+     * <b>Description:</b> Retrieves the list of departments stored in the university.
      * 
      * <p><b>Preconditions:</b></p>
      * <ul>
-     *      <li>{@code departments} array must be initialized.</li>
+     *      <li>{@code departments} list must be initialized.</li>
      * </ul>
      * 
      * <p><b>Postconditions:</b></p>
      * <ul>
-     *      <li>Returns the array of departments stored in the university.</li>
+     *      <li>Returns the list of departments stored in the university.</li>
      * </ul>
      * 
-     * @return The array of departments stored in the university.
+     * @return The list of departments stored in the university.
      */
-    public Department[] getDepartments(){
+    public ArrayList<Department> getDepartments(){
         return departments;
     }
 }
