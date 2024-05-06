@@ -9,7 +9,7 @@ public class University {
 
     //Methods
 
-    //Main Methods
+    //Main Methods --------------------------------------------------------------------------------------------
 
     //REGISTER A DTI OR GENERAL COLLABORATOR
     /**
@@ -68,7 +68,29 @@ public class University {
     }
 
     //REGISTER A DEPARTMENT
-
+    /**
+     * <p><b>registerDepartment</b></p>
+     * <b>Description:</b> Registers a new department in the university system with the provided internal code, name, address, and responsible collaborator.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>{@code internalCode}, {@code name}, and {@code address} must be valid strings.</li>
+     *      <li>{@code departments} array must be initialized.</li>
+     *      <li>{@code intResponsibleCollaborator} must be a valid index representing the responsible collaborator in the list of available collaborators.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>A new department is registered in the university system with the provided internal code, name, address, and responsible collaborator.</li>
+     *      <li>If there is available space in the {@code departments} array, the new department is added to the array.</li>
+     * </ul>
+     * 
+     * @param internalCode The internal code of the department.
+     * @param name The name of the department.
+     * @param address The address of the department.
+     * @param intResponsibleCollaborator The index of the responsible collaborator in the list of available collaborators.
+     * @return A message indicating the success of the department registration.
+     */
     public String registerDepartment(String internalCode, String name, String address, int intResponsibleCollaborator){
 
         int space = availableDepartment();
@@ -116,6 +138,24 @@ public class University {
 
     //DISPLAY EXISTENT COLLABORATOR
 
+    /**
+     * <p><b>displayCollaborators</b></p>
+     * <b>Description:</b> Generates a message listing the available collaborators with their full names and IDs.
+     *  The system loops along all the collaborators until it finds an empty spot. 
+     *  To the other collaborators that were found, their full name and Id is extracted and added to the list.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>{@code collaborators} array must be initialized.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>A message holding a numbered list of  the available collaborators with their full names and IDs is generated.</li>
+     * </ul>
+     * 
+     * @return A message listing the available collaborators with their full names and IDs.
+     */
     public String displayCollaborators(){
         String message = "Available collaborators: ";
         int counter = 1;
@@ -138,6 +178,25 @@ public class University {
     
     //INT TO COLLABORATOR
 
+    /**
+     * <p><b>intToCollaborator</b></p>
+     * <b>Description:</b> Retrieves the collaborator corresponding to the provided index.
+     * The index must be related to the list created by {@link #displayCollaborators()}.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>{@code collaborators} array must be initialized.</li>
+     *      <li>{@code intResponsibleCollaborator} must be a valid index representing the collaborator.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>The collaborator corresponding to the provided index is retrieved.</li>
+     * </ul>
+     * 
+     * @param intResponsibleCollaborator The index of the collaborator in the list of available collaborators.
+     * @return The collaborator corresponding to the provided index.
+     */
     public Collaborator intToCollaborator(int intResponsibleCollaborator){
         return collaborators[intResponsibleCollaborator -1];
     }
@@ -176,7 +235,22 @@ public class University {
     }
 
     //ATLEAST ONE COLLABORATOR
-
+    /**
+     * <p><b>oneMinCollaborator</b></p>
+     * <b>Description:</b> Checks if there is at least one saved collaborator in the system.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>{@code collaborators} array must be initialized.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>Returns {@code true} if there is at least one saved collaborator in the system; otherwise, returns {@code false}.</li>
+     * </ul>
+     * 
+     * @return {@code true} if there is at least one saved collaborator in the system; otherwise, {@code false}.
+     */
     public boolean oneMinCollaborator(){
         boolean oneCollaborator = false;
 
@@ -188,6 +262,24 @@ public class University {
     }
 
     //SEARCH DEPARTMENT
+    /**
+     * <p><b>searchDepartment</b></p>
+     * <b>Description:</b> Searches for a department with the specified internal code.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>{@code departments} array must be initialized.</li>
+     *      <li>{@code internalCode} must be a String.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>If a department with the provided internal code is found, the department object is returned; otherwise, {@code null} is returned.</li>
+     * </ul>
+     * 
+     * @param internalCode The internal code of the department to search for.
+     * @return The department object with the specified internal code, if found; otherwise, {@code null}.
+     */
     public Department searchDepartment(String internalCode){
         Department instDepartment = null;
 
@@ -201,6 +293,22 @@ public class University {
     }
     
     //AVAILABLE POSITION TO STORE A DEPARTMENT
+    /**
+     * <p><b>availableDepartment</b></p>
+     * <b>Description:</b> Determines the position of the first available slot in the array of departments.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>{@code departments} array must be initialized.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>Returns the index of the first available slot in the {@code departments} array, or {@code -1} if no slot is available.</li>
+     * </ul>
+     * 
+     * @return The index of the first available slot in the {@code departments} array, or {@code -1} if no slot is available.
+     */
     public int availableDepartment(){
         int position = -1;
         boolean loopController = true;
@@ -258,7 +366,22 @@ public class University {
         return collaborators;
     }
     
-    
+    /**
+     * <p><b>getDepartments</b></p>
+     * <b>Description:</b> Retrieves the array of departments stored in the university.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>{@code departments} array must be initialized.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>Returns the array of departments stored in the university.</li>
+     * </ul>
+     * 
+     * @return The array of departments stored in the university.
+     */
     public Department[] getDepartments(){
         return departments;
     }

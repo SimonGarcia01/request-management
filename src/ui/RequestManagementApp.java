@@ -195,7 +195,30 @@ public RequestManagementApp(){
     }
 
     //REGISTER A DEPARTMENT
-
+    /**
+     * <p><b>registerDepartment</b></p>
+     * <b>Description:</b> Registers a new department in the university system.
+     * This method ensures there is at least one saved collaborator in the system before allowing department registration (({@link University#oneMinCollaborator()}).
+     * It also checks for the existence of a department with the provided internal code before registering ({@link University#searchDepartment(String)})
+     * Then it allows the using to enter the rest of the information.
+     * The responsable collaborator must be selected from the list made by {@link University#displayCollaborators()}.
+     * The method finally calls {@link University#registerDepartment(String, String, String, int)} to create the object.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>{@code internalCode} must be a String.</li>
+     *      <li>{@code  name} must be a String.</li>
+     *      <li>{@code address} must be a String.</li>
+     *      <li>{@code intResponsibleCollaborator} must be an int from the displayed list.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>A new department is registered in the university system.</li>
+     *      <li>If there wasn't at least one preregistered collaborator, the system will ask the user to enter one.</li>
+     *      <li>If a department with the provided internal code already exists, an error message is displayed, and the user is prompted to try another internal code.</li>
+     * </ul>
+     */
     public void registerDepartment(){
         System.out.println("REGISTERING A DEPARTMENT:");
         
