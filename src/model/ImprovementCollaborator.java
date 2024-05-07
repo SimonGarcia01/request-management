@@ -1,5 +1,6 @@
 package model;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class ImprovementCollaborator extends Collaborator implements EfficiencyCalculable {
     //Attributes
@@ -8,6 +9,20 @@ public class ImprovementCollaborator extends Collaborator implements EfficiencyC
     private ArrayList<Project> ledProjects;
 
     //Methods
+
+    //GENERATE RANDOM CODE
+    public static String generateRandomCode() {
+        String allowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        String code = "";
+        Random random = new Random();
+
+        for (int i = 0; i < 4; i++) {
+            int randomIndex = random.nextInt(allowedChars.length());
+            code += allowedChars.charAt(randomIndex);
+        }
+        
+        return code;
+    }
 
     //Calculate Efficiency
     public double calculateEfficiency(){
@@ -39,7 +54,6 @@ public class ImprovementCollaborator extends Collaborator implements EfficiencyC
      * @param email The email address of the collaborator.
      * @param extension The extension number of the collaborator (optional).
      */
-
     public ImprovementCollaborator(String id, String fullName, String email, String extension){
         super(id, fullName, email, extension);
         

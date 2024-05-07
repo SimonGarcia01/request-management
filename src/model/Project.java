@@ -17,13 +17,6 @@ public abstract class Project implements EfficiencyCalculable{
     private Request approvedRequest;
 
     //Methods
-    
-    //Calculate Efficiency
-    public double calculateEfficiency(){
-        double efficiency = -1;
-
-        return efficiency;
-    }
 
     //Calculate the estimated close date of the project
     /**
@@ -76,37 +69,44 @@ public abstract class Project implements EfficiencyCalculable{
         return estimatedCloseDate;
     }
 
+    //Calculate Efficiency
+    public double calculateEfficiency(){
+        double efficiency = -1;
+
+        return efficiency;
+    }
+
     //CONSTRUCTOR
     /**
- * <p><b>Project</b></p>
- * <b>Description:</b> Constructs a new Project object with the specified name, ID, priority, leader, and approved request.
- *  The priority of the project is set changing the selected int to a priority level using {@link Priority#intToPriority(int)}.
- *  Then, utilizing the classification date extracted from the approvedReques using {@link Request#getClassificationDate()}, and the intPriority option selected, an estimated close date is calculated ({@link #calcEstCloseDate(Calendar, int)}).
- *  Finally, the related request realted to the project is saved inside the project too.
- * 
- * <p><b>Preconditions:</b></p>
- * <ul>
- *      <li>The {@code name} parameter must be a String representing the name of the project.</li>
- *      <li>The {@code id} parameter must be a String representing the ID of the project.</li>
- *      <li>The {@code intPriority} parameter must be an integer representing the priority of the project (1 for urgent, 2 for high, 3 for medium, and 4 for low).</li>
- *      <li>The {@code leader} parameter must be an ImprovementCollaborator object representing the leader of the project.</li>
- *      <li>The {@code approvedRequest} parameter must be a Request object representing the approved request associated with the project.</li>
- * </ul>
- * 
- * <p><b>Postconditions:</b></p>
- * <ul>
- *      <li>A new Project object is created with the provided name, ID, priority, leader, and approved request.</li>
- *      <li>The project priority is set  using the {@link Priority#intToPriority(int)} method to change the int option to an actual Priority level.</li>
- *      <li>The classification date of the project is set to the classification date of the approved request, obtained using the {@link Request#getClassificationDate()} method.</li>
- *      <li>The estimated close date of the project is calculated based on its classification date and priority, using the {@link #calcEstCloseDate(Calendar, int)} method.</li>
- * </ul>
- * 
- * @param name The name of the project.
- * @param id The ID of the project.
- * @param intPriority The priority of the project (1 for urgent, 2 for high, 3 for medium, and 4 for low).
- * @param leader The leader of the project.
- * @param approvedRequest The approved request associated with the project.
- */
+     * <p><b>Project</b></p>
+     * <b>Description:</b> Constructs a new Project object with the specified name, ID, priority, leader, and approved request.
+     *  The priority of the project is set changing the selected int to a priority level using {@link Priority#intToPriority(int)}.
+     *  Then, utilizing the classification date extracted from the approvedReques using {@link Request#getClassificationDate()}, and the intPriority option selected, an estimated close date is calculated ({@link #calcEstCloseDate(Calendar, int)}).
+     *  Finally, the related request realted to the project is saved inside the project too.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The {@code name} parameter must be a String representing the name of the project.</li>
+     *      <li>The {@code id} parameter must be a String representing the ID of the project.</li>
+     *      <li>The {@code intPriority} parameter must be an integer representing the priority of the project (1 for urgent, 2 for high, 3 for medium, and 4 for low).</li>
+     *      <li>The {@code leader} parameter must be an ImprovementCollaborator object representing the leader of the project.</li>
+     *      <li>The {@code approvedRequest} parameter must be a Request object representing the approved request associated with the project.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>A new Project object is created with the provided name, ID, priority, leader, and approved request.</li>
+     *      <li>The project priority is set  using the {@link Priority#intToPriority(int)} method to change the int option to an actual Priority level.</li>
+     *      <li>The classification date of the project is set to the classification date of the approved request, obtained using the {@link Request#getClassificationDate()} method.</li>
+     *      <li>The estimated close date of the project is calculated based on its classification date and priority, using the {@link #calcEstCloseDate(Calendar, int)} method.</li>
+     * </ul>
+     * 
+     * @param name The name of the project.
+     * @param id The ID of the project.
+     * @param intPriority The priority of the project (1 for urgent, 2 for high, 3 for medium, and 4 for low).
+     * @param leader The leader of the project.
+     * @param approvedRequest The approved request associated with the project.
+     */
     public Project(String name, String id, int intPriority, ImprovementCollaborator leader,
     Request approvedRequest){
         this.name = name;

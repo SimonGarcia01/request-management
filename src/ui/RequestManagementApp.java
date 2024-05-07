@@ -85,7 +85,7 @@ public class RequestManagementApp{
      *   <li>A new RequestManagementApp object is created with a Scanner object for user input and a University object for managing requests.</li>
      * </ul>
      */
-public RequestManagementApp(){
+    public RequestManagementApp(){
     sk = new Scanner(System.in);
     controller = new University();
 }
@@ -335,7 +335,7 @@ public RequestManagementApp(){
                 System.out.println(controller.changeRequestStatus(intResponsibleDepartment, intRequest, intStatusType));
 
                 if(intStatusType==2){
-                    createProject();
+                    createProject(intResponsibleDepartment, intRequest);
                 }
 
             } else {
@@ -348,12 +348,45 @@ public RequestManagementApp(){
     }
 
     //CREATE A PROJECT
-    public void createProject(){
+    public void createProject(int intResponsibleDepartment, int intRequest){
         System.out.println("CREATING A PROJECT:");
         System.out.println("Since the request was approved, a project must be created.");
         System.out.println("Types of project:\n\t1. Knowledge management project\n\t2. Transformation and improvement project.");
         int intProjectType = sk.nextInt();
         sk.nextLine();
+
+        System.out.print("Enter the name of the project: ");
+        String name = sk.nextLine();
+
+        System.out.println(controller.displayImprovementCollaborators());
+        System.out.print("Enter the DTI collaborator that will be assigned as a leader: ");
+        int intLeader = sk.nextInt();
+        sk.nextLine();
+
+        System.out.println(controller.displayPriorities());
+        System.out.print("Enter the priority level of the project: ");
+        int intPriority = sk.nextInt();
+        sk.nextLine();
+
+        if(intProjectType == 1){
+            System.out.println(controller.displayImpactCommunities());
+            System.out.println("Enter the impacted community: ");
+            int intImpactedCommunity = sk.nextInt();
+            sk.nextLine();
+
+            System.out.println(controller.displayKnowledgeTypes());
+            int intKnowledgeType = sk.nextInt();
+            sk.nextLine();
+
+            System.out.println(controller.createProject(name, intPriority, intLeader, intResponsibleDepartment,  intRequest, intImpactedCommunity, intKnowledgeType));
+        } else {
+            System.out.print("Enter the process code of the project: ");
+            String processCode = sk.nextLine();
+
+            System.out.println(controller.createProject(name, intPriority, intLeader, intResponsibleDepartment, intRequest, processCode));
+        }
+
+
 
         
     }

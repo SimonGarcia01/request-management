@@ -2,7 +2,7 @@ package model;
 
 public class Improvement extends Project{
     //Atributes
-    private String processName;
+    private String processCode;
 
     //Relations
 
@@ -20,7 +20,7 @@ public class Improvement extends Project{
      *      <li>The {@code intPriority} parameter must be an integer representing the priority of the improvement and transformation project (1 for urgent, 2 for high, 3 for medium, and 4 for low).</li>
      *      <li>The {@code leader} parameter must be an ImprovementCollaborator object representing the leader of the improvement and transformation project.</li>
      *      <li>The {@code approvedRequest} parameter must be a Request object representing the approved request associated with the improvement and transformation project.</li>
-     *      <li>The {@code processName} parameter must be a String representing the name of the process associated with the improvement and transformation project.</li>
+     *      <li>The {@code processCode} parameter must be a String representing the name of the process associated with the improvement and transformation project.</li>
      * </ul>
      * 
      * <p><b>Postconditions:</b></p>
@@ -33,20 +33,20 @@ public class Improvement extends Project{
      * @param intPriority An int which represents the priority level of the improvement and transformation project (1 for urgent, 2 for high, 3 for medium, and 4 for low).
      * @param leader The leader of the improvement and transformation project.
      * @param approvedRequest The approved request associated with the improvement and transformation project.
-     * @param processName The name of the process associated with the improvement and transformation project.
+     * @param processCode The name of the process associated with the improvement and transformation project.
      */
     public Improvement(String name, String id, int intPriority, ImprovementCollaborator leader, 
-    Request approvedRequest, String processName) {
+    Request approvedRequest, String processCode) {
         
         super(name, id, intPriority, leader, approvedRequest);
         
-        this.processName = processName;
+        this.processCode = processCode;
     }
 
 
     //GETTERS AND SETTERS
     /**
-     * <p><b>getProcessName</b></p>
+     * <p><b>getprocessCode</b></p>
      * <b>Description:</b> Retrieves the name of the process associated with the improvement and transformation project.
      * 
      * <p><b>Preconditions:</b></p>
@@ -61,18 +61,18 @@ public class Improvement extends Project{
      * 
      * @return The name of the process associated with the improvement and transformation project.
      */
-    public String getProcessName() {
-        return processName;
+    public String getprocessCode() {
+        return processCode;
     }
 
     /**
-     * <p><b>setProcessName</b></p>
+     * <p><b>setprocessCode</b></p>
      * <b>Description:</b> Sets the name of the process associated with the improvement and transformation project to the specified value.
      * 
      * <p><b>Preconditions:</b></p>
      * <ul>
      *      <li>The {@code Improvement} object must not be null.</li>
-     *      <li>The {@code processName} parameter must be a String.</li>
+     *      <li>The {@code processCode} parameter must be a String.</li>
      * </ul>
      * 
      * <p><b>Postconditions:</b></p>
@@ -80,10 +80,10 @@ public class Improvement extends Project{
      *      <li>The name of the process associated with the improvement and transformation project is updated to the specified value.</li>
      * </ul>
      * 
-     * @param processName The new name of the process associated with the improvement and transformation project.
+     * @param processCode The new name of the process associated with the improvement and transformation project.
      */
-    public void setProcessName(String processName) {
-        this.processName = processName;
+    public void setprocessCode(String processCode) {
+        this.processCode = processCode;
     }
     
 }
