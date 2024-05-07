@@ -120,6 +120,12 @@ public class University {
         return responsibleDepartment.registerRequest(subject, description, responsibleCollaborator);
     }
 
+    //CHANGE THE STATUS OF A REQUEST
+
+    public String changeRequestStatus(int intDepartment, int intSubject, int intStatusType){
+        return intToDepartment(intDepartment).changeRequestStatus(intSubject, intStatusType);
+    }
+
     //General Methods ------------------------------------------------------------------------------------------
 
 
@@ -365,6 +371,23 @@ public class University {
     public boolean isDuplicateRequest(int intResponsableDepartment, String subject){
         Department department = intToDepartment(intResponsableDepartment);
         return department.isDuplicateRequest(subject);
+    }
+
+    //ONE MIN REQUEST
+    
+    public boolean oneMinRequest(int intDepartment){
+        return intToDepartment(intDepartment).oneMinRequest();
+    }
+
+    //DISPLAY REQUESTS
+
+    public String displayRequests(int intDepartment){
+        return intToDepartment(intDepartment).displayRequests();
+    }
+
+    //DISPLAY STATUS TYPES
+    public String displayStatusTypes(){
+        return Department.displayStatusTypes();
     }
 
     //CONSTRUCTOR

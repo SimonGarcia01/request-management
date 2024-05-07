@@ -34,7 +34,7 @@ public class RequestManagementApp{
                     break;
                 case 4: //To change the status of a request. 
                     //To create a knowledge or improvement project is request is accepted.
-                    objMain.registerCollaborator();
+                    objMain.changeRequestStatus();
                     break;
                 case 5: //To close a project
                     objMain.registerCollaborator();
@@ -311,5 +311,50 @@ public RequestManagementApp(){
         }
     }
 
+    //CHANGE THE STATUS OF A REQUEST
+    public void changeRequestStatus(){
+        System.out.println("CHANGING THE STATUS OF A REQUEST:");
 
+        if(controller.oneMinDepartment()){
+            System.out.println(controller.displayDepartments());
+            System.out.print("Enter one of the displayed departments, responsable for the request: ");
+            int intResponsibleDepartment = sk.nextInt();
+            sk.nextLine();
+
+            if(controller.oneMinRequest(intResponsibleDepartment)){
+                System.out.println(controller.displayRequests(intResponsibleDepartment));
+                System.out.print("Enter the request which you would like to change the status to: ");
+                int intRequest = sk.nextInt();
+                sk.nextLine();
+
+                System.out.println(controller.displayStatusTypes());
+                System.out.print("Enter the one of the status options: ");
+                int intStatusType = sk.nextInt();
+                sk.nextLine();
+
+                System.out.println(controller.changeRequestStatus(intResponsibleDepartment, intRequest, intStatusType));
+
+                if(intStatusType==2){
+                    createProject();
+                }
+
+            } else {
+                System.out.println("The department doesn't have any stored request. Add one.");
+            }
+        } else {
+            System.out.println("There must be at least one registered department that holds the requests.");
+        }
+
+    }
+
+    //CREATE A PROJECT
+    public void createProject(){
+        System.out.println("CREATING A PROJECT:");
+        System.out.println("Since the request was approved, a project must be created.");
+        System.out.println("Types of project:\n\t1. Knowledge management project\n\t2. Transformation and improvement project.");
+        int intProjectType = sk.nextInt();
+        sk.nextLine();
+
+        
+    }
 }

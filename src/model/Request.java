@@ -16,6 +16,19 @@ public class Request {
 
     //Methods
     
+    //DISPLAY STATUS TYPES
+    public static String displayStatusTypes(){
+        String message = "Available status types:";
+
+        String[] statusTypes = StatusType.getStatusTypes();
+
+        for(int n = 0; n < statusTypes.length; n++){
+            message += String.format("\n\t%d. Subject: %s", (n+1), statusTypes[n]);
+        }
+        
+        return message;
+    }
+
     //Calculate Efficiency
     public double calculateEfficiency(){
         double efficiency = -1;

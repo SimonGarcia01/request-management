@@ -1,5 +1,7 @@
 package model;
+
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class Department {
     //Attributes
@@ -42,6 +44,28 @@ public class Department {
         requests.add(newRequest);
 
         return "The request has been saved successfully.";
+    }
+
+    //CHANGE REQUEST STATUS
+
+    public String changeRequestStatus(int intSubject, int intStatusType){
+        String message = "";
+        
+        Request request = intToRequest(intSubject);
+
+        request.setStatus(StatusType.intToStatus(intStatusType));
+
+        if(intStatusType == 2){
+            request.setClassificationDate(Calendar.getInstance());
+            message = "The status has been changed to approved."; 
+        } else if(intStatusType == 3) {
+            request.setClassificationDate(Calendar.getInstance());
+            message = "The status has been changed to denied."; 
+        } else {
+            message = "The status has been left pending.";
+        }
+
+        return message;
     }
 
     //IS DUPLICATE REQUEST
@@ -100,6 +124,38 @@ public class Department {
         }
 
         return searchedRequest;
+    }
+
+    //ONE MIN REQUEST
+
+    public boolean oneMinRequest(){
+        return !requests.isEmpty();
+    }
+
+    //DISPLAY REQUESTS
+
+    public String displayRequests(){
+        String message = "Available requests: ";
+        int counter = 1;
+
+        for(Request request : requests){
+
+            message += String.format("\n\t%d. Subject: %s", counter, request.getSubject());
+            counter++;
+
+        }
+
+        return message;
+    }
+
+    public static String displayStatusTypes(){
+        return Request.displayStatusTypes();
+    }
+
+    //INT TO REQUEST
+
+    public Request intToRequest(int intSubject){
+        return requests.get(intSubject-1);
     }
 
     //CONSTRUCTOR
