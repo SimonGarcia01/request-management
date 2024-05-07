@@ -89,6 +89,36 @@ public class University {
         return "The department has been registered successfully.";
     }
 
+    //REGISTER A REQUEST
+    /**
+     * <p><b>registerRequest</b></p>
+     * <b>Description:</b> Registers a new request with the specified subject, description, responsible department, and responsible collaborator.
+     * This method delegates the registration process to the {@link Department#registerRequest(String, String, Collaborator)} method of the responsible department.
+     *  This method will convert the intResponsibleCollaborator to a Collaborator and the intResponsibleDepartment to a Department.
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>{@code subject} must be a valid string representing the subject of the request.</li>
+     *      <li>{@code description} must be a valid string representing the description of the request.</li>
+     *      <li>{@code intResponsibleDepartment} must be a valid index representing the responsible department.</li>
+     *      <li>{@code intResponsibleCollaborator} must be a valid index representing the responsible collaborator.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>A new request is registered with the specified subject, description, responsible department, and responsible collaborator, and a message indicating the success of the registration is returned.</li>
+     * </ul>
+     * 
+     * @param subject The subject of the request.
+     * @param description The description of the request.
+     * @param intResponsibleDepartment The index of the responsible department.
+     * @param intResponsibleCollaborator The index of the responsible collaborator.
+     * @return A message indicating the success of the request registration.
+     */
+    public String registerRequest(String subject, String description, int intResponsibleDepartment, int intResponsibleCollaborator){
+        Department responsibleDepartment = intToDepartment(intResponsibleDepartment);
+        Collaborator responsibleCollaborator = intToCollaborator(intResponsibleCollaborator);
+        return responsibleDepartment.registerRequest(subject, description, responsibleCollaborator);
+    }
 
     //General Methods ------------------------------------------------------------------------------------------
 
@@ -126,7 +156,6 @@ public class University {
     }
 
     //DISPLAY EXISTING COLLABORATORS
-
     /**
      * <p><b>displayCollaborators</b></p>
      * <b>Description:</b> Generates a message listing the available collaborators with their full names and IDs.
@@ -160,7 +189,6 @@ public class University {
     }
     
     //INT TO COLLABORATOR
-
     /**
      * <p><b>intToCollaborator</b></p>
      * <b>Description:</b> Retrieves the collaborator corresponding to the provided index.
@@ -237,13 +265,43 @@ public class University {
     }
     
     //ATLEAST ONE DEPARTMENT
-
+    /**
+     * <p><b>oneMinDepartment</b></p>
+     * <b>Description:</b> Checks if there is at least one department saved in the system.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>{@code departments} array must be initialized.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>Returns {@code true} if there is at least one saved department in the system; otherwise, returns {@code false}.</li>
+     * </ul>
+     * 
+     * @return {@code true} if there is at least one saved department in the system; otherwise, {@code false}.
+     */
     public boolean oneMinDepartment(){
         return !departments.isEmpty();
     }
 
     //DISPLAY EXISTING DEPARMENTS
-
+    /**
+     * <p><b>displayDepartments</b></p>
+     * <b>Description:</b> Generates a message listing the available departments with their names and internal codes.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>{@code departments} array must be initialized.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>A message listing the available departments with their names and internal codes is generated.</li>
+     * </ul>
+     * 
+     * @return A message listing the available departments with their names and internal codes.
+     */
     public String displayDepartments(){
         String message = "Available departments: ";
         int counter = 1;
@@ -260,11 +318,50 @@ public class University {
     }
 
     //INT TO DEPARTMENT
+    /**
+     * <p><b>intToDepartment</b></p>
+     * <b>Description:</b> Retrieves the department corresponding to the provided index.
+     * The index must be related to the list created by {@link #displayDepartments()}.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>{@code departments} array must be initialized.</li>
+     *      <li>{@code intDepartment} must be a valid index representing the department.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>The department corresponding to the provided index is retrieved.</li>
+     * </ul>
+     * 
+     * @param intDepartment The index of the department in the list of available departments.
+     * @return The department corresponding to the provided index.
+     */
     public Department intToDepartment(int intDepartment){
         return departments.get(intDepartment-1);
     }
 
     //SEARCH REQUEST
+    /**
+     * <p><b>isDuplicateRequest</b></p>
+     * <b>Description:</b> Checks if there is a duplicate request with the same subject in the specified department.
+     * This method delegates the check to the {@link Department#isDuplicateRequest(String)} method of the corresponding department.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>{@code intResponsableDepartment} must be a valid index representing the department.</li>
+     *      <li>{@code subject} must be a string representing the subject of the request.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>Returns {@code true} if there is a duplicate request with the same subject in the specified department; otherwise, returns {@code false}.</li>
+     * </ul>
+     * 
+     * @param intResponsableDepartment The index of the responsible department.
+     * @param subject The subject of the request to check for duplication.
+     * @return {@code true} if there is a duplicate request with the same subject in the specified department; otherwise, {@code false}.
+     */
     public boolean isDuplicateRequest(int intResponsableDepartment, String subject){
         Department department = intToDepartment(intResponsableDepartment);
         return department.isDuplicateRequest(subject);

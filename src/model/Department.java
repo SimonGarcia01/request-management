@@ -13,7 +13,55 @@ public class Department {
 
     //Methods
 
+    //REGISTER REQUEST
+    /**
+ * <p><b>registerRequest</b></p>
+ * <b>Description:</b> Registers a new request within the department with the specified subject, description, and responsible collaborator.
+ * 
+ * <p><b>Preconditions:</b></p>
+ * <ul>
+ *      <li>{@code subject} must be a valid string representing the subject of the request.</li>
+ *      <li>{@code description} must be a valid string representing the description of the request.</li>
+ *      <li>{@code responsibleCollaborator} must be a valid instance of {@link Collaborator} representing the responsible collaborator.</li>
+ * </ul>
+ * 
+ * <p><b>Postconditions:</b></p>
+ * <ul>
+ *      <li>A new request is registered within the department with the specified subject, description, and responsible collaborator.</li>
+ *      <li>The newly created request is added to the list of requests associated with the department. The department itself is also saved withing the request.</li>
+ *      <li>A message indicating the success of the request registration is returned.</li>
+ * </ul>
+ * 
+ * @param subject The subject of the request.
+ * @param description The description of the request.
+ * @param responsibleCollaborator The responsible collaborator for the request.
+ * @return A message indicating the success of the request registration.
+ */
+    public String registerRequest(String subject, String description, Collaborator responsibleCollaborator){
+        Request newRequest = new Request(subject, description, this, responsibleCollaborator);
+        requests.add(newRequest);
+
+        return "The request has been saved successfully.";
+    }
+
     //IS DUPLICATE REQUEST
+    /**
+     * <p><b>isDuplicateRequest</b></p>
+     * <b>Description:</b> Checks if there is a duplicate request with the specified subject within the department.
+     *  Uses the method {@link #searchRequest(String)} in order to check if there is a duplicate or not.
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>{@code subject} must be a valid string representing the subject of the request.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>Returns {@code true} if there is a duplicate request with the specified subject within the department; otherwise, returns {@code false}.</li>
+     * </ul>
+     * 
+     * @param subject The subject of the request to check for duplication.
+     * @return {@code true} if there is a duplicate request with the specified subject within the department; otherwise, {@code false}.
+     */
     public boolean isDuplicateRequest(String subject){
         boolean isDuplicate = false;
 
@@ -25,6 +73,23 @@ public class Department {
     }
 
     //SEARCH REQUEST
+    /**
+     * <p><b>searchRequest</b></p>
+     * <b>Description:</b> Searches for a request with the specified subject within the department.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>{@code subject} must be a valid string representing the subject of the request.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>If a request with the provided subject is found within the department, the request object is returned; otherwise, {@code null} is returned.</li>
+     * </ul>
+     * 
+     * @param subject The subject of the request to search for.
+     * @return The request object with the specified subject, if found; otherwise, {@code null}.
+     */
     public Request searchRequest(String subject){
         Request searchedRequest = null;
 

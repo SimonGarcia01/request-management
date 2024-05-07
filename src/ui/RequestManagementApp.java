@@ -250,7 +250,31 @@ public RequestManagementApp(){
     }
 
     //REGISTER A REQUEST
-    
+    /**
+     * <p><b>registerRequest</b></p>
+     * <b>Description:</b> Registers a new request in the system, assigning it to a responsible collaborator and department.
+     *  The system will first make sure there is at least one registered collaborator ({@link University#oneMinCollaborator()}) and one department ({@link University#oneMinDepartment()}).
+     *  Then it will display menus where the user can choose a preregistered collaborator ({@link University#displayCollaborators()}) and a department ({@link University#displayDepartments() })
+     *  Afterwards the use will be able to add the subject of the request and using {@link University#isDuplicateRequest(int, String)} will verify whether or not there is another request in the list inside the responsible departement.
+     *  If there is no duplicate,  finally, the user will enter the description.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *   <li>{@code controller} must be initialized.</li>
+     *   <li>{@code intResponsibleCollaborator} must be an int chosen from the displayed list of collaborators.</li>
+     *   <li>{@code intResponsibleDepartment} must be an int chosen from the displayed list of departments.</li>
+     *   <li>{@code subject} must be a String. </li>
+     *   <li>{@code description} must be a String.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *   <li>A new request is registered with the provided subject, description, responsible department, and responsible collaborator.</li>
+     *   <li>If there is not at least one collaborator registered an "at least one collaborator" message will be printed.</li>
+     *   <li>If there is not at leaste one department registered an "at least one department" message will be printed.</li>
+     *   <li>If there is another request with the same subject within the department a "duplicate" message will be printed. </li>
+     * </ul>
+     */
     public void registerRequest(){
         System.out.println("REGISTERING A REQUEST:");
 
@@ -269,12 +293,12 @@ public RequestManagementApp(){
                 System.out.print("Enter the requests subject:  ");
                 String subject = sk.nextLine();
 
-                if(controller.searchRequest(intResponsibleDepartment, subject)==null){
+                if(!controller.isDuplicateRequest(intResponsibleDepartment, subject)){
 
                     System.out.print("Enter the description of the request: ");
                     String description = sk.nextLine();
     
-                    System.out.println(controller.registerRequest(intResponsibleCollaborator, intResponsibleDepartment, subject, description));
+                    System.out.println(controller.registerRequest(subject, description, intResponsibleDepartment, intResponsibleCollaborator));
                     
                 } else {
                     System.out.println("A Request with that subject inside that department has already been submitted. Please try another one.");
