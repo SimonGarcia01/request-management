@@ -348,6 +348,7 @@ public class RequestManagementApp{
     }
 
     //CREATE A PROJECT
+    
     public void createProject(int intResponsibleDepartment, int intRequest){
         System.out.println("CREATING A PROJECT:");
         System.out.println("Since the request was approved, a project must be created.");
@@ -358,7 +359,7 @@ public class RequestManagementApp{
         System.out.print("Enter the name of the project: ");
         String name = sk.nextLine();
 
-        System.out.println(controller.displayImprovementCollaborators());
+        System.out.println(controller.displayDtiCollaborators());
         System.out.print("Enter the DTI collaborator that will be assigned as a leader: ");
         int intLeader = sk.nextInt();
         sk.nextLine();

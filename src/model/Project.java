@@ -18,6 +18,20 @@ public abstract class Project implements EfficiencyCalculable{
 
     //Methods
 
+    //DISPLAY PRIORITIES
+
+    public static String displayPriorities(){
+        String message = "Levels of priority: ";
+
+        String[] priorities = Priority.getPriorities();
+
+        for(int n = 0; n < priorities.length; n++){
+            message += String.format("\n\t%d. Subject: %s", (n+1), priorities[n]);
+        }
+        
+        return message;
+    }
+
     //Calculate the estimated close date of the project
     /**
      * <p><b>calcEstCloseDate</b></p>

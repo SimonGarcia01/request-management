@@ -8,7 +8,34 @@ public class Knowledge extends Project{
 
     //Relations
 
-    //Methods
+    //DISPLAY IMPACTED COMMUNITIES
+
+    public static String displayImpactCommunities(){
+        String message = "Possible impacted communities:";
+
+        String[] communities = Community.getCommunityTypes();
+
+        for(int n = 0; n < communities.length; n++){
+            message += String.format("\n\t%d. Subject: %s", (n+1), communities[n]);
+        }
+        
+        return message;
+    }
+    
+    //DISPLAY KNOWLEDGE TYPES
+
+    public static String displayKnowledgeTypes(){
+        String message = "Available types of knowledge projets:";
+
+        String[] knowledgeTypes = KnowledgeType.getKnowledgeTypes();
+
+        for(int n = 0; n < knowledgeTypes.length; n++){
+            message += String.format("\n\t%d. Subject: %s", (n+1), knowledgeTypes[n]);
+        }
+        
+        return message;
+    }
+
 
     //CONSTRUCTOR
 

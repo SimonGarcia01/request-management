@@ -9,6 +9,16 @@ public class ImprovementCollaborator extends Collaborator implements EfficiencyC
     private ArrayList<Project> ledProjects;
 
     //Methods
+    
+    //DISPLAY IMPACTED COMMUNITIES
+    public static String displayImpactCommunities(){
+        return Knowledge.displayImpactCommunities();
+    }
+
+    //DISPLAY KNOWLEDGE TYPES
+    public static String displayKnowledgeTypes(){
+        return Knowledge.displayKnowledgeTypes();
+    }
 
     //GENERATE RANDOM CODE
     public static String generateRandomCode() {

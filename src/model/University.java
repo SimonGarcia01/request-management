@@ -126,6 +126,28 @@ public class University {
         return intToDepartment(intDepartment).changeRequestStatus(intSubject, intStatusType);
     }
 
+    //CREATE A KNOWLEDGE PROJECT
+
+    public String createProject(String name, int intPriority, int intLeader, int intResponsibleDepartment,  
+    int intRequest, int intImpactedCommunity, int intKnowledgeType){
+        Department responsibleDepartment = intToDepartment(intResponsibleDepartment);
+        Request acceptedRequest = responsibleDepartment.intToRequest(intRequest);
+
+        ImprovementCollaborator leader = null;
+        int counter = 1;
+
+        for(Collaborator collaborator : collaborators){
+            if(collaborator instanceof ImprovementCollaborator){
+                counter++;
+                if(counter == intLeader){
+                    leader = (ImprovementCollaborator) collaborator;
+                }
+            }
+        }
+
+        return leader.createProject(name, intPriority, );
+    }
+
     //General Methods ------------------------------------------------------------------------------------------
 
 
@@ -388,6 +410,41 @@ public class University {
     //DISPLAY STATUS TYPES
     public String displayStatusTypes(){
         return Department.displayStatusTypes();
+    }
+
+    //DISPLAY IMPROVEMENT COLLABORATORS
+
+    public String displayDtiCollaborators(){
+        String message = "Available DTI collaborators: ";
+        int counter = 1;
+
+        for(Collaborator collaborator : collaborators ){
+            if(collaborator instanceof ImprovementCollaborator) {
+                message += String.format("\n\t%d. Full name: %s - ID: %s", counter, collaborator.getFullName(), 
+                collaborator.getId());
+                counter++;
+            }
+        }
+
+        return message;
+    }
+
+    //DISPLAY PRIORITY LEVELS
+
+    public String displayPriorities(){
+        return Project.displayPriorities();
+    }
+
+    //DISPLAY IMPACTED COMMUNITIES
+
+    public String displayImpactCommunities(){
+        return ImprovementCollaborator.displayImpactCommunities();
+    }
+
+    //DISPLAY KNOWLEDGE TYPES
+
+    public String displayKnowledgeTypes(){
+        return ImprovementCollaborator.displayKnowledgeTypes();
     }
 
     //CONSTRUCTOR
