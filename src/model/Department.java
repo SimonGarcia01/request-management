@@ -132,20 +132,31 @@ public class Department {
         return !requests.isEmpty();
     }
 
-    //DISPLAY REQUESTS
-
-    public String displayPendingRequests(){
-        String message = "Available pending requests: ";
-        int counter = 1;
-
+    //ONE MIN PENDING REQUEST
+    
+    public boolean oneMinPendingRequest(){
+        
         for(Request request : requests){
             if(request.getStatus() == StatusType.intToStatus(1)){
-                message += String.format("\n\t%d. Subject: %s", counter, request.getSubject());
-                counter++;
+                return true;
             }
         }
 
-        return message;
+        return false;
+    }
+
+    //GET PENDING REQUESTS ONLY
+
+    public ArrayList<Request> getPendingRequests(){
+        ArrayList<Request> pendingRequests = new ArrayList<>();
+
+        for(Request request : requests){
+            if(request.getStatus() == StatusType.intToStatus(1)){
+                pendingRequests.add(request);
+            }
+        }
+
+        return pendingRequests;
     }
 
     public static String displayStatusTypes(){

@@ -123,7 +123,7 @@ public class University {
     //CHANGE THE STATUS OF A REQUEST
 
     public String changeRequestStatus(int intDepartment, int intSubject, int intStatusType){
-        return intToDepartment(intDepartment).changeRequestStatus(intSubject, intStatusType);
+        return getDepartmentsPendingRequest().get(intDepartment-1).changeRequestStatus(intSubject, intStatusType);
     }
 
     //CREATE A KNOWLEDGE PROJECT
@@ -352,7 +352,7 @@ public class University {
      * 
      * @return A message listing the available departments with their names and internal codes.
      */
-    public String displayDepartments(){
+     public String displayDepartments(){
         String message = "Available departments: ";
         int counter = 1;
 
@@ -365,6 +365,39 @@ public class University {
         }
 
         return message;
+    }
+    
+    //DISPLAY DEPARTMENTS WITH AT LEAST ONE PENDING REQUEST
+
+    public String displayDepartmentsPendingRequest(){
+        String message = "Available departments with pending requests: ";
+        int counter = 1;
+
+        ArrayList<Department> pendingDepartments = getDepartmentsPendingRequest();
+
+        for(Department department : pendingDepartments){
+
+            message += String.format("\n\t%d. Name: %s - Internal Code: %s", counter, department.getName(), 
+            department.getInternalCode());
+            counter++;
+
+        }
+
+        return message;
+    }
+
+    //GET DEPARTMENTS WITH PENDING REQUESTS
+
+    public ArrayList<Department> getDepartmentsPendingRequest(){
+        ArrayList<Department> pendingDepartments = new ArrayList<>();
+
+        for(Department department:departments){
+            if(department.oneMinPendingRequest()){
+                pendingDepartments.add(department);
+            }
+        }
+
+        return pendingDepartments;
     }
 
     //INT TO DEPARTMENT
@@ -426,7 +459,29 @@ public class University {
     //DISPLAY REQUESTS
 
     public String displayPendingRequests(int intDepartment){
-        return intToDepartment(intDepartment).displayPendingRequests();
+        String message = "Available pending requests: ";
+        int counter = 1;
+
+        ArrayList<Request> pendingRequests = intToDepartment(intDepartment).getPendingRequests();
+
+        for(Request request : pendingRequests){
+            message += String.format("\n\t%d. Subject: %s", counter, request.getSubject());
+            counter++;
+        }
+
+        return message;
+    }
+
+    //ONE MIN PENDING REQUEST IN ALL PROGRAM
+    public boolean oneMinPendingRequest(){
+
+        for(Department department:departments){
+            if(department.oneMinPendingRequest()){
+                return true;
+            }
+        }
+
+        return false;
     }
 
     //DISPLAY STATUS TYPES

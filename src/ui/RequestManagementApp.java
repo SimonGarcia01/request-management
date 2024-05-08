@@ -316,12 +316,12 @@ public class RequestManagementApp{
         System.out.println("CHANGING THE STATUS OF A REQUEST:");
 
         if(controller.oneMinDepartment()){
-            System.out.println(controller.displayDepartments());
-            System.out.print("Enter one of the displayed departments, responsable for the request: ");
-            int intResponsibleDepartment = sk.nextInt();
-            sk.nextLine();
+            if(controller.oneMinPendingRequest()){
+                System.out.println(controller.displayDepartmentsPendingRequest());
+                System.out.print("Enter one of the displayed departments, responsable for the pending request: ");
+                int intResponsibleDepartment = sk.nextInt();
+                sk.nextLine();
 
-            if(controller.oneMinRequest(intResponsibleDepartment)){
                 System.out.println(controller.displayPendingRequests(intResponsibleDepartment));
                 System.out.print("Enter the request which you would like to change the status to: ");
                 int intRequest = sk.nextInt();
@@ -337,10 +337,9 @@ public class RequestManagementApp{
                 if(intStatusType==2){
                     createProject(intResponsibleDepartment, intRequest);
                 }
-
             } else {
-                System.out.println("The department doesn't have any stored request. Add one.");
-            }
+                System.out.println("There must be at least one department with a pending request.");
+            }            
         } else {
             System.out.println("There must be at least one registered department that holds the requests.");
         }
