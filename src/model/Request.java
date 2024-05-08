@@ -23,7 +23,7 @@ public class Request {
         String[] statusTypes = StatusType.getStatusTypes();
 
         for(int n = 0; n < statusTypes.length; n++){
-            message += String.format("\n\t%d. Subject: %s", (n+1), statusTypes[n]);
+            message += String.format("\n\t%d. %s", (n+1), statusTypes[n]);
         }
         
         return message;

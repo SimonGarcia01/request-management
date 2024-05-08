@@ -134,7 +134,7 @@ public class University {
         Request acceptedRequest = responsibleDepartment.intToRequest(intRequest);
 
         ImprovementCollaborator leader = null;
-        int counter = 1;
+        int counter = 0;
 
         for(Collaborator collaborator : collaborators){
             if(collaborator instanceof ImprovementCollaborator){
@@ -145,7 +145,29 @@ public class University {
             }
         }
 
-        return leader.createProject(name, intPriority, );
+        return leader.createProject(name, intPriority, acceptedRequest, intImpactedCommunity, intKnowledgeType);
+    }
+
+    //CREATE IMPROVEMENT PROJECT
+
+    public String createProject(String name, int intPriority, int intLeader, int intResponsibleDepartment,  
+    int intRequest, String processCode){
+        Department responsibleDepartment = intToDepartment(intResponsibleDepartment);
+        Request acceptedRequest = responsibleDepartment.intToRequest(intRequest);
+
+        ImprovementCollaborator leader = null;
+        int counter = 0;
+
+        for(Collaborator collaborator : collaborators){
+            if(collaborator instanceof ImprovementCollaborator){
+                counter++;
+                if(counter == intLeader){
+                    leader = (ImprovementCollaborator) collaborator;
+                }
+            }
+        }
+
+        return leader.createProject(name, intPriority, acceptedRequest, processCode);
     }
 
     //General Methods ------------------------------------------------------------------------------------------
@@ -403,8 +425,8 @@ public class University {
 
     //DISPLAY REQUESTS
 
-    public String displayRequests(int intDepartment){
-        return intToDepartment(intDepartment).displayRequests();
+    public String displayPendingRequests(int intDepartment){
+        return intToDepartment(intDepartment).displayPendingRequests();
     }
 
     //DISPLAY STATUS TYPES

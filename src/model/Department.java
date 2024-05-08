@@ -134,15 +134,15 @@ public class Department {
 
     //DISPLAY REQUESTS
 
-    public String displayRequests(){
-        String message = "Available requests: ";
+    public String displayPendingRequests(){
+        String message = "Available pending requests: ";
         int counter = 1;
 
         for(Request request : requests){
-
-            message += String.format("\n\t%d. Subject: %s", counter, request.getSubject());
-            counter++;
-
+            if(request.getStatus() == StatusType.intToStatus(1)){
+                message += String.format("\n\t%d. Subject: %s", counter, request.getSubject());
+                counter++;
+            }
         }
 
         return message;

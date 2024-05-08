@@ -322,7 +322,7 @@ public class RequestManagementApp{
             sk.nextLine();
 
             if(controller.oneMinRequest(intResponsibleDepartment)){
-                System.out.println(controller.displayRequests(intResponsibleDepartment));
+                System.out.println(controller.displayPendingRequests(intResponsibleDepartment));
                 System.out.print("Enter the request which you would like to change the status to: ");
                 int intRequest = sk.nextInt();
                 sk.nextLine();
@@ -350,9 +350,10 @@ public class RequestManagementApp{
     //CREATE A PROJECT
     
     public void createProject(int intResponsibleDepartment, int intRequest){
-        System.out.println("CREATING A PROJECT:");
         System.out.println("Since the request was approved, a project must be created.");
+        System.out.println("CREATING A PROJECT:");
         System.out.println("Types of project:\n\t1. Knowledge management project\n\t2. Transformation and improvement project.");
+        System.out.print("Please enter one of the types of projects: ");
         int intProjectType = sk.nextInt();
         sk.nextLine();
 
@@ -371,11 +372,12 @@ public class RequestManagementApp{
 
         if(intProjectType == 1){
             System.out.println(controller.displayImpactCommunities());
-            System.out.println("Enter the impacted community: ");
+            System.out.print("Enter the impacted community: ");
             int intImpactedCommunity = sk.nextInt();
             sk.nextLine();
 
             System.out.println(controller.displayKnowledgeTypes());
+            System.out.print("Enter one of the types of knowledge projects: ");
             int intKnowledgeType = sk.nextInt();
             sk.nextLine();
 
@@ -386,9 +388,5 @@ public class RequestManagementApp{
 
             System.out.println(controller.createProject(name, intPriority, intLeader, intResponsibleDepartment, intRequest, processCode));
         }
-
-
-
-        
     }
 }

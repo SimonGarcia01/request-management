@@ -26,7 +26,7 @@ public abstract class Project implements EfficiencyCalculable{
         String[] priorities = Priority.getPriorities();
 
         for(int n = 0; n < priorities.length; n++){
-            message += String.format("\n\t%d. Subject: %s", (n+1), priorities[n]);
+            message += String.format("\n\t%d. %s", (n+1), priorities[n]);
         }
         
         return message;

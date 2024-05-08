@@ -16,7 +16,7 @@ public class Knowledge extends Project{
         String[] communities = Community.getCommunityTypes();
 
         for(int n = 0; n < communities.length; n++){
-            message += String.format("\n\t%d. Subject: %s", (n+1), communities[n]);
+            message += String.format("\n\t%d. %s", (n+1), communities[n]);
         }
         
         return message;
@@ -30,7 +30,7 @@ public class Knowledge extends Project{
         String[] knowledgeTypes = KnowledgeType.getKnowledgeTypes();
 
         for(int n = 0; n < knowledgeTypes.length; n++){
-            message += String.format("\n\t%d. Subject: %s", (n+1), knowledgeTypes[n]);
+            message += String.format("\n\t%d. %s", (n+1), knowledgeTypes[n]);
         }
         
         return message;
