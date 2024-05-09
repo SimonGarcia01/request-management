@@ -47,7 +47,33 @@ public class Department {
     }
 
     //CHANGE REQUEST STATUS
-
+    /**
+     * <p><b>changeRequestStatus</b></p>
+     * <b>Description:</b> Changes the status of a pending request within the department based on user input.
+     *  This method retrieves the pending request from the list of pending requests ({@link #getPendingRequests()})and sets its status based on the provided status type.
+     *  If the status type indicates approval or denial, the method also sets the classification date for the request.
+     *  If the request is set to pending it will only return that the status has been left untouched.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>{@code intSubject} and {@code intStatusType} must be valid integers.</li>
+     *      <li>The department must have pending requests in its list of pending requests.</li>
+     *      <li>The request index ({@code intSubject}) must be within the range of pending requests.</li>
+     *      <li>The status type index ({@code intStatusType}) must be a number between 1 and 3.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>The status of the selected pending request within the department is changed based on the provided status type.</li>
+     *      <li>If the status type indicates approval or denial, the classification date for the request is set to the current date and time.</li>
+     *      <li>If the status type is left as pending, it will only return a message.</li>
+     *      <li>A message indicating the result of the status change is returned.</li>
+     * </ul>
+     * 
+     * @param intSubject The index of the pending request within the department's list of pending requests.
+     * @param intStatusType The index representing the new status type for the request.
+     * @return A message indicating the result of the status change.
+     */
     public String changeRequestStatus(int intSubject, int intStatusType){
         String message = "";
         
@@ -127,13 +153,45 @@ public class Department {
     }
 
     //ONE MIN REQUEST
-
+    /**
+     * <p><b>oneMinRequest</b></p>
+     * <b>Description:</b> Checks if there is at least one pending request in the department.
+     *  This method returns {@code true} if the list of requests in the department is not empty, indicating that there is at least one pending request.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The {@code requests} list must be initialized.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>The method returns {@code true} if there is at least one pending request in the department, otherwise it returns {@code false}.</li>
+     * </ul>
+     * 
+     * @return {@code true} if there is at least one pending request in the department, {@code false} otherwise.
+     */
     public boolean oneMinRequest(){
         return !requests.isEmpty();
     }
 
     //ONE MIN PENDING REQUEST
-    
+    /**
+     * <p><b>oneMinPendingRequest</b></p>
+     * <b>Description:</b> Checks if there is at least one pending request in the department awaiting approval.
+     *  This method iterates through the list of requests in the department and checks if any request has a status indicating that it is pending approval.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The {@code requests} list must be initialized.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>The method returns {@code true} if there is at least one pending request in the department awaiting approval (status type 1), otherwise it returns {@code false}.</li>
+     * </ul>
+     * 
+     * @return {@code true} if there is at least one pending request in the department awaiting approval, {@code false} otherwise.
+     */
     public boolean oneMinPendingRequest(){
         
         for(Request request : requests){
@@ -146,7 +204,24 @@ public class Department {
     }
 
     //GET PENDING REQUESTS ONLY
-
+    /**
+     * <p><b>getPendingRequests</b></p>
+     * <b>Description:</b> Retrieves a list of pending requests awaiting approval in the department.
+     *  This method iterates through the list of requests in the department and adds those with a status indicating that they are pending approval to the list of pending requests.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The {@code requests} list must be initialized.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>A list of pending requests awaiting approval in the department is retrieved.</li>
+     *      <li>The list contains requests with a status indicating that they are pending approval (status type 1 with {@link StatusType#intToStatus(int)}).</li>
+     * </ul>
+     * 
+     * @return A list of pending requests awaiting approval in the department.
+     */
     public ArrayList<Request> getPendingRequests(){
         ArrayList<Request> pendingRequests = new ArrayList<>();
 
@@ -159,14 +234,26 @@ public class Department {
         return pendingRequests;
     }
 
+    //GET STRING WITH ALL STATUS TYPES
+    /**
+     * <p><b>displayStatusTypes</b></p>
+     * <b>Description:</b> Retrieves a message displaying the available status types for requests.
+     *  This method delegates the task of generating the message to the {@link Request#displayStatusTypes()} method in the {@link Request} class.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The {@link Request} class must implement the {@link Request#displayStatusTypes()} method to provide a message with available status types.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>A message containing the available status types for requests is retrieved and returned.</li>
+     * </ul>
+     * 
+     * @return A message containing the available status types for requests.
+     */
     public static String displayStatusTypes(){
         return Request.displayStatusTypes();
-    }
-
-    //INT TO REQUEST
-
-    public Request intToRequest(int intSubject){
-        return requests.get(intSubject-1);
     }
 
     //CONSTRUCTOR
@@ -200,8 +287,6 @@ public class Department {
         this.responsibleCollaborator = responsibleCollaborator;
         this.requests = new ArrayList<>();
     }
-
-
 
     //GETTERS AND SETTERS
     /**
@@ -367,7 +452,6 @@ public class Department {
     public void setResponsibleCollaborator(Collaborator responsibleCollaborator) {
         this.responsibleCollaborator = responsibleCollaborator;
     }
-
 
     //No need for a setRequests since they are added by other method
     /**

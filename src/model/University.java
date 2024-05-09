@@ -156,23 +156,22 @@ public class University {
     /**
      * <p><b>createProject</b></p>
      * <b>Description:</b> Creates a new Knowledge project based on the approved request and user input.
-     *  This method retrieves the responsible department ({@link #intToDepartment(int)})and the accepted request based on the provided indices.
-     *  It then iterates through the list of collaborators to find the leader of the project.
+     *  This method retrieves the responsible department using {@link #getDepartmentsPendingRequest()} and the accepted request from the specified department using {@link Department#getPendingRequests()}.
+     *  It then iterates generates an ArrayList of improvement collaborators {@link #getImproveCollaborators()} and then extracts the selected one to be leader of the project.
      *  Once the leader is identified, it invokes the {@link ImprovementCollaborator#createProject(String, int, Request, int, int)} method on the leader object to create the Knowledge project.
      * 
      * <p><b>Preconditions:</b></p>
      * <ul>
-     *      <li>All parameters must be valid.</li>
-     *      <li>{@code intResponsibleDepartment}, {@code intRequest}, {@code intLeader}, {@code intPriority}, {@code intImpactedCommunity}, and {@code intKnowledgeType} must be valid integers.</li>
      *      <li>{@code collaborators} list must be initialized and contain collaborators.</li>
-     *      <li>{@code intToDepartment} and {@code intToRequest} methods must be implemented to retrieve the responsible department and accepted request, respectively.</li>
-     *      <li>{@code ImprovementCollaborator} objects must exist in the list of collaborators.</li>
+     *      <li>{@code intResponsibleDepartment}, {@code intRequest}, {@code intLeader}, {@code intPriority}, {@code intImpactedCommunity}, and {@code intKnowledgeType} must be valid integers.</li>
+     *      <li>The department index ({@code intResponsibleDepartment}) must be within the range of available departments.</li>
+     *      <li>The request index ({@code intRequest}) must be within the range of pending requests in the specified department.</li>
      *      <li>{@code intLeader} must represent a valid index corresponding to an {@code ImprovementCollaborator}.</li>
      * </ul>
      * 
      * <p><b>Postconditions:</b></p>
      * <ul>
-     *      <li>A project is created based on the provided details.</li>
+     *      <li>A Knowledge project is created based on the provided details.</li>
      *      <li>The project is assigned a name, priority, and other attributes based on user input.</li>
      *      <li>The project leader is assigned based on the selected leader index.</li>
      *      <li>The method returns a message indicating the result of the project creation.</li>
@@ -187,45 +186,56 @@ public class University {
      * @param intKnowledgeType The index representing the type of knowledge project.
      * @return A message indicating the result of the project creation.
      */
-
     public String createProject(String name, int intPriority, int intLeader, int intResponsibleDepartment,  
     int intRequest, int intImpactedCommunity, int intKnowledgeType){
 
         Request acceptedRequest = getDepartmentsPendingRequest().get(intResponsibleDepartment-1).getPendingRequests().get(intRequest-1);
 
-        ImprovementCollaborator leader = null;
-        int counter = 0;
-
-        for(Collaborator collaborator : collaborators){
-            if(collaborator instanceof ImprovementCollaborator){
-                counter++;
-                if(counter == intLeader){
-                    leader = (ImprovementCollaborator) collaborator;
-                }
-            }
-        }
+        ImprovementCollaborator leader = getImproveCollaborators().get(intLeader-1);
 
         return leader.createProject(name, intPriority, acceptedRequest, intImpactedCommunity, intKnowledgeType);
     }
 
     //CREATE IMPROVEMENT PROJECT
-
+    /**
+     * <p><b>createProject</b></p>
+     * <b>Description:</b> Creates a new Improvement project based on the approved request and user input.
+     *  This method retrieves the responsible department using {@link #getDepartmentsPendingRequest()} and the accepted request from the specified department using {@link Department#getPendingRequests()}.
+     *  It then retrieves the leader of the project from the list of improvement collaborators using {@link #getImproveCollaborators()}.
+     *  Once the leader is identified, it invokes the {@link ImprovementCollaborator#createProject(String, int, Request, String)} method on the leader object to create the Improvement project.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>{@code collaborators} list must be initialized and contain collaborators.</li>
+     *      <li>{@code intResponsibleDepartment}, {@code intRequest}, {@code intLeader}, and {@code intPriority} must be valid integers.</li>
+     *      <li>{@code processCode must be a String}.
+     *      <li>The department index ({@code intResponsibleDepartment}) must be within the range of available departments.</li>
+     *      <li>The request index ({@code intRequest}) must be within the range of pending requests in the specified department.</li>
+     *      <li>The leader index ({@code intLeader}) must be within the range of improvement collaborators.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>An Improvement project is created based on the provided details.</li>
+     *      <li>The project is assigned a name, priority, and other attributes based on user input.</li>
+     *      <li>The project leader is assigned based on the selected leader index.</li>
+     *      <li>The method returns a message indicating the result of the project creation.</li>
+     * </ul>
+     * 
+     * @param name The name of the project.
+     * @param intPriority The priority level of the project.
+     * @param intLeader The index of the leader within the list of improvement collaborators.
+     * @param intResponsibleDepartment The index of the responsible department for the project.
+     * @param intRequest The index of the accepted request.
+     * @param processCode The process code of the project.
+     * @return A message indicating the result of the project creation.
+     */
     public String createProject(String name, int intPriority, int intLeader, int intResponsibleDepartment,  
     int intRequest, String processCode){
         
         Request acceptedRequest = getDepartmentsPendingRequest().get(intResponsibleDepartment-1).getPendingRequests().get(intRequest-1);
 
-        ImprovementCollaborator leader = null;
-        int counter = 0;
-
-        for(Collaborator collaborator : collaborators){
-            if(collaborator instanceof ImprovementCollaborator){
-                counter++;
-                if(counter == intLeader){
-                    leader = (ImprovementCollaborator) collaborator;
-                }
-            }
-        }
+        ImprovementCollaborator leader = getImproveCollaborators().get(intLeader-1);;
 
         return leader.createProject(name, intPriority, acceptedRequest, processCode);
     }
@@ -343,6 +353,37 @@ public class University {
         return !collaborators.isEmpty();
     }
 
+    //GET ONLY THE DTI COLLABORATORS
+    /**
+     * <p><b>getImproveCollaborators</b></p>
+     * <b>Description:</b> Retrieves a list of improvement collaborators from the list of all collaborators.
+     *  This method iterates through the list of collaborators and selects those that are instances of {@link ImprovementCollaborator}.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The {@code collaborators} list must be initialized and contain collaborators.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>An ArrayList of improvement collaborators is generated from the list of all collaborators.</li>
+     *      <li>The method returns a list containing only improvement collaborators.</li>
+     * </ul>
+     * 
+     * @return An ArrayList containing improvement collaborators.
+     */
+    public ArrayList <ImprovementCollaborator> getImproveCollaborators(){
+        ArrayList<ImprovementCollaborator> leaders = new ArrayList<>();
+
+        for(Collaborator collaborator:collaborators){
+            if(collaborator instanceof ImprovementCollaborator){
+                leaders.add((ImprovementCollaborator) collaborator);
+            }
+        }
+
+        return leaders;
+    }
+
     //SEARCH DEPARTMENT
     /**
      * <p><b>searchDepartment</b></p>
@@ -428,7 +469,26 @@ public class University {
     }
     
     //DISPLAY DEPARTMENTS WITH AT LEAST ONE PENDING REQUEST
-
+    /**
+     * <p><b>displayDepartmentsPendingRequest</b></p>
+     * <b>Description:</b> Generates a message displaying the available departments with pending requests.
+     *  This method invokes the {@link #getDepartmentsPendingRequest()} method to retrieve the list of departments with pending requests.
+     *  It then iterates through the list of pending departments to generate a formatted message containing each department's name and internal code.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The {@code getDepartmentsPendingRequest()} method must return a list of departments with pending requests. Can't contain any null.</li>
+     *      <li>The {@code getName()} and {@code getInternalCode()} methods must be implemented in the {@link Department} class to retrieve department details.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>A formatted message displaying the available departments with pending requests is generated.</li>
+     *      <li>The message contains the name and internal code of each department.</li>
+     * </ul>
+     * 
+     * @return A message displaying the available departments with pending requests.
+     */
     public String displayDepartmentsPendingRequest(){
         String message = "Available departments with pending requests: ";
         int counter = 1;
@@ -447,7 +507,25 @@ public class University {
     }
 
     //GET DEPARTMENTS WITH PENDING REQUESTS
-
+    /**
+     * <p><b>getDepartmentsPendingRequest</b></p>
+     * <b>Description:</b> Retrieves a list of departments with pending requests.
+     *  This method iterates through the list of departments and selects those that have at least one pending request using the {@link Department#oneMinPendingRequest()} method.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The {@code departments} list must be initialized and contain departments.</li>
+     *      <li>The {@code oneMinPendingRequest()} method must be implemented in the {@link Department} class to check for pending requests.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>An ArrayList of departments with pending requests is generated from the list of all departments.</li>
+     *      <li>The method returns a list containing only departments with pending requests.</li>
+     * </ul>
+     * 
+     * @return An ArrayList containing departments with pending requests.
+     */
     public ArrayList<Department> getDepartmentsPendingRequest(){
         ArrayList<Department> pendingDepartments = new ArrayList<>();
 
@@ -511,13 +589,55 @@ public class University {
     }
 
     //ONE MIN REQUEST
-    
+    /**
+     * <p><b>oneMinRequest</b></p>
+     * <b>Description:</b> Checks if at least one pending request exists within the specified department.
+     *  This method invokes the {@link #intToDepartment(int)} method to retrieve the department corresponding to the provided index.
+     *  It then invokes the {@link Department#oneMinRequest()} method on the retrieved department to check if there is at least one pending request.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The {@code intToDepartment(int)} method must be implemented to retrieve the department corresponding to the provided index.</li>
+     *      <li>The {@code oneMinRequest()} method must be implemented in the {@link Department} class to check for pending requests.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>The method returns {@code true} if at least one pending request exists within the specified department; otherwise, it returns {@code false}.</li>
+     * </ul>
+     * 
+     * @param intDepartment The index of the department to check for pending requests.
+     * @return {@code true} if at least one pending request exists within the specified department; otherwise, {@code false}.
+     */
     public boolean oneMinRequest(int intDepartment){
         return intToDepartment(intDepartment).oneMinRequest();
     }
 
     //DISPLAY REQUESTS
-
+    /**
+     * <p><b>displayPendingRequests</b></p>
+     * <b>Description:</b> Generates a message displaying the available pending requests within the specified department.
+     *  This method invokes the {@link #getDepartmentsPendingRequest()} method to retrieve the list of departments with pending requests.
+     *  It then retrieves the pending requests from the specified department using the provided index ({@link Department#getPendingRequests()}).
+     *  Finally, it iterates through the list of pending requests to generate a formatted message containing each request's subject.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The {@code getDepartmentsPendingRequest()} method must return a list of departments with pending requests.</li>
+     *      <li>The department index ({@code intDepartment}) must be within the range of available departments with pending requests.</li>
+     *      <li>The {@code getPendingRequests()} method must be implemented in the {@link Department} class to retrieve pending requests.</li>
+     *      <li>The {@code getSubject()} method must be implemented in the {@link Request} class to retrieve request details.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>A formatted message displaying the available pending requests within the specified department is generated.</li>
+     *      <li>The message contains the subject of each pending request.</li>
+     * </ul>
+     * 
+     * @param intDepartment The index of the department to display pending requests for.
+     * @return A message displaying the available pending requests within the specified department.
+     */
     public String displayPendingRequests(int intDepartment){
         String message = "Available pending requests: ";
         int counter = 1;
@@ -533,6 +653,24 @@ public class University {
     }
 
     //ONE MIN PENDING REQUEST IN ALL PROGRAM
+    /**
+     * <p><b>oneMinPendingRequest</b></p>
+     * <b>Description:</b> Checks if at least one department has pending requests.
+     *  This method iterates through the list of departments and checks if at least one department has pending requests using the {@link Department#oneMinPendingRequest()} method.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The {@code departments} list must be initialized and contain departments.</li>
+     *      <li>The {@code oneMinPendingRequest()} method must be implemented in the {@link Department} class to check for pending requests.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>The method returns {@code true} if at least one department has pending requests; otherwise, it returns {@code false}.</li>
+     * </ul>
+     * 
+     * @return {@code true} if at least one department has pending requests; otherwise, {@code false}.
+     */
     public boolean oneMinPendingRequest(){
 
         for(Department department:departments){
@@ -545,41 +683,124 @@ public class University {
     }
 
     //DISPLAY STATUS TYPES
+    /**
+     * <p><b>displayStatusTypes</b></p>
+     * <b>Description:</b> Retrieves a message displaying the available status types for requests.
+     *  This method invokes the {@link Department#displayStatusTypes()} method to retrieve a message containing the available status types for requests.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The {@code displayStatusTypes()} method must be implemented in the {@link Department} class to provide a message with available status types.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>A message containing the available status types for requests is retrieved and returned.</li>
+     * </ul>
+     * 
+     * @return A message containing the available status types for requests.
+     */
     public String displayStatusTypes(){
         return Department.displayStatusTypes();
     }
 
     //DISPLAY IMPROVEMENT COLLABORATORS
-
+    /**
+     * <p><b>displayDtiCollaborators</b></p>
+     * <b>Description:</b> Generates a message displaying the available DTI collaborators.
+     *  This method invokes the {@link #getImproveCollaborators()} method to retrieve a list of improvement collaborators.
+     *  It then iterates through the list of improvement collaborators to generate a formatted message containing each collaborator's full name and ID.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The {@code getImproveCollaborators()} method must return a list of improvement collaborators.</li>
+     *      <li>The {@code getFullName()} and {@code getId()} methods must be implemented in the {@link ImprovementCollaborator} class to retrieve collaborator details.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>A formatted message displaying the available DTI collaborators is generated.</li>
+     *      <li>The message contains the full name and ID of each DTI collaborator.</li>
+     * </ul>
+     * 
+     * @return A message displaying the available DTI collaborators.
+     */
     public String displayDtiCollaborators(){
         String message = "Available DTI collaborators: ";
-        int counter = 1;
 
-        for(Collaborator collaborator : collaborators ){
-            if(collaborator instanceof ImprovementCollaborator) {
-                message += String.format("\n\t%d. Full name: %s - ID: %s", counter, collaborator.getFullName(), 
-                collaborator.getId());
-                counter++;
+        ArrayList<ImprovementCollaborator> leaders = getImproveCollaborators();
+
+        for(int n = 0; n < leaders.size(); n++){
+                message += String.format("\n\t%d. Full name: %s - ID: %s", (n+1), leaders.get(n).getFullName(), 
+                leaders.get(n).getId());
             }
-        }
 
         return message;
     }
 
     //DISPLAY PRIORITY LEVELS
-
+    /**
+     * <p><b>displayPriorities</b></p>
+     * <b>Description:</b> Retrieves a message displaying the available priority levels for projects.
+     *  This method invokes the {@link Project#displayPriorities()} method to retrieve a message containing the available priority levels for projects.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The {@code displayPriorities()} method must be implemented in the {@link Project} class to provide a message with available priority levels.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>A message containing the available priority levels for projects is retrieved.</li>
+     *      <li>The message is returned to the caller.</li>
+     * </ul>
+     * 
+     * @return A message containing the available priority levels for projects.
+     */
     public String displayPriorities(){
         return Project.displayPriorities();
     }
 
     //DISPLAY IMPACTED COMMUNITIES
-
+    /**
+     * <p><b>displayImpactCommunities</b></p>
+     * <b>Description:</b> Retrieves a message displaying the available impact communities for projects.
+     *  This method invokes the {@link ImprovementCollaborator#displayImpactCommunities()} method to retrieve a message containing the available impact communities for projects.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The {@code displayImpactCommunities()} method must be implemented in the {@link ImprovementCollaborator} class to provide a message with available impact communities.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>A message containing the available impact communities for projects is retrieved and returned.</li>
+     * </ul>
+     * 
+     * @return A message containing the available impact communities for projects.
+     */
     public String displayImpactCommunities(){
         return ImprovementCollaborator.displayImpactCommunities();
     }
 
     //DISPLAY KNOWLEDGE TYPES
-
+    /**
+     * <p><b>displayKnowledgeTypes</b></p>
+     * <b>Description:</b> Retrieves a message displaying the available knowledge types projects.
+     *  This method invokes the {@link ImprovementCollaborator#displayKnowledgeTypes()} method to retrieve a message containing the available knowledge types for projects.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The {@code displayKnowledgeTypes()} method must be implemented in the {@link ImprovementCollaborator} class to provide a message with available knowledge types.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>A message containing the available knowledge types projects is retrieved and returned.</li>
+     * </ul>
+     * 
+     * @return A message containing the available knowledge types projects.
+     */
     public String displayKnowledgeTypes(){
         return ImprovementCollaborator.displayKnowledgeTypes();
     }
