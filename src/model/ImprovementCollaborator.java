@@ -11,7 +11,35 @@ public class ImprovementCollaborator extends Collaborator implements EfficiencyC
     //Methods
     
     //CREATE A KNOWEDGE PROJECT
-
+    /**
+     * <p><b>createProject</b></p>
+     * <b>Description:</b> Creates a new knowledge management project based on the provided details.
+     *  This method generates a unique ID for the project using {@link #generateRandomUniqueCode()}.
+     *  It then creates a new knowledge management project with the given name, priority, collaborator as leader, accepted request, impacted community, and knowledge type.
+     *  The project is added to the list of led projects ({@code ledProjects}).
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The {@code ledProjects} list must be initialized.</li>
+     *      <li>{@code acceptedRequest} must not be null.</li>
+     *      <li>{@code intPriority}, {@code intImpactedCommunity}, and {@code intKnowledgeType} must be valid integers form the displayed values.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>A new knowledge management project is created based on the provided details.</li>
+     *      <li>The project is assigned a unique ID, name, priority, leader, accepted request, impacted community, and knowledge type.</li>
+     *      <li>The project is added to the list of led projects.</li>
+     *      <li>A message indicating the successful registration of the project is returned.</li>
+     * </ul>
+     * 
+     * @param name The name of the project.
+     * @param intPriority The priority level of the project.
+     * @param acceptedRequest The accepted request for the project.
+     * @param intImpactedCommunity The index representing the impacted community for the project.
+     * @param intKnowledgeType The index representing the type of knowledge project.
+     * @return A message indicating the successful registration of the knowledge management project.
+     */
     public String createProject(String name, int intPriority, Request acceptedRequest, int intImpactedCommunity, int intKnowledgeType){
         String id = generateRandomUniqueCode();
 
