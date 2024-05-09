@@ -312,7 +312,36 @@ public class RequestManagementApp{
     }
 
     //CHANGE THE STATUS OF A REQUEST
-    
+    /**
+     * <p><b>changeRequestStatus</b></p>
+     * <b>Description:</b> Allows changing the status of a pending request within a department.
+     * First it checks if there is at least one preregistered department({@link University#oneMinDepartment()})
+     * Second, if checks that at least one of those departments has a pending request ({@link University#oneMinPendingRequest()})
+     *  If either of does conditions isn't met, the appropiate message is printed.
+     *  If both filters are passed, then it displays the departments that have at leaste one pending request ({@link University#displayDepartmentsPendingRequest()}), where the user can select one from.
+     *  Then it displays the pending requests inside this department ({@link University#displayPendingRequests(int)}) so the user can choose one.
+     *  Next the system displays the three types of status change the request to ({@link University#displayStatusTypes()}) and the user must choose one.
+     *  Then the system proceeds to change the status with {@link University#changeRequestStatus(int, int, int)}.
+     *  If the status is selected, then it will jump to create a project using {@link #createProject(int, int)}.
+     * @see #createProject(int, int)
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>{@code departments} array must be initialized.</li>
+     *      <li>{@code requests} array must be initialized.</li>
+     *      <li>{@code oneMinDepartment()} and {@code oneMinPendingRequest()} methods should be in place.</li>
+     *      <li>{@code displayDepartmentsPendingRequest()}, {@code displayPendingRequests(int)}, and {@code displayStatusTypes()} methods should be in place.</li>
+     *      <li>{@code intRespondableDepartment}, {@code intRequest} and {@code intStatusType} must all be ints within the range of the displayed menus.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>The status of the selected pending request within the department is changed based on the provided status type.</li>
+     *      <li>If the status type is set to 2 (Approved), a project is created for the corresponding request.</li>
+     *      <li> If there is not at least one  preregistered department it will ask the user to enter one.</li>
+     *      <li> If there is not at leaste one pending request inside a department, the system will ask the user to enter a request.</li>
+     * </ul>
+     */
     public void changeRequestStatus(){
         System.out.println("CHANGING THE STATUS OF A REQUEST:");
 
@@ -348,7 +377,38 @@ public class RequestManagementApp{
     }
 
     //CREATE A PROJECT
-    
+    /**
+     * <p><b>createProject</b></p>
+     * <b>Description:</b> Creates a new project based on the approved request and user input.
+     *  This method must be used after a pending request is set to approved {@link #changeRequestStatus()}.
+     *  This method starts by asking the type of project (knowledge or improvement) and saves the option.
+     *  Then, it displays all the possible leaders (only DTI collaborators) using {@link University#displayDtiCollaborators()}.
+     *  Next, displays the possible priorities a project can have ({@link University#displayPriorities()}).
+     *  Afterwards, depending on the selected type of project it will ask for additional information:
+     *  <ul>
+     *      <li> Knowledge type: A menu displaying the possible impacted communities ({@link University#displayImpactCommunities()}) and the types of knowledge projects ({@link University#displayKnowledgeTypes()}).</li>
+     *      <li> Improvement type: The system will ask to enter the {@code processName}.</li>
+     * </ul>
+     * Finally, the method invokes the methods {@link University#createProject(String, int, int, int, int, String)} to create an Improvement project or {@link University#createProject(String, int, int, int, int, int, int)} to create a Knowledge project.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>{@code intResponsibleDepartment} and {@code intRequest} must be valid integers.</li>
+     *      <li>{@code sk} must be initialized to read user input.</li>
+     *      <li>{@code controller} must be initialized to access necessary methods.</li>
+     *      <li>{@code name} and {@code processCode} must be Strings.</li>
+     *      <li>{@code intPriority} and {@code intLeader} must be integers selected from the displayed menus.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>A Knowledge or an Improvement project is created based on the provided details.</li>
+     *      <li>The project is assigned a type, name, leader, priority, and other attributes based on user input.</li>
+     * </ul>
+     * 
+     * @param intResponsibleDepartment The index of the responsible department for the project.
+     * @param intRequest The index of the approved request.
+     */
     public void createProject(int intResponsibleDepartment, int intRequest){
         System.out.println("Since the request was approved, a project must be created.");
         System.out.println("CREATING A PROJECT:");

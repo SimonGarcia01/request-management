@@ -51,7 +51,7 @@ public class Department {
     public String changeRequestStatus(int intSubject, int intStatusType){
         String message = "";
         
-        Request request = intToRequest(intSubject);
+        Request request = getPendingRequests().get(intSubject-1);
 
         request.setStatus(StatusType.intToStatus(intStatusType));
 

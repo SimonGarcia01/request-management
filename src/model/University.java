@@ -121,17 +121,77 @@ public class University {
     }
 
     //CHANGE THE STATUS OF A REQUEST
-
+    /**
+     * <p><b>changeRequestStatus</b></p>
+     * <b>Description:</b> Changes the status of a pending request within a department based on user input.
+     *  This method retrieves the pending request from the department specified by {@code intDepartment} and invokes the {@link Request#changeRequestStatus(int, int)} method on it.
+     *  The method uses {@link #getDepartmentsPendingRequest()} in order to get the array of departments that have a pending requiest and then extract the actual one using the {@code intDepartment}.
+     *  Finally it invokes the {@link Department#changeRequestStatus(int, int)} to enter the department and change the request.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>{@code intDepartment}, {@code intSubject}, and {@code intStatusType} must be valid integers.</li>
+     *      <li>{@code getDepartmentsPendingRequest()} method must return a list of departments with pending requests.</li>
+     *      <li>The department index ({@code intDepartment}) must be within the range of available departments.</li>
+     *      <li>The subject index ({@code intSubject}) must be within the range of pending requests in the specified department.</li>
+     *      <li>The status type index ({@code intStatusType}) must be within the range of available status types.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>The status of the selected pending request within the department is changed based on the provided status type.</li>
+     *      <li>The method returns a message indicating the result of the status change.</li>
+     * </ul>
+     * 
+     * @param intDepartment The index of the department containing the pending request.
+     * @param intSubject The index of the pending request within the specified department.
+     * @param intStatusType The index representing the new status type for the request.
+     * @return A message indicating the result of the status change.
+     */
     public String changeRequestStatus(int intDepartment, int intSubject, int intStatusType){
         return getDepartmentsPendingRequest().get(intDepartment-1).changeRequestStatus(intSubject, intStatusType);
     }
 
     //CREATE A KNOWLEDGE PROJECT
+    /**
+     * <p><b>createProject</b></p>
+     * <b>Description:</b> Creates a new Knowledge project based on the approved request and user input.
+     *  This method retrieves the responsible department ({@link #intToDepartment(int)})and the accepted request based on the provided indices.
+     *  It then iterates through the list of collaborators to find the leader of the project.
+     *  Once the leader is identified, it invokes the {@link ImprovementCollaborator#createProject(String, int, Request, int, int)} method on the leader object to create the Knowledge project.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>All parameters must be valid.</li>
+     *      <li>{@code intResponsibleDepartment}, {@code intRequest}, {@code intLeader}, {@code intPriority}, {@code intImpactedCommunity}, and {@code intKnowledgeType} must be valid integers.</li>
+     *      <li>{@code collaborators} list must be initialized and contain collaborators.</li>
+     *      <li>{@code intToDepartment} and {@code intToRequest} methods must be implemented to retrieve the responsible department and accepted request, respectively.</li>
+     *      <li>{@code ImprovementCollaborator} objects must exist in the list of collaborators.</li>
+     *      <li>{@code intLeader} must represent a valid index corresponding to an {@code ImprovementCollaborator}.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>A project is created based on the provided details.</li>
+     *      <li>The project is assigned a name, priority, and other attributes based on user input.</li>
+     *      <li>The project leader is assigned based on the selected leader index.</li>
+     *      <li>The method returns a message indicating the result of the project creation.</li>
+     * </ul>
+     * 
+     * @param name The name of the project.
+     * @param intPriority The priority level of the project.
+     * @param intLeader The index of the leader within the list of collaborators.
+     * @param intResponsibleDepartment The index of the responsible department for the project.
+     * @param intRequest The index of the accepted request.
+     * @param intImpactedCommunity The index representing the impacted community for the project (applicable for knowledge type projects).
+     * @param intKnowledgeType The index representing the type of knowledge project.
+     * @return A message indicating the result of the project creation.
+     */
 
     public String createProject(String name, int intPriority, int intLeader, int intResponsibleDepartment,  
     int intRequest, int intImpactedCommunity, int intKnowledgeType){
-        Department responsibleDepartment = intToDepartment(intResponsibleDepartment);
-        Request acceptedRequest = responsibleDepartment.intToRequest(intRequest);
+
+        Request acceptedRequest = getDepartmentsPendingRequest().get(intResponsibleDepartment-1).getPendingRequests().get(intRequest-1);
 
         ImprovementCollaborator leader = null;
         int counter = 0;
@@ -152,8 +212,8 @@ public class University {
 
     public String createProject(String name, int intPriority, int intLeader, int intResponsibleDepartment,  
     int intRequest, String processCode){
-        Department responsibleDepartment = intToDepartment(intResponsibleDepartment);
-        Request acceptedRequest = responsibleDepartment.intToRequest(intRequest);
+        
+        Request acceptedRequest = getDepartmentsPendingRequest().get(intResponsibleDepartment-1).getPendingRequests().get(intRequest-1);
 
         ImprovementCollaborator leader = null;
         int counter = 0;
