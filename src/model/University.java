@@ -124,7 +124,7 @@ public class University {
     /**
      * <p><b>changeRequestStatus</b></p>
      * <b>Description:</b> Changes the status of a pending request within a department based on user input.
-     *  This method retrieves the pending request from the department specified by {@code intDepartment} and invokes the {@link Request#changeRequestStatus(int, int)} method on it.
+     *  This method retrieves the pending request from the department specified by {@code intDepartment} and invokes the {@link Department#changeRequestStatus(int, int)} method on it.
      *  The method uses {@link #getDepartmentsPendingRequest()} in order to get the array of departments that have a pending requiest and then extract the actual one using the {@code intDepartment}.
      *  Finally it invokes the {@link Department#changeRequestStatus(int, int)} to enter the department and change the request.
      * 

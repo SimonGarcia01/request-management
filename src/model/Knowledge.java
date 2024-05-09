@@ -9,7 +9,23 @@ public class Knowledge extends Project{
     //Relations
 
     //DISPLAY IMPACTED COMMUNITIES
-
+    /**
+     * <p><b>displayImpactCommunities</b></p>
+     * <b>Description:</b> Retrieves a string representation of the available impact communities for knowledge projects.
+     *  This method retrieves the available impact communities using {@link Community#getCommunityTypes()} and formats them into a string representation.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The {@code Community} class must define the {@code getCommunityTypes()} method to retrieve community types.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>A string representation of the available impact communities for knowledge projects is returned.</li>
+     * </ul>
+     * 
+     * @return A string representation of the available impact communities for knowledge projects.
+     */
     public static String displayImpactCommunities(){
         String message = "Possible impacted communities:";
 
@@ -23,7 +39,23 @@ public class Knowledge extends Project{
     }
     
     //DISPLAY KNOWLEDGE TYPES
-
+    /**
+     * <p><b>displayKnowledgeTypes</b></p>
+     * <b>Description:</b> Retrieves a string representation of the available types of knowledge projects.
+     *  This method retrieves the available knowledge types using {@link KnowledgeType#getKnowledgeTypes()} and formats them into a string representation.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The {@code KnowledgeType} class must define the {@code getKnowledgeTypes()} method to retrieve knowledge types.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>A string representation of the available types of knowledge projects is returned.</li>
+     * </ul>
+     * 
+     * @return A string representation of the available types of knowledge projects.
+     */
     public static String displayKnowledgeTypes(){
         String message = "Available types of knowledge projets:";
 
@@ -38,7 +70,6 @@ public class Knowledge extends Project{
 
 
     //CONSTRUCTOR
-
     /**
      * <p><b>Knowledge</b></p>
      * <b>Description:</b> Constructs a new Knowledge object with the specified name, ID, priority, leader, approved request, impacted community, and type.

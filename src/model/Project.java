@@ -19,7 +19,23 @@ public abstract class Project implements EfficiencyCalculable{
     //Methods
 
     //DISPLAY PRIORITIES
-
+    /**
+     * <p><b>displayPriorities</b></p>
+     * <b>Description:</b> Retrieves a string representation of the available levels of priority for projects.
+     *  This method retrieves the available priorities using {@link Priority#getPriorities()} and formats them into a string representation.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The {@code Priority} class must define the {@code getPriorities()} method to retrieve priorities.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>A string representation of the available levels of priority for projects is returned.</li>
+     * </ul>
+     * 
+     * @return A string representation of the available levels of priority for projects.
+     */
     public static String displayPriorities(){
         String message = "Levels of priority: ";
 

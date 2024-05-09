@@ -17,6 +17,23 @@ public class Request {
     //Methods
     
     //DISPLAY STATUS TYPES
+    /**
+     * <p><b>displayStatusTypes</b></p>
+     * <b>Description:</b> Retrieves a string representation of the available status types for requests.
+     *  This method retrieves the available status types using {@link StatusType#getStatusTypes()} and formats them into a string representation.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The {@code StatusType} class must define the {@code getStatusTypes()} method to retrieve status types.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>A string representation of the available status types for requests is returned.</li>
+     * </ul>
+     * 
+     * @return A string representation of the available status types for requests.
+     */
     public static String displayStatusTypes(){
         String message = "Available status types:";
 
