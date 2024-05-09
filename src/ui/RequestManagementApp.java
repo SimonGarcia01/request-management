@@ -312,6 +312,7 @@ public class RequestManagementApp{
     }
 
     //CHANGE THE STATUS OF A REQUEST
+    
     public void changeRequestStatus(){
         System.out.println("CHANGING THE STATUS OF A REQUEST:");
 

@@ -352,7 +352,7 @@ public class University {
      * 
      * @return A message listing the available departments with their names and internal codes.
      */
-     public String displayDepartments(){
+    public String displayDepartments(){
         String message = "Available departments: ";
         int counter = 1;
 
@@ -462,7 +462,7 @@ public class University {
         String message = "Available pending requests: ";
         int counter = 1;
 
-        ArrayList<Request> pendingRequests = intToDepartment(intDepartment).getPendingRequests();
+        ArrayList<Request> pendingRequests = getDepartmentsPendingRequest().get(intDepartment-1).getPendingRequests();
 
         for(Request request : pendingRequests){
             message += String.format("\n\t%d. Subject: %s", counter, request.getSubject());
