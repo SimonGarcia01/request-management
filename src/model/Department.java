@@ -77,7 +77,7 @@ public class Department {
     public String changeRequestStatus(int intSubject, int intStatusType){
         String message = "";
         
-        Request request = getPendingRequests().get(intSubject-1);
+        Request request = getRequestGroups(1).get(intSubject-1);
 
         request.setStatus(StatusType.intToStatus(intStatusType));
 
@@ -172,16 +172,14 @@ public class Department {
      */
     public boolean oneMinPendingRequest(){
         
-        for(Request request : requests){
-            if(request.getStatus() == StatusType.intToStatus(1)){
-                return true;
-            }
+        if(!getRequestGroups(1).isEmpty()){
+            return true;
         }
 
         return false;
     }
 
-    //GET PENDING REQUESTS ONLY
+    //GET PENDING OR ACCEPTED REQUESTS ONLY
     /**
      * <p><b>getPendingRequests</b></p>
      * <b>Description:</b> Retrieves a list of pending requests awaiting approval in the department.
@@ -200,11 +198,11 @@ public class Department {
      * 
      * @return A list of pending requests awaiting approval in the department.
      */
-    public ArrayList<Request> getPendingRequests(){
+    public ArrayList<Request> getRequestGroups(int intRequestGroup){
         ArrayList<Request> pendingRequests = new ArrayList<>();
 
         for(Request request : requests){
-            if(request.getStatus() == StatusType.intToStatus(1)){
+            if(request.getStatus() == StatusType.intToStatus(intRequestGroup)){
                 pendingRequests.add(request);
             }
         }

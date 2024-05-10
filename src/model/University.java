@@ -1,6 +1,8 @@
 package model;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class University {
     //Attributes
@@ -189,7 +191,7 @@ public class University {
     public String createProject(String name, int intPriority, int intLeader, int intResponsibleDepartment,  
     int intRequest, int intImpactedCommunity, int intKnowledgeType){
 
-        Request acceptedRequest = getDepartmentsPendingRequest().get(intResponsibleDepartment-1).getPendingRequests().get(intRequest-1);
+        Request acceptedRequest = getDepartmentsPendingRequest().get(intResponsibleDepartment-1).getRequestGroups(1).get(intRequest-1);
 
         ImprovementCollaborator leader = getImproveCollaborators().get(intLeader-1);
 
@@ -233,14 +235,29 @@ public class University {
     public String createProject(String name, int intPriority, int intLeader, int intResponsibleDepartment,  
     int intRequest, String processCode){
         
-        Request acceptedRequest = getDepartmentsPendingRequest().get(intResponsibleDepartment-1).getPendingRequests().get(intRequest-1);
+        Request acceptedRequest = getDepartmentsPendingRequest().get(intResponsibleDepartment-1).getRequestGroups(1).get(intRequest-1);
 
         ImprovementCollaborator leader = getImproveCollaborators().get(intLeader-1);;
 
         return leader.createProject(name, intPriority, acceptedRequest, processCode);
     }
 
-    
+    //CLOSE A PROJECT
+
+    public String closeProject(int intProject, Calendar closeDate){
+        String message = "";
+
+        if(isEnteredDateLaterThanClassification(intProject, closeDate)) {
+            
+            message = "The project was closed successfully.";
+        } else {
+            message = "The selected date must be later than the registration date of the project. Try again.";
+        }
+
+        return message;
+    }
+
+
     //General Methods ------------------------------------------------------------------------------------------
 
 
@@ -564,6 +581,17 @@ public class University {
         return pendingDepartments;
     }
 
+    //GET THE LAST APPROVED REQUEST TO CREATE A PROJECT
+    public Request getLastApprovedRequest(){
+        ArrayList<Request> approvedRequest = new ArrayList<>();
+
+        for(Department department:departments){
+
+        }
+
+        return lastApprovedRequest;
+    }
+
     //INT TO DEPARTMENT
     /**
      * <p><b>intToDepartment</b></p>
@@ -643,7 +671,7 @@ public class University {
         String message = "Available pending requests: ";
         int counter = 1;
 
-        ArrayList<Request> pendingRequests = getDepartmentsPendingRequest().get(intDepartment-1).getPendingRequests();
+        ArrayList<Request> pendingRequests = getDepartmentsPendingRequest().get(intDepartment-1).getRequestGroups(1);
 
         for(Request request : pendingRequests){
             message += String.format("\n\t%d. Subject: %s", counter, request.getSubject());
@@ -804,6 +832,75 @@ public class University {
      */
     public String displayKnowledgeTypes(){
         return ImprovementCollaborator.displayKnowledgeTypes();
+    }
+
+    //ONE MIN PROJECT UNCLOSED PROJECT
+
+    public boolean oneMinUnclosedProject(){
+        if(!getUnclosedProjects().isEmpty()){
+            return true;
+        }
+
+        return false;
+    }
+
+    //GET ALL PROJECTS
+    public ArrayList<Project> getAllProjects(){
+        ArrayList<Project> projects = new ArrayList<>();
+
+        for(ImprovementCollaborator dtiCollaborator : getImproveCollaborators()){
+            projects.addAll(dtiCollaborator.getLedProjects());
+        }
+
+        return projects;
+    }
+
+    //GET UNCLOSED PROJECTS
+    public ArrayList<Project> getUnclosedProjects(){
+        ArrayList<Project> allProjects = getAllProjects();
+        ArrayList<Project> unclosedProjects = new ArrayList<>();
+
+        for(Project project:allProjects){
+            if(project.getClassificationDate()==null){
+                unclosedProjects.add(project);
+            }
+        }
+
+        return unclosedProjects;
+    }
+
+    //DISPLAY UNCLOSED PROJECTS
+    public String displayUnclosedProjects(){
+        String message = "Available projects: ";
+        int counter = 1;
+
+        for(Project project : getUnclosedProjects()){
+            message += String.format("\n\t%d. Project name: %s - ID: %s", counter, project.getName(), 
+            project.getId());
+            counter++;
+        }
+
+        return message;
+    }
+
+    //SHOW THE DATE OF CLASSIFICATION OF THE SELECTED PROJECT
+    public String showProjClassifDate(int intProject){
+
+        Project project = getUnclosedProjects().get(intProject-1);
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        String formattedDate = dateFormat.format(project.getClassificationDate().getTime());
+
+        return String.format("The registration date of the project is: %s", formattedDate);
+    }
+
+    //MAKE SURE THE ENTERED DATE IS LATER THAN THE REGISTRATION DATE OF THE PROJECT
+    public boolean isEnteredDateLaterThanClassification(int intProject, Calendar enteredDate) {
+        Project project = getAllProjects().get(intProject - 1);
+
+        Calendar classificationDate = project.getClassificationDate();
+
+        return enteredDate.getTimeInMillis() > classificationDate.getTimeInMillis();
     }
 
     //CONSTRUCTOR

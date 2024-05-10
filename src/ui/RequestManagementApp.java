@@ -2,6 +2,10 @@ package ui;
 
 import java.util.Scanner;
 import model.University;
+import java.util.Calendar;
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
+
 
 public class RequestManagementApp{
     //Attributes
@@ -37,7 +41,7 @@ public class RequestManagementApp{
                     objMain.changeRequestStatus();
                     break;
                 case 5: //To close a project
-                    objMain.registerCollaborator();
+                    objMain.closeProject();
                     break;
                 case 6: //To display information of the last 5 projects of each team member as a matrix
                     //Tio ccess the detailed information of a project from the displayed ones in the matrix
@@ -453,5 +457,35 @@ public class RequestManagementApp{
 
             System.out.println(controller.createProject(name, intPriority, intLeader, intResponsibleDepartment, intRequest, processCode));
         }
+    }
+
+    //CLOSE A PROJECT
+
+    public void closeProject(){
+        System.out.println("CLOSING A PROJECT:");
+
+        if(controller.oneMinUnclosedProject()){
+            System.out.println(controller.displayUnclosedProjects());
+            System.out.print("Enter one of the displayed projects: ");
+            int intProject = sk.nextInt();
+            sk.nextLine();
+
+            System.out.println(controller.showProjClassifDate(intProject));
+            System.out.println("Please enter a close date AFTER the shown registration date/(dd/mm/yyyy): ");
+            String closeDateString= sk.nextLine();
+            Calendar closeDate = Calendar.getInstance();
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            try {
+                closeDate.setTime(sdf.parse(closeDateString));
+            } catch (ParseException e) {
+                System.out.println("The format was incorrect, use: dd/MM/yyyy.");
+                return;
+            }
+                System.out.println(controller.closeProject(intProject, closeDate));
+        } else {
+            System.out.println("There must be at least one registered unclosed project in order to close one.");
+        }
+        
+
     }
 }
