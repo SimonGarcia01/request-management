@@ -152,28 +152,6 @@ public class Department {
         return searchedRequest;
     }
 
-    //ONE MIN REQUEST
-    /**
-     * <p><b>oneMinRequest</b></p>
-     * <b>Description:</b> Checks if there is at least one pending request in the department.
-     *  This method returns {@code true} if the list of requests in the department is not empty, indicating that there is at least one pending request.
-     * 
-     * <p><b>Preconditions:</b></p>
-     * <ul>
-     *      <li>The {@code requests} list must be initialized.</li>
-     * </ul>
-     * 
-     * <p><b>Postconditions:</b></p>
-     * <ul>
-     *      <li>The method returns {@code true} if there is at least one pending request in the department, otherwise it returns {@code false}.</li>
-     * </ul>
-     * 
-     * @return {@code true} if there is at least one pending request in the department, {@code false} otherwise.
-     */
-    public boolean oneMinRequest(){
-        return !requests.isEmpty();
-    }
-
     //ONE MIN PENDING REQUEST
     /**
      * <p><b>oneMinPendingRequest</b></p>

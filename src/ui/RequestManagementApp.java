@@ -315,8 +315,9 @@ public class RequestManagementApp{
     /**
      * <p><b>changeRequestStatus</b></p>
      * <b>Description:</b> Allows changing the status of a pending request within a department.
-     * First it checks if there is at least one preregistered department({@link University#oneMinDepartment()})
-     * Second, if checks that at least one of those departments has a pending request ({@link University#oneMinPendingRequest()})
+     * First it checks if there is at least one preregistered department({@link University#oneMinDepartment()}).
+     * Second, it checks that at least one of those departments has a pending request ({@link University#oneMinPendingRequest()}).
+     * Third, it checks there is at leaste one registered leader in case the pending request is accepted ({@link University#oneMinLeader()}).
      *  If either of does conditions isn't met, the appropiate message is printed.
      *  If both filters are passed, then it displays the departments that have at leaste one pending request ({@link University#displayDepartmentsPendingRequest()}), where the user can select one from.
      *  Then it displays the pending requests inside this department ({@link University#displayPendingRequests(int)}) so the user can choose one.
@@ -347,25 +348,29 @@ public class RequestManagementApp{
 
         if(controller.oneMinDepartment()){
             if(controller.oneMinPendingRequest()){
-                System.out.println(controller.displayDepartmentsPendingRequest());
-                System.out.print("Enter one of the displayed departments, responsable for the pending request: ");
-                int intResponsibleDepartment = sk.nextInt();
-                sk.nextLine();
-
-                System.out.println(controller.displayPendingRequests(intResponsibleDepartment));
-                System.out.print("Enter the request which you would like to change the status to: ");
-                int intRequest = sk.nextInt();
-                sk.nextLine();
-
-                System.out.println(controller.displayStatusTypes());
-                System.out.print("Enter the one of the status options: ");
-                int intStatusType = sk.nextInt();
-                sk.nextLine();
-
-                System.out.println(controller.changeRequestStatus(intResponsibleDepartment, intRequest, intStatusType));
-
-                if(intStatusType==2){
-                    createProject(intResponsibleDepartment, intRequest);
+                if(controller.oneMinLeader()){
+                    System.out.println(controller.displayDepartmentsPendingRequest());
+                    System.out.print("Enter one of the displayed departments, responsable for the pending request: ");
+                    int intResponsibleDepartment = sk.nextInt();
+                    sk.nextLine();
+    
+                    System.out.println(controller.displayPendingRequests(intResponsibleDepartment));
+                    System.out.print("Enter the request which you would like to change the status to: ");
+                    int intRequest = sk.nextInt();
+                    sk.nextLine();
+    
+                    System.out.println(controller.displayStatusTypes());
+                    System.out.print("Enter the one of the status options: ");
+                    int intStatusType = sk.nextInt();
+                    sk.nextLine();
+    
+                    System.out.println(controller.changeRequestStatus(intResponsibleDepartment, intRequest, intStatusType));
+    
+                    if(intStatusType==2){
+                        createProject(intResponsibleDepartment, intRequest);
+                    }
+                } else {
+                    System.out.println("There should be at least one registered collaborator in case a request is approved and a leader is needed to be assigned.");
                 }
             } else {
                 System.out.println("There must be at least one department with a pending request.");

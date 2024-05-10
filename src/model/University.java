@@ -384,6 +384,15 @@ public class University {
         return leaders;
     }
 
+    //ONE MIN DTI COLLABORATOR
+    
+    public boolean oneMinLeader(){
+        if(!getImproveCollaborators().isEmpty()){
+            return true;
+        }
+        return false;
+    }
+
     //SEARCH DEPARTMENT
     /**
      * <p><b>searchDepartment</b></p>
@@ -586,31 +595,6 @@ public class University {
     public boolean isDuplicateRequest(int intResponsableDepartment, String subject){
         Department department = intToDepartment(intResponsableDepartment);
         return department.isDuplicateRequest(subject);
-    }
-
-    //ONE MIN REQUEST
-    /**
-     * <p><b>oneMinRequest</b></p>
-     * <b>Description:</b> Checks if at least one pending request exists within the specified department.
-     *  This method invokes the {@link #intToDepartment(int)} method to retrieve the department corresponding to the provided index.
-     *  It then invokes the {@link Department#oneMinRequest()} method on the retrieved department to check if there is at least one pending request.
-     * 
-     * <p><b>Preconditions:</b></p>
-     * <ul>
-     *      <li>The {@code intToDepartment(int)} method must be implemented to retrieve the department corresponding to the provided index.</li>
-     *      <li>The {@code oneMinRequest()} method must be implemented in the {@link Department} class to check for pending requests.</li>
-     * </ul>
-     * 
-     * <p><b>Postconditions:</b></p>
-     * <ul>
-     *      <li>The method returns {@code true} if at least one pending request exists within the specified department; otherwise, it returns {@code false}.</li>
-     * </ul>
-     * 
-     * @param intDepartment The index of the department to check for pending requests.
-     * @return {@code true} if at least one pending request exists within the specified department; otherwise, {@code false}.
-     */
-    public boolean oneMinRequest(int intDepartment){
-        return intToDepartment(intDepartment).oneMinRequest();
     }
 
     //DISPLAY REQUESTS
