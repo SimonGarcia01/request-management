@@ -240,6 +240,7 @@ public class University {
         return leader.createProject(name, intPriority, acceptedRequest, processCode);
     }
 
+    
     //General Methods ------------------------------------------------------------------------------------------
 
 
@@ -385,7 +386,23 @@ public class University {
     }
 
     //ONE MIN DTI COLLABORATOR
-    
+    /**
+     * <p><b>oneMinLeader</b></p>
+     * <b>Description:</b> Checks if there is at least one improvement collaborator available to lead a project.
+     *  This method checks if the list of improvement collaborators is not empty using {@link #getImproveCollaborators()}.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The {@code getImproveCollaborators()} method must return a list of improvement collaborators.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>Returns true if there is at least one improvement collaborator available to lead a project; otherwise, returns false.</li>
+     * </ul>
+     * 
+     * @return true if there is at least one improvement collaborator available to lead a project; otherwise, returns false.
+     */
     public boolean oneMinLeader(){
         if(!getImproveCollaborators().isEmpty()){
             return true;
