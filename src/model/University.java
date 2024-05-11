@@ -850,7 +850,7 @@ public class University {
         ArrayList<Project> unclosedProjects = new ArrayList<>();
 
         for(Project project:allProjects){
-            if(project.getClassificationDate()==null){
+            if(project.getEndDate()==null){
                 unclosedProjects.add(project);
             }
         }

@@ -473,7 +473,7 @@ public class RequestManagementApp{
             sk.nextLine();
 
             System.out.println(controller.showProjClassifDate(intProject));
-            System.out.println("Please enter a close date AFTER the shown registration date/(dd/mm/yyyy): ");
+            System.out.print("Please enter a close date AFTER the shown registration date/(dd/mm/yyyy): ");
             String closeDateString= sk.nextLine();
             Calendar closeDate = Calendar.getInstance();
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
