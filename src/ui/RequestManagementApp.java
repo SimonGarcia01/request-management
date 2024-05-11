@@ -327,7 +327,7 @@ public class RequestManagementApp{
      * Then, it displays the pending requests inside this department ({@link University#displayPendingRequests(int)}) so the user can choose one.
      * Next, the system displays the three types of status change the request to ({@link University#displayStatusTypes()}) and the user must choose one.
      * Then, the system proceeds to change the status with {@link University#changeRequestStatus(int, int, int)}.
-     * If the status is selected, then it will jump to create a project using {@link #createProject(int, int)}.
+     * If the status is selected, then it will jump to create a project using {@link #createProject(String, String)}.
      * 
      * <p><b>Preconditions:</b></p>
      * <ul>
@@ -399,7 +399,7 @@ public class RequestManagementApp{
      *      <li> Knowledge type: A menu displaying the possible impacted communities ({@link University#displayImpactCommunities()}) and the types of knowledge projects ({@link University#displayKnowledgeTypes()}).</li>
      *      <li> Improvement type: The system will ask to enter the {@code processName}.</li>
      * </ul>
-     * Finally, the method invokes the methods {@link University#createProject(String, int, int, int, int, String)} to create an Improvement project or {@link University#createProject(String, int, int, int, int, int, int)} to create a Knowledge project.
+     * Finally, the method invokes the methods {@link University#createProject(String, int, int, String, String, String)} to create an Improvement project or {@link University#createProject(String, int, int, String, String, int, int)} to create a Knowledge project.
      * 
      * <p><b>Preconditions:</b></p>
      * <ul>
@@ -461,7 +461,28 @@ public class RequestManagementApp{
     }
 
     //CLOSE A PROJECT
-
+    /**
+     * <p><b>closeProject</b></p>
+     * <b>Description:</b> Closes a project by setting its close date.
+     *  This method checks if there is at least one unclosed project ({@link University#oneMinUnclosedProject()}).
+     *  If there are unclosed projects, it displays them ({@link University#displayUnclosedProjects()}).
+     *  The user selects one of the displayed projects, and the method prompts for the close date, ensuring it's after the registration date.
+     *  The close date is parsed from user input and set for the selected project using {@link University#closeProject(int, Calendar)}.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>{@code sk} must be initialized to read user input.</li>
+     *      <li>{@code controller} must be initialized to access necessary methods.</li>
+     *      <li>{@code intProject} must be a valid integer representing the index of the project to be closed.</li>
+     *      <li>{@code closeDateString} must be a valid string representing the close date in the format dd/MM/yyyy.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>The close date of the selected project is set based on user input.</li>
+     *      <li>A message indicating the result of the operation is returned.</li>
+     * </ul>
+     */
     public void closeProject(){
         System.out.println("CLOSING A PROJECT:");
 
@@ -486,7 +507,7 @@ public class RequestManagementApp{
         } else {
             System.out.println("There must be at least one registered unclosed project in order to close one.");
         }
-        
-
     }
+
+
 }

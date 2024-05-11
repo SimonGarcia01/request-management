@@ -244,7 +244,29 @@ public class University {
     }
 
     //CLOSE A PROJECT
-
+    /**
+     * <p><b>closeProject</b></p>
+     * <b>Description:</b> Closes a project by setting its end date.
+     *  This method ensures that the entered close date is later than the registration date of the project({@link #isEnteredDateLaterThanClassification(int, Calendar)}).
+     *  If the close date is valid, it sets the end date of the project to the provided close date.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>{@code intProject} must be a valid index representing the project to be closed.</li>
+     *      <li>{@code closeDate} must be a valid {@code Calendar} object representing the close date.</li>
+     *      <li>The close date must be later than the registration date of the project.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>The end date of the selected project is set to the provided close date.</li>
+     *      <li>A message indicating the result of the operation is returned.</li>
+     * </ul>
+     * 
+     * @param intProject The index of the project to be closed.
+     * @param closeDate The close date to be set for the project.
+     * @return A message indicating the result of the project closure.
+     */
     public String closeProject(int intProject, Calendar closeDate){
         String message = "";
 
@@ -826,7 +848,23 @@ public class University {
     }
 
     //ONE MIN PROJECT UNCLOSED PROJECT
-
+    /**
+     * <p><b>oneMinUnclosedProject</b></p>
+     * <b>Description:</b> Checks if there is at least one unclosed project in the system.
+     * This method relies on the {@link #getUnclosedProjects()} method to retrieve the list of unclosed projects.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The list of unclosed projects must be initialized and contain projects.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>Returns true if there is at least one unclosed project; otherwise, returns false.</li>
+     * </ul>
+     * 
+     * @return True if there is at least one unclosed project; otherwise, false.
+     */
     public boolean oneMinUnclosedProject(){
         if(!getUnclosedProjects().isEmpty()){
             return true;
@@ -836,7 +874,23 @@ public class University {
     }
 
     //GET ALL PROJECTS
-
+    /**
+     * <p><b>getAllProjects</b></p>
+     * <b>Description:</b> Retrieves all projects led by improvement collaborators in the system.
+     * This method collects projects led by each improvement collaborator using the {@link #getImproveCollaborators()} and {@link ImprovementCollaborator#getLedProjects()} methods.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The list of {@code improvement collaborators} must be initialized and contain collaborators.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>Returns an ArrayList containing all projects led by improvement collaborators.</li>
+     * </ul>
+     * 
+     * @return An ArrayList containing all projects led by improvement collaborators.
+     */
     public ArrayList<Project> getAllProjects(){
         ArrayList<Project> projects = new ArrayList<>();
 
@@ -848,7 +902,24 @@ public class University {
     }
 
     //GET UNCLOSED PROJECTS
-
+    /**
+     * <p><b>getUnclosedProjects</b></p>
+     * <b>Description:</b> Retrieves all unclosed projects in the system.
+     * This method utilizes the {@link #getAllProjects()} method to obtain a list of all projects in the system.
+     * It then iterates through each project, checking if its end date is null to determine if it is unclosed.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The list of all projects must be initialized and contain projects.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>Returns an ArrayList containing all unclosed projects in the system.</li>
+     * </ul>
+     * 
+     * @return An ArrayList containing all unclosed projects in the system.
+     */
     public ArrayList<Project> getUnclosedProjects(){
         ArrayList<Project> allProjects = getAllProjects();
         ArrayList<Project> unclosedProjects = new ArrayList<>();
@@ -863,7 +934,24 @@ public class University {
     }
 
     //DISPLAY UNCLOSED PROJECTS
-
+    /**
+     * <p><b>displayUnclosedProjects</b></p>
+     * <b>Description:</b> Generates a formatted message displaying all unclosed projects in the system.
+     * This method utilizes the {@link #getUnclosedProjects()} method to obtain a list of all unclosed projects.
+     * It then iterates through each unclosed project, formatting its name and ID, and appending it to the message.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The list of unclosed projects must be initialized and contain projects.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>Returns a formatted message displaying all unclosed projects.</li>
+     * </ul>
+     * 
+     * @return A formatted message displaying all unclosed projects.
+     */
     public String displayUnclosedProjects(){
         String message = "Available projects: ";
         int counter = 1;
@@ -878,7 +966,27 @@ public class University {
     }
 
     //SHOW THE DATE OF CLASSIFICATION OF THE SELECTED PROJECT
-    
+    /**
+     * <p><b>showProjClassifDate</b></p>
+     * <b>Description:</b> Retrieves and formats the classification date of a specified unclosed project.
+     * This method utilizes the {@link #getUnclosedProjects()} method to obtain a list of all unclosed projects,
+     * then retrieves the project at the specified index.
+     * It formats the classification date of the project and returns it as a string.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The list of unclosed projects must be initialized and contain projects (can't be a {@code null})</li>
+     *      <li>{@code intProject} must be a valid index corresponding to an unclosed project.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>Returns a formatted string indicating the classification date of the specified project.</li>
+     * </ul>
+     * 
+     * @param intProject The index of the project for which to show the classification date.
+     * @return A string indicating the classification date of the specified project.
+     */
     public String showProjClassifDate(int intProject){
 
         Project project = getUnclosedProjects().get(intProject-1);
@@ -890,6 +998,28 @@ public class University {
     }
 
     //MAKE SURE THE ENTERED DATE IS LATER THAN THE REGISTRATION DATE OF THE PROJECT
+    /**
+     * <p><b>isEnteredDateLaterThanClassification</b></p>
+     * <b>Description:</b> Checks if the entered date is later than the classification date of a specified project.
+     * This method retrieves the classification date of the specified project using the {@link Project#getClassificationDate()} method.
+     * It compares the entered date with the classification date and returns true if the entered date is later, false otherwise.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The list of all projects must be initialized and contain projects.</li>
+     *      <li>{@code intProject} must be a valid index corresponding to a project in the system.</li>
+     *      <li>{@code enteredDate} must be a valid Calendar object representing the entered date.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>Returns true if the entered date is later than the classification date of the specified project; otherwise, returns false.</li>
+     * </ul>
+     * 
+     * @param intProject The index of the project to compare the entered date with.
+     * @param enteredDate The entered date to compare with the classification date of the project.
+     * @return True if the entered date is later than the classification date of the project; otherwise, false.
+     */
     public boolean isEnteredDateLaterThanClassification(int intProject, Calendar enteredDate) {
         Project project = getAllProjects().get(intProject - 1);
 
@@ -917,7 +1047,6 @@ public class University {
         this.collaborators = new ArrayList<>();
         this.departments = new ArrayList<>();
     }
-
 
     //GETTERS AND SETTERS
     /**
