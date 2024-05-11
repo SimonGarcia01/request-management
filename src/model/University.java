@@ -248,7 +248,8 @@ public class University {
         String message = "";
 
         if(isEnteredDateLaterThanClassification(intProject, closeDate)) {
-            
+            Project project = getUnclosedProjects().get(intProject-1);
+            project.setEndDate(closeDate);
             message = "The project was closed successfully.";
         } else {
             message = "The selected date must be later than the registration date of the project. Try again.";
