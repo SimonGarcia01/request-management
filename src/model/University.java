@@ -836,6 +836,7 @@ public class University {
     }
 
     //GET ALL PROJECTS
+
     public ArrayList<Project> getAllProjects(){
         ArrayList<Project> projects = new ArrayList<>();
 
@@ -847,6 +848,7 @@ public class University {
     }
 
     //GET UNCLOSED PROJECTS
+
     public ArrayList<Project> getUnclosedProjects(){
         ArrayList<Project> allProjects = getAllProjects();
         ArrayList<Project> unclosedProjects = new ArrayList<>();
@@ -861,6 +863,7 @@ public class University {
     }
 
     //DISPLAY UNCLOSED PROJECTS
+
     public String displayUnclosedProjects(){
         String message = "Available projects: ";
         int counter = 1;
@@ -875,6 +878,7 @@ public class University {
     }
 
     //SHOW THE DATE OF CLASSIFICATION OF THE SELECTED PROJECT
+    
     public String showProjClassifDate(int intProject){
 
         Project project = getUnclosedProjects().get(intProject-1);
