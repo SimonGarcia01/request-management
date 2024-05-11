@@ -150,7 +150,7 @@ public class University {
      * @param intStatusType The index representing the new status type for the request.
      * @return A message indicating the result of the status change.
      */
-    public String changeRequestStatus(int intDepartment, int intSubject, int intStatusType){
+    public String[] changeRequestStatus(int intDepartment, int intSubject, int intStatusType){
         return getDepartmentsPendingRequest().get(intDepartment-1).changeRequestStatus(intSubject, intStatusType);
     }
 
@@ -188,10 +188,10 @@ public class University {
      * @param intKnowledgeType The index representing the type of knowledge project.
      * @return A message indicating the result of the project creation.
      */
-    public String createProject(String name, int intPriority, int intLeader, int intResponsibleDepartment,  
-    int intRequest, int intImpactedCommunity, int intKnowledgeType){
+    public String createProject(String name, int intPriority, int intLeader, String responsibleDepartment,  
+    String requestSubject, int intImpactedCommunity, int intKnowledgeType){
 
-        Request acceptedRequest = getDepartmentsPendingRequest().get(intResponsibleDepartment-1).getRequestGroups(1).get(intRequest-1);
+        Request acceptedRequest = searchDepartment(responsibleDepartment).searchRequest(requestSubject);
 
         ImprovementCollaborator leader = getImproveCollaborators().get(intLeader-1);
 
@@ -232,10 +232,10 @@ public class University {
      * @param processCode The process code of the project.
      * @return A message indicating the result of the project creation.
      */
-    public String createProject(String name, int intPriority, int intLeader, int intResponsibleDepartment,  
-    int intRequest, String processCode){
-        
-        Request acceptedRequest = getDepartmentsPendingRequest().get(intResponsibleDepartment-1).getRequestGroups(1).get(intRequest-1);
+    public String createProject(String name, int intPriority, int intLeader, String responsibleDepartment,  
+    String requestSubject, String processCode){
+
+        Request acceptedRequest = searchDepartment(responsibleDepartment).searchRequest(requestSubject);
 
         ImprovementCollaborator leader = getImproveCollaborators().get(intLeader-1);;
 
@@ -581,17 +581,6 @@ public class University {
         return pendingDepartments;
     }
 
-    //GET THE LAST APPROVED REQUEST TO CREATE A PROJECT
-    public Request getLastApprovedRequest(){
-        ArrayList<Request> approvedRequest = new ArrayList<>();
-
-        for(Department department:departments){
-
-        }
-
-        return lastApprovedRequest;
-    }
-
     //INT TO DEPARTMENT
     /**
      * <p><b>intToDepartment</b></p>
@@ -671,7 +660,7 @@ public class University {
         String message = "Available pending requests: ";
         int counter = 1;
 
-        ArrayList<Request> pendingRequests = getDepartmentsPendingRequest().get(intDepartment-1).getRequestGroups(1);
+        ArrayList<Request> pendingRequests = getDepartmentsPendingRequest().get(intDepartment-1).getPendingRequests();
 
         for(Request request : pendingRequests){
             message += String.format("\n\t%d. Subject: %s", counter, request.getSubject());

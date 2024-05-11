@@ -367,11 +367,13 @@ public class RequestManagementApp{
                     System.out.print("Enter the one of the status options: ");
                     int intStatusType = sk.nextInt();
                     sk.nextLine();
+
+                    String[] results = controller.changeRequestStatus(intResponsibleDepartment, intRequest, intStatusType);
     
-                    System.out.println(controller.changeRequestStatus(intResponsibleDepartment, intRequest, intStatusType));
+                    System.out.println(results[2]);
     
                     if(intStatusType==2){
-                        createProject(intResponsibleDepartment, intRequest);
+                        createProject(results[0], results[1]);
                     }
                 } else {
                     System.out.println("There should be at least one registered collaborator in case a request is approved and a leader is needed to be assigned.");
@@ -418,7 +420,7 @@ public class RequestManagementApp{
      * @param intResponsibleDepartment The index of the responsible department for the project.
      * @param intRequest The index of the approved request.
      */
-    public void createProject(int intResponsibleDepartment, int intRequest){
+    public void createProject(String responsibleDepartment, String requestSubject){
         System.out.println("Since the request was approved, a project must be created.");
         System.out.println("CREATING A PROJECT:");
         System.out.println("Types of project:\n\t1. Knowledge management project\n\t2. Transformation and improvement project.");
@@ -450,12 +452,12 @@ public class RequestManagementApp{
             int intKnowledgeType = sk.nextInt();
             sk.nextLine();
 
-            System.out.println(controller.createProject(name, intPriority, intLeader, intResponsibleDepartment,  intRequest, intImpactedCommunity, intKnowledgeType));
+            System.out.println(controller.createProject(name, intPriority, intLeader, responsibleDepartment,  requestSubject, intImpactedCommunity, intKnowledgeType));
         } else {
             System.out.print("Enter the process code of the project: ");
             String processCode = sk.nextLine();
 
-            System.out.println(controller.createProject(name, intPriority, intLeader, intResponsibleDepartment, intRequest, processCode));
+            System.out.println(controller.createProject(name, intPriority, intLeader, responsibleDepartment, requestSubject, processCode));
         }
     }
 

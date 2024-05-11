@@ -74,10 +74,12 @@ public class Department {
      * @param intStatusType The index representing the new status type for the request.
      * @return A message indicating the result of the status change.
      */
-    public String changeRequestStatus(int intSubject, int intStatusType){
+    public String[] changeRequestStatus(int intSubject, int intStatusType){
+        String[] results = new String[3];
+        
         String message = "";
         
-        Request request = getRequestGroups(1).get(intSubject-1);
+        Request request = getPendingRequests().get(intSubject-1);
 
         request.setStatus(StatusType.intToStatus(intStatusType));
 
@@ -91,7 +93,11 @@ public class Department {
             message = "The status has been left pending.";
         }
 
-        return message;
+        results[0] = this.internalCode;
+        results[1] = request.getSubject();
+        results[2] = message;
+
+        return results;
     }
 
     //IS DUPLICATE REQUEST
@@ -172,14 +178,14 @@ public class Department {
      */
     public boolean oneMinPendingRequest(){
         
-        if(!getRequestGroups(1).isEmpty()){
+        if(!getPendingRequests().isEmpty()){
             return true;
         }
 
         return false;
     }
 
-    //GET PENDING OR ACCEPTED REQUESTS ONLY
+    //GET PENDING REQUEST ONLY
     /**
      * <p><b>getPendingRequests</b></p>
      * <b>Description:</b> Retrieves a list of pending requests awaiting approval in the department.
@@ -198,11 +204,11 @@ public class Department {
      * 
      * @return A list of pending requests awaiting approval in the department.
      */
-    public ArrayList<Request> getRequestGroups(int intRequestGroup){
+    public ArrayList<Request> getPendingRequests(){
         ArrayList<Request> pendingRequests = new ArrayList<>();
 
         for(Request request : requests){
-            if(request.getStatus() == StatusType.intToStatus(intRequestGroup)){
+            if(request.getStatus() == StatusType.intToStatus(1)){
                 pendingRequests.add(request);
             }
         }
