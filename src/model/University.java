@@ -142,13 +142,13 @@ public class University {
      * <p><b>Postconditions:</b></p>
      * <ul>
      *      <li>The status of the selected pending request within the department is changed based on the provided status type.</li>
-     *      <li>The method returns a message indicating the result of the status change.</li>
+     *      <li>The method returns a message indicating the internal code of the department, the subject of the request and the result of the status change.</li>
      * </ul>
      * 
      * @param intDepartment The index of the department containing the pending request.
      * @param intSubject The index of the pending request within the specified department.
      * @param intStatusType The index representing the new status type for the request.
-     * @return A message indicating the result of the status change.
+     * @return A string array containing the internal code of the department, the subject of the request, and the message indicating the result of the status change.
      */
     public String[] changeRequestStatus(int intDepartment, int intSubject, int intStatusType){
         return getDepartmentsPendingRequest().get(intDepartment-1).changeRequestStatus(intSubject, intStatusType);
@@ -158,16 +158,17 @@ public class University {
     /**
      * <p><b>createProject</b></p>
      * <b>Description:</b> Creates a new Knowledge project based on the approved request and user input.
-     *  This method retrieves the responsible department using {@link #getDepartmentsPendingRequest()} and the accepted request from the specified department using {@link Department#getPendingRequests()}.
-     *  It then iterates generates an ArrayList of improvement collaborators {@link #getImproveCollaborators()} and then extracts the selected one to be leader of the project.
+     *  This method retrieves the accepted request using both the responsible department's internal code and the subject of the accepted request.
+     *  It first searches for the department using its internal code ({@link #searchDepartment(String)})  and then searches for the request within that department using its subject ({@link Department#searchRequest(String)}).
+     *  After obtaining the accepted request, it identifies the leader of the project from the list of improvement collaborators({@link #getImproveCollaborators()})
      *  Once the leader is identified, it invokes the {@link ImprovementCollaborator#createProject(String, int, Request, int, int)} method on the leader object to create the Knowledge project.
      * 
      * <p><b>Preconditions:</b></p>
      * <ul>
      *      <li>{@code collaborators} list must be initialized and contain collaborators.</li>
-     *      <li>{@code intResponsibleDepartment}, {@code intRequest}, {@code intLeader}, {@code intPriority}, {@code intImpactedCommunity}, and {@code intKnowledgeType} must be valid integers.</li>
-     *      <li>The department index ({@code intResponsibleDepartment}) must be within the range of available departments.</li>
-     *      <li>The request index ({@code intRequest}) must be within the range of pending requests in the specified department.</li>
+     *      <li>{@code intPriority}, {@code intLeader}, {@code intImpactedCommunity}, and {@code intKnowledgeType} must be ints from the displayed menus.</li>
+     *      <li>The department's internal code ({@code responsibleDepartment}) must be a valid String identifier for the department.</li>
+     *      <li>The request subject ({@code requestSubject}) must be a valid String subject for an accepted request.</li>
      *      <li>{@code intLeader} must represent a valid index corresponding to an {@code ImprovementCollaborator}.</li>
      * </ul>
      * 
@@ -182,8 +183,8 @@ public class University {
      * @param name The name of the project.
      * @param intPriority The priority level of the project.
      * @param intLeader The index of the leader within the list of collaborators.
-     * @param intResponsibleDepartment The index of the responsible department for the project.
-     * @param intRequest The index of the accepted request.
+     * @param responsibleDepartment The internal code of the responsible department for the project.
+     * @param requestSubject The subject of the accepted request.
      * @param intImpactedCommunity The index representing the impacted community for the project (applicable for knowledge type projects).
      * @param intKnowledgeType The index representing the type of knowledge project.
      * @return A message indicating the result of the project creation.
@@ -202,18 +203,18 @@ public class University {
     /**
      * <p><b>createProject</b></p>
      * <b>Description:</b> Creates a new Improvement project based on the approved request and user input.
-     *  This method retrieves the responsible department using {@link #getDepartmentsPendingRequest()} and the accepted request from the specified department using {@link Department#getPendingRequests()}.
+     *  This method retrieves the accepted request by searching for the responsible department using its internal code ({@link #searchDepartment(String)}) and then searching for the request within that department using its subject ({@link Department#searchRequest(String)}).
      *  It then retrieves the leader of the project from the list of improvement collaborators using {@link #getImproveCollaborators()}.
      *  Once the leader is identified, it invokes the {@link ImprovementCollaborator#createProject(String, int, Request, String)} method on the leader object to create the Improvement project.
      * 
      * <p><b>Preconditions:</b></p>
      * <ul>
      *      <li>{@code collaborators} list must be initialized and contain collaborators.</li>
-     *      <li>{@code intResponsibleDepartment}, {@code intRequest}, {@code intLeader}, and {@code intPriority} must be valid integers.</li>
-     *      <li>{@code processCode must be a String}.
-     *      <li>The department index ({@code intResponsibleDepartment}) must be within the range of available departments.</li>
-     *      <li>The request index ({@code intRequest}) must be within the range of pending requests in the specified department.</li>
-     *      <li>The leader index ({@code intLeader}) must be within the range of improvement collaborators.</li>
+     *      <li>{@code intPriority}, {@code intLeader}, and {@code intResponsibleDepartment} must be valid integers.</li>
+     *      <li>{@code processCode} must be a String.</li>
+     *      <li>The department's internal code ({@code responsibleDepartment}) must be a valid String identifier for the department.</li>
+     *      <li>The request subject ({@code requestSubject}) must be a valid String subject for an accepted request.</li>
+     *      <li>{@code intLeader} must represent a valid index corresponding to an {@code ImprovementCollaborator}.</li>
      * </ul>
      * 
      * <p><b>Postconditions:</b></p>
@@ -227,8 +228,8 @@ public class University {
      * @param name The name of the project.
      * @param intPriority The priority level of the project.
      * @param intLeader The index of the leader within the list of improvement collaborators.
-     * @param intResponsibleDepartment The index of the responsible department for the project.
-     * @param intRequest The index of the accepted request.
+     * @param responsibleDepartment The internal code of the responsible department for the project.
+     * @param requestSubject The subject of the accepted request.
      * @param processCode The process code of the project.
      * @return A message indicating the result of the project creation.
      */

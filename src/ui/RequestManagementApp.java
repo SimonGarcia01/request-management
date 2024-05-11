@@ -319,32 +319,31 @@ public class RequestManagementApp{
     /**
      * <p><b>changeRequestStatus</b></p>
      * <b>Description:</b> Allows changing the status of a pending request within a department.
-     * First it checks if there is at least one preregistered department({@link University#oneMinDepartment()}).
+     * First, it checks if there is at least one preregistered department ({@link University#oneMinDepartment()}).
      * Second, it checks that at least one of those departments has a pending request ({@link University#oneMinPendingRequest()}).
-     * Third, it checks there is at leaste one registered leader in case the pending request is accepted ({@link University#oneMinLeader()}).
-     *  If either of does conditions isn't met, the appropiate message is printed.
-     *  If both filters are passed, then it displays the departments that have at leaste one pending request ({@link University#displayDepartmentsPendingRequest()}), where the user can select one from.
-     *  Then it displays the pending requests inside this department ({@link University#displayPendingRequests(int)}) so the user can choose one.
-     *  Next the system displays the three types of status change the request to ({@link University#displayStatusTypes()}) and the user must choose one.
-     *  Then the system proceeds to change the status with {@link University#changeRequestStatus(int, int, int)}.
-     *  If the status is selected, then it will jump to create a project using {@link #createProject(int, int)}.
-     * @see #createProject(int, int)
+     * Third, it checks if there is at least one registered leader in case the pending request is accepted ({@link University#oneMinLeader()}).
+     * If either of those conditions isn't met, the appropriate message is printed.
+     * If both filters are passed, then it displays the departments that have at least one pending request ({@link University#displayDepartmentsPendingRequest()}), where the user can select one from.
+     * Then, it displays the pending requests inside this department ({@link University#displayPendingRequests(int)}) so the user can choose one.
+     * Next, the system displays the three types of status change the request to ({@link University#displayStatusTypes()}) and the user must choose one.
+     * Then, the system proceeds to change the status with {@link University#changeRequestStatus(int, int, int)}.
+     * If the status is selected, then it will jump to create a project using {@link #createProject(int, int)}.
      * 
      * <p><b>Preconditions:</b></p>
      * <ul>
      *      <li>{@code departments} array must be initialized.</li>
      *      <li>{@code requests} array must be initialized.</li>
-     *      <li>{@code oneMinDepartment()} and {@code oneMinPendingRequest()} methods should be in place.</li>
+     *      <li>{@code oneMinDepartment()}, {@code oneMinPendingRequest()}, and {@code oneMinLeader()} methods should be in place.</li>
      *      <li>{@code displayDepartmentsPendingRequest()}, {@code displayPendingRequests(int)}, and {@code displayStatusTypes()} methods should be in place.</li>
-     *      <li>{@code intRespondableDepartment}, {@code intRequest} and {@code intStatusType} must all be ints within the range of the displayed menus.</li>
+     *      <li>{@code intResponsibleDepartment}, {@code intRequest}, and {@code intStatusType} must all be ints within the range of the displayed menus.</li>
      * </ul>
      * 
      * <p><b>Postconditions:</b></p>
      * <ul>
      *      <li>The status of the selected pending request within the department is changed based on the provided status type.</li>
      *      <li>If the status type is set to 2 (Approved), a project is created for the corresponding request.</li>
-     *      <li> If there is not at least one  preregistered department it will ask the user to enter one.</li>
-     *      <li> If there is not at leaste one pending request inside a department, the system will ask the user to enter a request.</li>
+     *      <li>If there is not at least one preregistered department, it will ask the user to enter one.</li>
+     *      <li>If there is not at least one pending request inside a department, the system will ask the user to enter a request.</li>
      * </ul>
      */
     public void changeRequestStatus(){
@@ -404,7 +403,7 @@ public class RequestManagementApp{
      * 
      * <p><b>Preconditions:</b></p>
      * <ul>
-     *      <li>{@code intResponsibleDepartment} and {@code intRequest} must be valid integers.</li>
+     *      <li>{@code responsibleDepartment} and {@code requestSubject} must be valid strings.</li>
      *      <li>{@code sk} must be initialized to read user input.</li>
      *      <li>{@code controller} must be initialized to access necessary methods.</li>
      *      <li>{@code name} and {@code processCode} must be Strings.</li>
@@ -417,8 +416,8 @@ public class RequestManagementApp{
      *      <li>The project is assigned a type, name, leader, priority, and other attributes based on user input.</li>
      * </ul>
      * 
-     * @param intResponsibleDepartment The index of the responsible department for the project.
-     * @param intRequest The index of the approved request.
+     * @param responsibleDepartment The name of the responsible department for the project.
+     * @param requestSubject The subject of the approved request.
      */
     public void createProject(String responsibleDepartment, String requestSubject){
         System.out.println("Since the request was approved, a project must be created.");

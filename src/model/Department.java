@@ -50,9 +50,10 @@ public class Department {
     /**
      * <p><b>changeRequestStatus</b></p>
      * <b>Description:</b> Changes the status of a pending request within the department based on user input.
-     *  This method retrieves the pending request from the list of pending requests ({@link #getPendingRequests()})and sets its status based on the provided status type.
+     *  This method retrieves the pending request from the department's list of pending requests by index ({@link #getPendingRequests()}) and sets its status based on the provided status type ({@link Request#setStatus(StatusType)}).
      *  If the status type indicates approval or denial, the method also sets the classification date for the request.
-     *  If the request is set to pending it will only return that the status has been left untouched.
+     *  If the request is set to pending, it will only return a message indicating that the status has been left untouched.
+     *  Finally, the methods returns in a String Array the internalCode of the department ({@link #getInternalCode()}), the subject of the request ({@link Request#getSubject()}) and the result of the operation.
      * 
      * <p><b>Preconditions:</b></p>
      * <ul>
@@ -72,7 +73,7 @@ public class Department {
      * 
      * @param intSubject The index of the pending request within the department's list of pending requests.
      * @param intStatusType The index representing the new status type for the request.
-     * @return A message indicating the result of the status change.
+     * @return An array containing the department's internal code, the subject of the request, and a message indicating the result of the status change.
      */
     public String[] changeRequestStatus(int intSubject, int intStatusType){
         String[] results = new String[3];
