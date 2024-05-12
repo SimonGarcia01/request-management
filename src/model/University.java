@@ -873,6 +873,16 @@ public class University {
         return false;
     }
 
+    //ONE MIN PROJECT
+
+    public boolean oneMinProject(){ 
+        if(!getAllProjects().isEmpty()){
+            return true;
+        }
+
+        return false;
+    }
+
     //GET ALL PROJECTS
     /**
      * <p><b>getAllProjects</b></p>
@@ -935,28 +945,39 @@ public class University {
 
     //DISPLAY UNCLOSED PROJECTS
     /**
-     * <p><b>displayUnclosedProjects</b></p>
-     * <b>Description:</b> Generates a formatted message displaying all unclosed projects in the system.
-     * This method utilizes the {@link #getUnclosedProjects()} method to obtain a list of all unclosed projects.
-     * It then iterates through each unclosed project, formatting its name and ID, and appending it to the message.
+     * <p><b>displayAllOrUnclosedProjects</b></p>
+     * <b>Description:</b> Generates a formatted message displaying either all projects or only unclosed projects in the system,
+     * based on the specified group.
+     * This method utilizes the {@link #getAllProjects()} and {@link #getUnclosedProjects()} methods to obtain the list of projects,
+     * depending on the specified group.
+     * It then iterates through each project in the list, formatting its name and ID, and appending it to the message.
      * 
      * <p><b>Preconditions:</b></p>
      * <ul>
-     *      <li>The list of unclosed projects must be initialized and contain projects.</li>
+     *      <li>If {@code intGroup} is 1, the list of all projects must be initialized and contain projects.</li>
+     *      <li>If {@code intGroup} is 2, the list of unclosed projects must be initialized and contain projects.</li>
      * </ul>
      * 
      * <p><b>Postconditions:</b></p>
      * <ul>
-     *      <li>Returns a formatted message displaying all unclosed projects.</li>
+     *      <li>Returns a formatted message displaying either all projects or only unclosed projects, based on the specified group.</li>
      * </ul>
      * 
-     * @return A formatted message displaying all unclosed projects.
+     * @param intGroup An integer representing the group of projects to display (1 for all projects, 2 for unclosed projects).
+     * @return A formatted message displaying either all projects or only unclosed projects, based on the specified group.
      */
-    public String displayUnclosedProjects(){
+    public String displayAllOrUnclosedProjects(int intGroup){
         String message = "Available projects: ";
         int counter = 1;
+        ArrayList <Project> projectList = new ArrayList<>();
 
-        for(Project project : getUnclosedProjects()){
+        if(intGroup==1){
+            projectList = getAllProjects();
+        } else if(intGroup == 2) {
+            projectList = getUnclosedProjects();
+        }
+
+        for(Project project : projectList){
             message += String.format("\n\t%d. Project name: %s - ID: %s", counter, project.getName(), 
             project.getId());
             counter++;
@@ -1026,6 +1047,12 @@ public class University {
         Calendar classificationDate = project.getClassificationDate();
 
         return enteredDate.getTimeInMillis() > classificationDate.getTimeInMillis();
+    }
+
+    //DISPLAY PROJECT INFO
+
+    public String displayProjectInfo(int intProject){
+        return getAllProjects().get(intProject-1).toString();
     }
 
     //CONSTRUCTOR

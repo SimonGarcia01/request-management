@@ -8,6 +8,14 @@ public class Improvement extends Project{
 
     //Methods
 
+    //TO STRING
+
+    @Override
+    public String toString(){
+        return String.format("%s\n\n\tProcessCode: %s", 
+        super.toString(), processCode);
+    }
+
     //CONSTRUCTOR
     /**
      * <p><b>Improvement</b></p>

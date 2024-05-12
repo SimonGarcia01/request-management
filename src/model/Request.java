@@ -1,5 +1,6 @@
 package model;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class Request {
@@ -44,6 +45,19 @@ public class Request {
         }
         
         return message;
+    }
+
+    //TOSTRING
+    @Override
+    public String toString (){
+        SimpleDateFormat dateFormatRegistration = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        String formattedDateRegistration = dateFormatRegistration.format(registrationDate.getTime());
+
+        SimpleDateFormat dateFormatClassification = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        String formattedDateClassification = classificationDate != null ? dateFormatClassification.format(classificationDate.getTime()) : "The request is pending.";
+
+        return String.format("\n\t\tSubject: %s\n\t\tDescription: %s\n\t\tStatus: %s\n\t\tRegistration Date: %s\n\t\tClassification Date: %s\n\t\tResponsible Department: \n\t\t\tName: %s\n\t\t\tInternal Code: %s\n\t\tResponsible Collaborator: \n\t\t\tFull Name: %s\n\t\t\tID: %s",
+            subject, description, status.getDescription(), formattedDateRegistration, formattedDateClassification, responsibleDepartment.getName(), responsibleDepartment.getInternalCode(), responsibleCollaborator.getFullName(), responsibleCollaborator.getId());
     }
 
     //Calculate Efficiency

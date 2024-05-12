@@ -68,6 +68,13 @@ public class Knowledge extends Project{
         return message;
     }
 
+    //TO STRING
+
+    @Override
+    public String toString(){
+        return String.format("%s\n\n\tImpacted Community: %s\n\tProject Type: %s", 
+        super.toString(), impactedCommunity.getDescription(), type.getDescription());
+    }
 
     //CONSTRUCTOR
     /**

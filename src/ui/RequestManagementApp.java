@@ -44,8 +44,8 @@ public class RequestManagementApp{
                     objMain.closeProject();
                     break;
                 case 6: //To display information of the last 5 projects of each team member as a matrix
-                    //Tio ccess the detailed information of a project from the displayed ones in the matrix
-                objMain.registerCollaborator();
+                    //To access the detailed information of a project from the displayed ones in the matrix
+                objMain.accessProjectInfo();
                     break;
                 case 7: //Review the efficiency of DTI collaborators, projects or requests
                     objMain.registerCollaborator();
@@ -147,8 +147,9 @@ public class RequestManagementApp{
      * @return The user's choice.
      */
     public int menu(){
+        //raplace later option 6: Display the last 5 projects (based on query date) of all the DTI collaborators
         System.out.println("------------------------------------------------------------------------------------------");
-        System.out.println("General Menu:\n\t1. Register a collaborator\n\t2. Register a department\n\t3. Register a request\n\t4. Change a request's status\n\t5. Close a project\n\t6. Display the last 5 projects (based on query date) of all the DTI collaborators \n\t7. Review efficiency\n\t8. Consult general information\n\t9. Exit Program");
+        System.out.println("General Menu:\n\t1. Register a collaborator\n\t2. Register a department\n\t3. Register a request\n\t4. Change a request's status\n\t5. Close a project\n\t6. Access the information of a specific project. \n\t7. Review efficiency\n\t8. Consult general information\n\t9. Exit Program");
         System.out.print("Enter one of the options: ");
         int option = sk.nextInt();
         sk.nextLine();
@@ -465,7 +466,7 @@ public class RequestManagementApp{
      * <p><b>closeProject</b></p>
      * <b>Description:</b> Closes a project by setting its close date.
      *  This method checks if there is at least one unclosed project ({@link University#oneMinUnclosedProject()}).
-     *  If there are unclosed projects, it displays them ({@link University#displayUnclosedProjects()}).
+     *  If there are unclosed projects, it displays them ({@link University#displayAllOrUnclosedProjects(int)}).
      *  The user selects one of the displayed projects, and the method prompts for the close date, ensuring it's after the registration date.
      *  The close date is parsed from user input and set for the selected project using {@link University#closeProject(int, Calendar)}.
      * 
@@ -487,7 +488,7 @@ public class RequestManagementApp{
         System.out.println("CLOSING A PROJECT:");
 
         if(controller.oneMinUnclosedProject()){
-            System.out.println(controller.displayUnclosedProjects());
+            System.out.println(controller.displayAllOrUnclosedProjects(2));
             System.out.print("Enter one of the displayed projects: ");
             int intProject = sk.nextInt();
             sk.nextLine();
@@ -509,5 +510,20 @@ public class RequestManagementApp{
         }
     }
 
+    public void accessProjectInfo(){
+        System.out.println("SHOWING DETAILED INFORMATION OF A PROJECT");
+
+        if(controller.oneMinProject()){
+            System.out.println(controller.displayAllOrUnclosedProjects(1));
+            System.out.print("Enter one of the displayed projects: ");
+            int intProject = sk.nextInt();
+            sk.nextLine();
+
+            System.out.println(controller.displayProjectInfo(intProject));
+        } else {
+            System.out.println("There must be at least one registered project in order to print its information.");
+        }
+
+    }
 
 }

@@ -1,5 +1,6 @@
 package model;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public abstract class Project implements EfficiencyCalculable{
@@ -48,7 +49,7 @@ public abstract class Project implements EfficiencyCalculable{
         return message;
     }
 
-    //Calculate the estimated close date of the project
+    //CALCULATED ESTIMATED CLOSE DATE OF A PROJECT
     /**
      * <p><b>calcEstCloseDate</b></p>
      * <b>Description:</b> Calculates the estimated close date of a project based on its classification date and priority.
@@ -97,6 +98,22 @@ public abstract class Project implements EfficiencyCalculable{
         }
 
         return estimatedCloseDate;
+    }
+
+    //TOSTRING
+    @Override
+    public String toString(){
+        SimpleDateFormat dateFormatClassification = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        String formattedDateClassification = dateFormatClassification.format(classificationDate.getTime());
+
+        SimpleDateFormat dateFormatEstimate = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        String formattedDateEstimate = dateFormatEstimate.format(estimatedCloseDate.getTime());
+
+        SimpleDateFormat dateFormatEnd = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        String formattedDateEnd = endDate != null ? dateFormatEnd.format(endDate.getTime()) : "The project hasn't been closed.";
+
+        return String.format("\n\tName: %s\n\tID: %s\n\tPriority Level: %s\n\tLeader: \n\t\tName: %s\n\t\tID: %s\n\tRegistration Date: %s\n\tEstimated Close Date: %s\n\tEnd Date: %s\n\n\tApproved Request Info: %s", 
+        name, id, priorityLevel.getDescription(), leader.getFullName(), leader.getId(), formattedDateClassification, formattedDateEstimate, formattedDateEnd, approvedRequest.toString());
     }
 
     //Calculate Efficiency
