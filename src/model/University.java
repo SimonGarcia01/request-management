@@ -874,7 +874,22 @@ public class University {
     }
 
     //ONE MIN PROJECT
-
+    /**
+     * <p><b>oneMinProject</b></p>
+     * <b>Description:</b> Checks if there is at least one project registered in the system.
+     *  The system gathers all the projects using {@link #getAllProjects()} and then checks if ther ArrayList is empty o not.
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The list of all projects must be initialized and contain projects.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>Returns true if there is at least one registered project; otherwise, returns false.</li>
+     * </ul>
+     * 
+     * @return True if there is at least one registered project; otherwise, false.
+     */
     public boolean oneMinProject(){ 
         if(!getAllProjects().isEmpty()){
             return true;
@@ -1050,7 +1065,26 @@ public class University {
     }
 
     //DISPLAY PROJECT INFO
-
+    /**
+     * <p><b>displayProjectInfo</b></p>
+     * <b>Description:</b> Retrieves and displays detailed information of a specified project.
+     * This method retrieves the project at the specified index using the {@link #getAllProjects()} method,
+     * then calls its {@link Project#toString()} method to obtain its detailed information.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The list of all projects must be initialized and contain projects (There must be no {@code null} or empty array)</li>
+     *      <li>{@code intProject} must be a valid index corresponding to a project in the system.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>Returns a string containing detailed information of the specified project.</li>
+     * </ul>
+     * 
+     * @param intProject The index of the project for which to display detailed information.
+     * @return A string containing detailed information of the specified project.
+     */
     public String displayProjectInfo(int intProject){
         return getAllProjects().get(intProject-1).toString();
     }

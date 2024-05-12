@@ -101,6 +101,25 @@ public abstract class Project implements EfficiencyCalculable{
     }
 
     //TOSTRING
+    /**
+     * <p><b>toString</b></p>
+     * <b>Description:</b> Generates a string representation of the project, including its details such as name, ID, priority level, leader, registration date, estimated close date, end date, and approved request information.
+     *  Not only will the method return the basic information of the project but it will access specifics of the leader ({@link ImprovementCollaborator#getFullName()} and {@link ImprovementCollaborator#getId()}}) and display all the info request the project is related to ({@link Request#toString()}).
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The classification date, estimated close date must be initialized Calendar objects.</li>
+     *      <li>If the project has been closed, the end date must not be null.</li>
+     *      <li>The leader must be initialized.</li>
+     *      <li>The priority level and approved request must be initialized and contain valid information.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>Returns a string representation of the project, including its details.</li>
+     * </ul>
+     * 
+     * @return A string representation of the project.
+     */
     @Override
     public String toString(){
         SimpleDateFormat dateFormatClassification = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");

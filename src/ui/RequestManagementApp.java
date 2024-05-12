@@ -511,7 +511,24 @@ public class RequestManagementApp{
     }
 
     //DISPLAY PROJECT INFO
-    
+    /**
+     * <p><b>accessProjectInfo</b></p>
+     * <b>Description:</b> Accesses and displays detailed information of a project.
+     *  Before, the system first checks there is at least one project to display and access its information ({@link University#oneMinProject()})
+     *  If the filter is passed, then the it will show all the projects saved in the system ({@link University#displayAllOrUnclosedProjects(int)})
+     * This method prompts the user to select a project and then displays its detailed information({@link University#displayProjectInfo(int)})
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>At least one project must be registered in the system.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>If there is at least one registered project, detailed information of the selected project is displayed.</li>
+     *      <li>Otherwise, a message indicating the absence of registered projects is printed.</li>
+     * </ul>
+     */
     public void accessProjectInfo(){
         System.out.println("SHOWING DETAILED INFORMATION OF A PROJECT");
 

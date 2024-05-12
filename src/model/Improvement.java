@@ -9,7 +9,26 @@ public class Improvement extends Project{
     //Methods
 
     //TO STRING
-
+    /**
+     * <p><b>toString</b></p>
+     * <b>Description:</b> Generates a string representation of the improvement project, including its details such as name, ID, priority level, leader, registration date, estimated close date, end date, approved request information, and process code.
+     * This method is the overridden version of {@link Project#toString()} but adds the information of the process code.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The classification date, estimated close date, and end date must be initialized Calendar objects.</li>
+     *      <li>If the project has been closed, the end date must not be null.</li>
+     *      <li>The leader must be initialized.</li>
+     *      <li>The priority level, approved request, and process code must be initialized and contain valid information.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>Returns a string representation of the improvement project, including its details.</li>
+     * </ul>
+     * 
+     * @return A string representation of the improvement project.
+     */
     @Override
     public String toString(){
         return String.format("%s\n\n\tProcessCode: %s", 

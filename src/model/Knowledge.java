@@ -69,7 +69,25 @@ public class Knowledge extends Project{
     }
 
     //TO STRING
-
+    /**
+     * <p><b>toString</b></p>
+     * <b>Description:</b> Generates a string representation of the knowledge project, including its details such as name, ID, priority level, leader, registration date, estimated close date, end date, approved request information, impacted community, and project type.
+     *  This method is the overriden version of {@link Project#toString()} but adds the info of the impacted community and the type of knowledge project.
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The classification date, estimated close date, and end date must be initialized Calendar objects.</li>
+     *      <li>If the project has been closed, the end date must not be null.</li>
+     *      <li>The leader must be initialized.</li>
+     *      <li>The priority level, approved request, impacted community, and project type must be initialized and contain valid information.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>Returns a string representation of the knowledge project, including its details.</li>
+     * </ul>
+     * 
+     * @return A string representation of the knowledge project.
+     */
     @Override
     public String toString(){
         return String.format("%s\n\n\tImpacted Community: %s\n\tProject Type: %s", 
