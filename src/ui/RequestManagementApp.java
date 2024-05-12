@@ -510,6 +510,8 @@ public class RequestManagementApp{
         }
     }
 
+    //DISPLAY PROJECT INFO
+    
     public void accessProjectInfo(){
         System.out.println("SHOWING DETAILED INFORMATION OF A PROJECT");
 
@@ -523,7 +525,6 @@ public class RequestManagementApp{
         } else {
             System.out.println("There must be at least one registered project in order to print its information.");
         }
-
     }
 
 }
