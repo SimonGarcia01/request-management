@@ -282,6 +282,14 @@ public class University {
     }
 
 
+    //CALCULATE EFFICIENCY
+
+    public String calculateEfficiency(int intEfficiency, int intSelection){
+        String message = "";
+
+        return message;
+    }
+
     //General Methods ------------------------------------------------------------------------------------------
 
 
@@ -450,6 +458,28 @@ public class University {
         }
         return false;
     }
+
+    //ONE MIN LEADER WITH PROJECT()
+
+    public boolean oneMinLeaderWProjects(){
+
+        ArrayList<ImprovementCollaborator> dtiCollaborators = getImproveCollaborators();
+
+        for(ImprovementCollaborator dtiCollaborator : dtiCollaborators){
+            //CONTINUAR LUEGO DE PREGUNTA
+        }
+
+        return false;
+    }
+
+    //DISPLAY LEADERS WITH PROJECTS IN MONTH???
+
+    public String displayLeadersWProjects(){
+        String message = "Available leaders:";
+
+        return message;
+    }
+
 
     //SEARCH DEPARTMENT
     /**
@@ -694,6 +724,57 @@ public class University {
         return message;
     }
 
+    //GET ALL REQUESTS
+
+    public ArrayList<Request>  getAllRequests(){
+        ArrayList<Request> allRequests = new ArrayList<>();
+
+        for(Department department : departments){
+            allRequests.addAll(department.getRequests());
+        }
+
+        return allRequests;
+    }
+
+    //GET CLASSIFIED REQUESTS
+
+    public ArrayList<Request> getClassifiedRequests(){
+        ArrayList<Request> classifiedRequests = new ArrayList<>();
+
+        for(Request request : getAllRequests()){
+            if(request.getClassificationDate() != null){
+                classifiedRequests.add(request);
+            }
+        }
+
+        return classifiedRequests;
+    }
+
+    //ONE MIN CLASSIFIED REQUEST
+
+    public boolean oneMinClassifiedRequest(){
+        if(!getClassifiedRequests().isEmpty()){
+            return true;
+        }
+
+        return false;
+    }
+
+    //DISPLAY CLASSIFIED REQUESTS
+    
+    public String displayClassifiedRequests(){
+        String message = "Available requests:";
+
+        ArrayList<Request> requests = getClassifiedRequests();
+
+        for(int n = 0; n < requests.size(); n++){
+            message += String.format("\n\t%d. Subject: %s - Department: %s / Interal code: %s", (n+1), requests.get(n).getSubject(), 
+            requests.get(n).getResponsibleDepartment().getName(), requests.get(n).getResponsibleDepartment().getInternalCode());
+        }
+
+        return message;
+    }
+
     //ONE MIN PENDING REQUEST IN ALL PROGRAM
     /**
      * <p><b>oneMinPendingRequest</b></p>
@@ -847,7 +928,18 @@ public class University {
         return ImprovementCollaborator.displayKnowledgeTypes();
     }
 
-    //ONE MIN PROJECT UNCLOSED PROJECT
+    //ONE MIE CLOSED PROJECT
+
+    public boolean oneMinClosedProject(){
+        
+        if(!getClosedProjects().isEmpty()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    //ONE MIN UNCLOSED PROJECT
     /**
      * <p><b>oneMinUnclosedProject</b></p>
      * <b>Description:</b> Checks if there is at least one unclosed project in the system.
@@ -958,7 +1050,21 @@ public class University {
         return unclosedProjects;
     }
 
-    //DISPLAY UNCLOSED PROJECTS
+    //GET CLOSED PROJECTS
+    public ArrayList<Project> getClosedProjects(){
+        ArrayList<Project> allProjects = getAllProjects();
+        ArrayList<Project> closedProjects = new ArrayList<>();
+
+        for(Project project:allProjects){
+            if(project.getEndDate()!=null){
+                closedProjects.add(project);
+            }
+        }
+
+        return closedProjects;
+    }
+
+    //DISPLAY ALL, UNCLOSED OR CLOSED PROJECTS CHECKEARRRRRR
     /**
      * <p><b>displayAllOrUnclosedProjects</b></p>
      * <b>Description:</b> Generates a formatted message displaying either all projects or only unclosed projects in the system,
@@ -981,7 +1087,7 @@ public class University {
      * @param intGroup An integer representing the group of projects to display (1 for all projects, 2 for unclosed projects).
      * @return A formatted message displaying either all projects or only unclosed projects, based on the specified group.
      */
-    public String displayAllOrUnclosedProjects(int intGroup){
+    public String displayAllOrUnclosedOrClosedProjects(int intGroup){
         String message = "Available projects: ";
         int counter = 1;
         ArrayList <Project> projectList = new ArrayList<>();
@@ -990,6 +1096,8 @@ public class University {
             projectList = getAllProjects();
         } else if(intGroup == 2) {
             projectList = getUnclosedProjects();
+        } else if(intGroup == 3) {
+            projectList = getClosedProjects();
         }
 
         for(Project project : projectList){

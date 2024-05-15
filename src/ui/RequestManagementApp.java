@@ -48,7 +48,7 @@ public class RequestManagementApp{
                 objMain.accessProjectInfo();
                     break;
                 case 7: //Review the efficiency of DTI collaborators, projects or requests
-                    objMain.registerCollaborator();
+                    objMain.reviewEfficiencies();
                     break;
                 case 8: //Consult information of projects organized by priority and type
                 //Consult the number of projects led by every DTI member
@@ -488,7 +488,7 @@ public class RequestManagementApp{
         System.out.println("CLOSING A PROJECT:");
 
         if(controller.oneMinUnclosedProject()){
-            System.out.println(controller.displayAllOrUnclosedProjects(2));
+            System.out.println(controller.displayAllOrUnclosedOrClosedProjects(2));
             System.out.print("Enter one of the displayed projects: ");
             int intProject = sk.nextInt();
             sk.nextLine();
@@ -533,7 +533,7 @@ public class RequestManagementApp{
         System.out.println("SHOWING DETAILED INFORMATION OF A PROJECT");
 
         if(controller.oneMinProject()){
-            System.out.println(controller.displayAllOrUnclosedProjects(1));
+            System.out.println(controller.displayAllOrUnclosedOrClosedProjects(1));
             System.out.print("Enter one of the displayed projects: ");
             int intProject = sk.nextInt();
             sk.nextLine();
@@ -542,6 +542,81 @@ public class RequestManagementApp{
         } else {
             System.out.println("There must be at least one registered project in order to print its information.");
         }
+    }
+
+    //REVIEW EFFICIENCY OF PROJECTS, COLLABORATORS OR REQUEST
+
+    public void reviewEfficiencies(){
+        System.out.println("REVIEWING EFFICIENCY OF A COLLABORATOR, PROJECT OR REQUEST:");
+
+        System.out.println("Efficiencies that can be reviewed:\n\t1. DTI collaborator\n\t2. Project\n\t3. Request");
+        System.out.print("Enter one of the displayed options: ");
+        int intEfficiency = sk.nextInt();
+        sk.nextLine();
+
+
+        switch(intEfficiency) {
+            case 1:
+                if(controller.oneMinLeaderWProjects()){
+                    System.out.println(controller.displayLeadersWProjects());
+                    int intLeader = sk.nextInt();
+                    sk.nextLine();
+                    System.out.println(controller.calculateEfficiency(intEfficiency, intLeader));
+                } else {
+                    System.out.println("There must be at least one DTI collaborator with one assigned project to calculate its efficiency.");
+                }
+
+                break;
+            case 2:
+                if(controller.oneMinClosedProject()){
+
+                    System.out.println(controller.displayAllOrUnclosedOrClosedProjects(3));
+                    int intProject = sk.nextInt();
+                    sk.nextLine();
+
+                    System.out.println(controller.calculateEfficiency(intEfficiency,intProject));
+
+                } else {
+                    System.out.println("There must be at least one closed project to calculate its efficiency.");
+                }
+                break;
+
+            case 3:
+                if(controller.oneMinClassifiedRequest()){
+                    System.out.println(controller.displayClassifiedRequests());
+                    int intRequest = sk.nextInt();
+                    sk.nextLine();
+
+                    System.out.println(controller.calculateEfficiency(intEfficiency, intRequest));
+
+                } else {
+                    System.out.println("There must be at least one request with a date of classification to calculate its efficiency.");
+                }
+
+                break;
+        
+            default:
+                System.out.println("You must choose one of the displayed options.");
+                break;
+        }
+    }
+
+    //REVIEW LEADER EFFICIENCY
+
+    public void reviewLeaderEfficiency(){
+
+    }
+
+    //REVIEW PROJECT EFFICIENCY
+
+    public void reviewProjectEfficiency(){
+
+    }
+
+    //REVIEW REQUEST EFFICIENCY
+
+    public void reviewRequestEfficiency(){
+
     }
 
 }
