@@ -281,6 +281,25 @@ public class University {
         return message;
     }
 
+    //DISPLAY PROJECT MATRIX
+
+    public String displayProjectMatrix(Calendar date){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        String formattedDate = dateFormat.format(date.getTime());
+
+        String message = "Consulted date: " + formattedDate;
+
+        ArrayList<Project[]> last5Projects = new ArrayList<>();
+
+        for(ImprovementCollaborator dtiCollaborator : getImproveCollaborators()){
+            last5Projects.add(dtiCollaborator.getDateProjects(date));
+        }
+
+        //MAKE MATRIX
+
+        return message;
+    }
+
 
     //CALCULATE EFFICIENCY
 
@@ -289,6 +308,8 @@ public class University {
 
         return message;
     }
+
+
 
     //General Methods ------------------------------------------------------------------------------------------
 
@@ -937,7 +958,7 @@ public class University {
         return ImprovementCollaborator.displayKnowledgeTypes();
     }
 
-    //ONE MIE CLOSED PROJECT
+    //ONE MIN CLOSED PROJECT
 
     public boolean oneMinClosedProject(){
         
@@ -993,6 +1014,15 @@ public class University {
      */
     public boolean oneMinProject(){ 
         if(!getAllProjects().isEmpty()){
+            return true;
+        }
+
+        return false;
+    }
+
+    //ONE MIN PROJECT BASED ON DATE
+    public boolean oneMinDateProject(Calendar date){
+        if(!getDateProject(date).isEmpty()){
             return true;
         }
 
@@ -1072,6 +1102,20 @@ public class University {
         }
 
         return closedProjects;
+    }
+
+    //GET PROJECTS BASED ON DATE
+    public ArrayList<Project> getDateProject(Calendar date){
+        ArrayList<Project> dateProjects = new ArrayList<>();
+        
+        for(Project project : getAllProjects()){
+            if(project.getClassificationDate().compareTo(date)>=0){
+                dateProjects.add(project);
+            }
+
+        }
+
+        return dateProjects;
     }
 
     //DISPLAY ALL, UNCLOSED OR CLOSED PROJECTS CHECKEARRRRRR

@@ -515,7 +515,7 @@ public class RequestManagementApp{
         System.out.println("DISPLAYING THE PROJECT MATRIX OF A SELECTED DATE: ");
 
         if(controller.oneMinProject()){
-            System.out.print("Please enter the date to view the most recent projects assigned to each collaborator(dd/mm/yyyy): ");
+            System.out.print("Please enter the date to view the 5 most recent projects assigned to each collaborator(dd/mm/yyyy): ");
             String dateString= sk.nextLine();
             Calendar date = Calendar.getInstance();
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -526,10 +526,11 @@ public class RequestManagementApp{
                 return;
             }
 
-            if(controller.oneMinMonthProject()){
+            if(controller.oneMinDateProject(date)){
+                System.out.println(controller.displayProjectMatrix(date));
 
             } else {
-                System.out.println("The selected date doesn't have ");
+                System.out.println("Starting from the selected day onwards, there are no registered projects.");
             }
 
 

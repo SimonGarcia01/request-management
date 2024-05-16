@@ -1,6 +1,7 @@
 package model;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Calendar;
 
 public class ImprovementCollaborator extends Collaborator implements EfficiencyCalculable {
     //Attributes
@@ -87,6 +88,22 @@ public class ImprovementCollaborator extends Collaborator implements EfficiencyC
         return "The transformation and improvement project has been registered successfully.";
     }
 
+    //GET DATE PROJECTS
+
+    public Project[] getDateProjects(Calendar date){
+        Project[] dateProjects = new Project[5];
+        int counter = 0;
+
+        for(int n= 0; n < ledProjects.size() && counter != 5; n++){
+            if(ledProjects.get(n).getClassificationDate().compareTo(date)>=0){
+                dateProjects[counter] = (ledProjects.get(n));
+                counter ++;
+            }
+        }
+
+        return dateProjects;
+    }
+    
     //SEARCH PROJECT
     /**
      * <p><b>searchProject</b></p>
