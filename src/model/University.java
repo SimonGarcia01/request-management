@@ -750,6 +750,15 @@ public class University {
         return classifiedRequests;
     }
 
+    //ONE MIN REQUEST
+    public boolean oneMinRequest(){
+        if(!getAllRequests().isEmpty()){
+            return true;
+        }
+        
+        return false;
+    }
+
     //ONE MIN CLASSIFIED REQUEST
 
     public boolean oneMinClassifiedRequest(){
@@ -1051,6 +1060,7 @@ public class University {
     }
 
     //GET CLOSED PROJECTS
+    
     public ArrayList<Project> getClosedProjects(){
         ArrayList<Project> allProjects = getAllProjects();
         ArrayList<Project> closedProjects = new ArrayList<>();

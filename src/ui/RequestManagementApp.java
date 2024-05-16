@@ -45,7 +45,7 @@ public class RequestManagementApp{
                     break;
                 case 6: //To display information of the last 5 projects of each team member as a matrix
                     //To access the detailed information of a project from the displayed ones in the matrix
-                objMain.accessProjectInfo();
+                    objMain.displayProjectMatrix();
                     break;
                 case 7: //Review the efficiency of DTI collaborators, projects or requests
                     objMain.reviewEfficiencies();
@@ -510,6 +510,34 @@ public class RequestManagementApp{
         }
     }
 
+    //DISPLAY MATRIX
+    public void displayProjectMatrix(){
+        System.out.println("DISPLAYING THE PROJECT MATRIX OF A SELECTED DATE: ");
+
+        if(controller.oneMinProject()){
+            System.out.print("Please enter the date to view the most recent projects assigned to each collaborator(dd/mm/yyyy): ");
+            String dateString= sk.nextLine();
+            Calendar date = Calendar.getInstance();
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            try {
+                date.setTime(sdf.parse(dateString));
+            } catch (ParseException e) {
+                System.out.println("The format was incorrect, use: dd/MM/yyyy.");
+                return;
+            }
+
+            if(controller.oneMinMonthProject()){
+
+            } else {
+                System.out.println("The selected date doesn't have ");
+            }
+
+
+        } else {
+            System.out.println("There must be at least one registered project to display.");
+        }
+    }
+
     //DISPLAY PROJECT INFO
     /**
      * <p><b>accessProjectInfo</b></p>
@@ -549,74 +577,81 @@ public class RequestManagementApp{
     public void reviewEfficiencies(){
         System.out.println("REVIEWING EFFICIENCY OF A COLLABORATOR, PROJECT OR REQUEST:");
 
-        System.out.println("Efficiencies that can be reviewed:\n\t1. DTI collaborator\n\t2. Project\n\t3. Request");
-        System.out.print("Enter one of the displayed options: ");
-        int intEfficiency = sk.nextInt();
-        sk.nextLine();
+        if(controller.oneMinLeader() && controller.oneMinProject() && controller.oneMinRequest()){
+            System.out.println("Efficiencies that can be reviewed:\n\t1. DTI collaborator\n\t2. Project\n\t3. Request");
+            System.out.print("Enter one of the displayed options: ");
+            int intEfficiency = sk.nextInt();
+            sk.nextLine();
+    
+    
+            switch(intEfficiency) {
+                case 1:
+                    reviewLeaderEfficiency(intEfficiency);
+                    break;
+                case 2:
+                    reviewProjectEfficiency(intEfficiency);
+                    break;
+    
+                case 3:
+                    reviewRequestEfficiency(intEfficiency);
+                    break;
+            
+                default:
+                    System.out.println("You must choose one of the displayed options.");
+                    break;
+            }
 
-
-        switch(intEfficiency) {
-            case 1:
-                if(controller.oneMinLeaderWProjects()){
-                    System.out.println(controller.displayLeadersWProjects());
-                    int intLeader = sk.nextInt();
-                    sk.nextLine();
-                    System.out.println(controller.calculateEfficiency(intEfficiency, intLeader));
-                } else {
-                    System.out.println("There must be at least one DTI collaborator with one assigned project to calculate its efficiency.");
-                }
-
-                break;
-            case 2:
-                if(controller.oneMinClosedProject()){
-
-                    System.out.println(controller.displayAllOrUnclosedOrClosedProjects(3));
-                    int intProject = sk.nextInt();
-                    sk.nextLine();
-
-                    System.out.println(controller.calculateEfficiency(intEfficiency,intProject));
-
-                } else {
-                    System.out.println("There must be at least one closed project to calculate its efficiency.");
-                }
-                break;
-
-            case 3:
-                if(controller.oneMinClassifiedRequest()){
-                    System.out.println(controller.displayClassifiedRequests());
-                    int intRequest = sk.nextInt();
-                    sk.nextLine();
-
-                    System.out.println(controller.calculateEfficiency(intEfficiency, intRequest));
-
-                } else {
-                    System.out.println("There must be at least one request with a date of classification to calculate its efficiency.");
-                }
-
-                break;
-        
-            default:
-                System.out.println("You must choose one of the displayed options.");
-                break;
+        } else {
+            System.out.println("There must be at least one registered leader, project and request to enter this option.");
         }
     }
 
     //REVIEW LEADER EFFICIENCY
 
-    public void reviewLeaderEfficiency(){
-
+    public void reviewLeaderEfficiency(int intEfficiency){
+        System.out.println("REVIEWING A LEADER'S EFFICIENCY:");
+        if(controller.oneMinLeaderWProjects()){
+            System.out.println(controller.displayLeadersWProjects());
+            int intLeader = sk.nextInt();
+            sk.nextLine();
+            System.out.println(controller.calculateEfficiency(intEfficiency, intLeader));
+        } else {
+            System.out.println("There must be at least one DTI collaborator with one assigned project to calculate its efficiency.");
+        }
     }
 
     //REVIEW PROJECT EFFICIENCY
 
-    public void reviewProjectEfficiency(){
+    public void reviewProjectEfficiency(int intEfficiency){
+        System.out.println("REVIEWING A PROJECT'S EFFICIENCY:");
+        if(controller.oneMinClosedProject()){
 
+            System.out.println(controller.displayAllOrUnclosedOrClosedProjects(3));
+            int intProject = sk.nextInt();
+            sk.nextLine();
+
+            System.out.println(controller.calculateEfficiency(intEfficiency,intProject));
+
+        } else {
+            System.out.println("There must be at least one closed project to calculate its efficiency.");
+        }
     }
 
     //REVIEW REQUEST EFFICIENCY
 
-    public void reviewRequestEfficiency(){
+    public void reviewRequestEfficiency(int intEfficiency){
+        System.out.println("REVIEWING A REQUEST'S EFFICIENCY: ");
+        if(controller.oneMinClassifiedRequest()){
+            System.out.println(controller.displayClassifiedRequests());
+            System.out.print("Choose one of the displayed options: ");
+            int intRequest = sk.nextInt();
+            sk.nextLine();
 
+            System.out.println(controller.calculateEfficiency(intEfficiency, intRequest));
+
+        } else {
+            System.out.println("There must be at least one request with a date of classification to calculate its efficiency.");
+        }
     }
 
 }
