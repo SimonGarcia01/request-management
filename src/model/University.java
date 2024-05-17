@@ -283,31 +283,73 @@ public class University {
 
     //DISPLAY PROJECT MATRIX
 
-    public String displayProjectMatrix(Calendar date){
+    // public String displayProjectMatrix(Calendar date){
+    //     SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+    //     String formattedDate = dateFormat.format(date.getTime());
+
+    // String message = "\nConsulted date: " + formattedDate + "\n";
+
+    //     ArrayList<Project[]> last5Projects = new ArrayList<>();
+
+    //     for(ImprovementCollaborator dtiCollaborator : getImproveCollaborators()){
+    //         last5Projects.add(dtiCollaborator.getDateProjects(date));
+    //     }
+
+    //     for(Project[] projects : last5Projects){
+    //         message += String.format("%-3s", projects[0].getLeader().getFullName()) ;
+    //         for(Project project : projects){
+                
+    //             if(project != null){
+    //                 SimpleDateFormat estimateDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+    //                 String estimateDate = estimateDateFormat.format(project.getEstimatedCloseDate().getTime());
+                    
+    //                 message += String.format("   %s - %s - %s   ", project.getId(), Priority.priorityToLetter(project.getPriorityLevel()), estimateDate);
+    //             }
+    //         }
+    //         message += "\n";
+    //     }
+
+    //     return message;
+    // }
+
+    
+    public String displayProjectMatrix(Calendar date) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         String formattedDate = dateFormat.format(date.getTime());
 
-    String message = "\nConsulted date: " + formattedDate + "\n";
+        String message = "\nConsulted date: " + formattedDate + "\n";
 
         ArrayList<Project[]> last5Projects = new ArrayList<>();
 
-        for(ImprovementCollaborator dtiCollaborator : getImproveCollaborators()){
+        for (ImprovementCollaborator dtiCollaborator : getImproveCollaborators()) {
             last5Projects.add(dtiCollaborator.getDateProjects(date));
         }
 
-        for(Project[] projects : last5Projects){
-            message += projects[0].getLeader().getFullName() + ":   ";
-            for(Project project : projects){
-                
-                if(project != null){
-                    SimpleDateFormat estimateDateFormat = new SimpleDateFormat("dd-MM-yyyy");
-                    String estimateDate = estimateDateFormat.format(project.getEstimatedCloseDate().getTime());
-                    
-                    message += String.format("   %s - %s - %s   ", project.getId(), Priority.priorityToLetter(project.getPriorityLevel()), estimateDate);
+        // Define the fixed widths for each column
+        int nameWidth = 20;
+        int codeWidth =7;
+        int priorityWidth = 4;
+        int dateWidth = 16;
+        int separator = 5;
+
+        for (Project[] projects : last5Projects) {
+            if (projects.length > 0 && projects[0] != null) {
+                String leaderName = projects[0].getLeader().getFullName();
+                message += String.format("%-" + nameWidth + "s", leaderName);
+
+                for (Project project : projects) {
+                    if (project != null) {
+                        SimpleDateFormat estimateDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+                        String estimateDate = estimateDateFormat.format(project.getEstimatedCloseDate().getTime());
+
+                        message += String.format("%-" + codeWidth + "s-%-" + priorityWidth + "s-%-" + dateWidth + "s", 
+                            project.getId(), Priority.priorityToLetter(project.getPriorityLevel()), estimateDate);
+                    }
+                    message += "| ";
                 }
+                message += "\n";
             }
-            message += "\n";
-        }
+        } 
 
         return message;
     }
@@ -336,22 +378,22 @@ public class University {
         registerRequest("No parking space", "Add more parking spaces", 1, 2);
 
         changeRequestStatus(1, 1, 2);
-        createProject("Improve Elevator", 1, 1, "Transformation and Improvement Office", "Improve Elevator", "111");
-
-        changeRequestStatus(1, 1, 2);
-        createProject("Broken Chair", 2, 2, "Admitions Office", "Broken Chair", 3, 1);
-
-        changeRequestStatus(1, 1, 2);
-        createProject("Improve Elevator", 1, 1, "Transformation and Improvement Office", "Improve Elevator", "111");
-
-        changeRequestStatus(1, 1, 2);
-        createProject("Active Learning", 4, 4, "Admitions Office", "Active Learning", 1, 3);
+        createProject("Improve Elevator", 1, 1, "001", "Improve Elevator", "111");
 
         changeRequestStatus(2, 1, 2);
-        createProject("Improve Elevator", 1, 1, "Transformation and Improvement Office", "Improve Elevator", "111");
+        createProject("Broken Chair", 2, 2, "002", "Broken Chair", 3, 1);
+
+        changeRequestStatus(1, 1, 2);
+        createProject("Flunky lightswitch", 3, 3, "001", "Flunky lightswitch", "333");
+
+        changeRequestStatus(1, 1, 2);
+        createProject("Active Learning", 4, 4, "001", "Active Learning", 1, 3);
 
         changeRequestStatus(2, 1, 2);
-        createProject("Improve Elevator", 1, 1, "Transformation and Improvement Office", "Improve Elevator", "111");
+        createProject("Leaking sink", 2, 2, "002", "Leaking sink", "666");
+
+        changeRequestStatus(1, 1, 2);
+        createProject("No parking space", 3, 3, "001", "No parking space", "999");
 
         return "The test objects have been created successfully.";
     }
