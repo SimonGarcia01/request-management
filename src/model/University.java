@@ -326,26 +326,32 @@ public class University {
     public String generateTestObjects(){
 
         registerDepartment("001", "Transformation and Improvement Office", "AA1", 1);
-        registerDepartment("002", "Admitions", "AA0", 2);
+        registerDepartment("002", "Admitions Office", "AA0", 2);
 
         registerRequest("Improve Elevator", "The elevator is slow", 1, 1);
-        registerRequest("Broken chair", "Fix the broken chair", 2, 2);
+        registerRequest("Broken Chair", "Fix the broken chair", 2, 2);
         registerRequest("Flunky lightswitch", "The switch doesn't work", 1, 3);
         registerRequest("Active learning", "Include more online classes", 1, 4);
         registerRequest("Leaking sink", "The bathroom sink is leaking", 2, 3);
         registerRequest("No parking space", "Add more parking spaces", 1, 2);
 
         changeRequestStatus(1, 1, 2);
+        createProject("Improve Elevator", 1, 1, "Transformation and Improvement Office", "Improve Elevator", "111");
 
         changeRequestStatus(1, 1, 2);
+        createProject("Broken Chair", 2, 2, "Admitions Office", "Broken Chair", 3, 1);
 
         changeRequestStatus(1, 1, 2);
+        createProject("Improve Elevator", 1, 1, "Transformation and Improvement Office", "Improve Elevator", "111");
 
         changeRequestStatus(1, 1, 2);
+        createProject("Active Learning", 4, 4, "Admitions Office", "Active Learning", 1, 3);
 
         changeRequestStatus(2, 1, 2);
+        createProject("Improve Elevator", 1, 1, "Transformation and Improvement Office", "Improve Elevator", "111");
 
         changeRequestStatus(2, 1, 2);
+        createProject("Improve Elevator", 1, 1, "Transformation and Improvement Office", "Improve Elevator", "111");
 
         return "The test objects have been created successfully.";
     }
@@ -813,6 +819,7 @@ public class University {
     }
 
     //ONE MIN REQUEST
+
     public boolean oneMinRequest(){
         if(!getAllRequests().isEmpty()){
             return true;
@@ -1062,6 +1069,7 @@ public class University {
     }
 
     //ONE MIN PROJECT BASED ON DATE
+
     public boolean oneMinDateProject(Calendar date){
         if(!getDateProject(date).isEmpty()){
             return true;
@@ -1146,6 +1154,7 @@ public class University {
     }
 
     //GET PROJECTS BASED ON DATE
+
     public ArrayList<Project> getDateProject(Calendar date){
         ArrayList<Project> dateProjects = new ArrayList<>();
         
