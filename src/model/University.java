@@ -321,6 +321,35 @@ public class University {
         return message;
     }
 
+    //GENERATE TEST OBJECTS
+
+    public String generateTestObjects(){
+
+        registerDepartment("001", "Transformation and Improvement Office", "AA1", 1);
+        registerDepartment("002", "Admitions", "AA0", 2);
+
+        registerRequest("Improve Elevator", "The elevator is slow", 1, 1);
+        registerRequest("Broken chair", "Fix the broken chair", 2, 2);
+        registerRequest("Flunky lightswitch", "The switch doesn't work", 1, 3);
+        registerRequest("Active learning", "Include more online classes", 1, 4);
+        registerRequest("Leaking sink", "The bathroom sink is leaking", 2, 3);
+        registerRequest("No parking space", "Add more parking spaces", 1, 2);
+
+        changeRequestStatus(1, 1, 2);
+
+        changeRequestStatus(1, 1, 2);
+
+        changeRequestStatus(1, 1, 2);
+
+        changeRequestStatus(1, 1, 2);
+
+        changeRequestStatus(2, 1, 2);
+
+        changeRequestStatus(2, 1, 2);
+
+        return "The test objects have been created successfully.";
+    }
+
 
 
     //General Methods ------------------------------------------------------------------------------------------

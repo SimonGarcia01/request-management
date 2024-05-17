@@ -19,6 +19,7 @@ public class RequestManagementApp{
     //MAIN
     public static void main(String[] args){
         RequestManagementApp objMain = new RequestManagementApp();
+        objMain.createBaseDtiCollaborators();
 
         boolean generalLoop = true;
         int option = 0;
@@ -55,8 +56,12 @@ public class RequestManagementApp{
                 //Consult the number of received and managed request in a month
                     objMain.registerCollaborator();
                     break;
+                
+                case 9: //Generate test objects
+                    objMain.generateTestObjects();
+                    break;
 
-                case 9: //To end the program
+                case 10: //To end the program
                     generalLoop = false;
                     System.out.println("EXITING PROGRAM...");
                     break;
@@ -148,7 +153,7 @@ public class RequestManagementApp{
      */
     public int menu(){
         System.out.println("------------------------------------------------------------------------------------------");
-        System.out.println("General Menu:\n\t1. Register a collaborator\n\t2. Register a department\n\t3. Register a request\n\t4. Change a request's status\n\t5. Close a project\n\t6. Display the last 5 projects (based on query date) of all the DTI collaborators\n\t7. Review efficiency\n\t8. Consult general information\n\t9. Exit Program");
+        System.out.println("General Menu:\n\t1. Register a collaborator\n\t2. Register a department\n\t3. Register a request\n\t4. Change a request's status\n\t5. Close a project\n\t6. Display the last 5 projects (based on query date) of all the DTI collaborators\n\t7. Review efficiency\n\t8. Consult general information\n\t9. Generate test objects\n\t10. Exit Program");
         System.out.print("Enter one of the options: ");
         int option = sk.nextInt();
         sk.nextLine();
@@ -652,6 +657,20 @@ public class RequestManagementApp{
         } else {
             System.out.println("There must be at least one request with a date of classification to calculate its efficiency.");
         }
+    }
+
+    //CREATE BASE DTI COLLABORATORS
+    public void createBaseDtiCollaborators(){
+        controller.registerCollaborator(1, "Simon Garcia", "1006231911", "ssimonggarciaazz@gmail.com", "911");
+        controller.registerCollaborator(1, "Diana Brand", "1006110769", "diniBr@gmail.com", "135");
+        controller.registerCollaborator(1, "Liliana Franco", "315523535", "lfranco@icesi.edu.co", "642");
+        controller.registerCollaborator(1, "Alejandro Londoño", "1107838593", "alejandrolonber25@gmail.com", "666");
+    }
+
+    //GENERATE TEST OBJECTS
+    public void generateTestObjects(){
+        System.out.println("CREATING TEST OBJECTS:");
+        System.out.println(controller.generateTestObjects());
     }
 
 }
