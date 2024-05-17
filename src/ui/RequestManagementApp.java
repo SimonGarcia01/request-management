@@ -147,9 +147,8 @@ public class RequestManagementApp{
      * @return The user's choice.
      */
     public int menu(){
-        //raplace later option 6: Display the last 5 projects (based on query date) of all the DTI collaborators
         System.out.println("------------------------------------------------------------------------------------------");
-        System.out.println("General Menu:\n\t1. Register a collaborator\n\t2. Register a department\n\t3. Register a request\n\t4. Change a request's status\n\t5. Close a project\n\t6. Access the information of a specific project. \n\t7. Review efficiency\n\t8. Consult general information\n\t9. Exit Program");
+        System.out.println("General Menu:\n\t1. Register a collaborator\n\t2. Register a department\n\t3. Register a request\n\t4. Change a request's status\n\t5. Close a project\n\t6. Display the last 5 projects (based on query date) of all the DTI collaborators\n\t7. Review efficiency\n\t8. Consult general information\n\t9. Exit Program");
         System.out.print("Enter one of the options: ");
         int option = sk.nextInt();
         sk.nextLine();

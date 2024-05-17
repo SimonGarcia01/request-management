@@ -284,10 +284,10 @@ public class University {
     //DISPLAY PROJECT MATRIX
 
     public String displayProjectMatrix(Calendar date){
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         String formattedDate = dateFormat.format(date.getTime());
 
-        String message = "Consulted date: " + formattedDate;
+    String message = "\nConsulted date: " + formattedDate + "\n";
 
         ArrayList<Project[]> last5Projects = new ArrayList<>();
 
@@ -295,7 +295,19 @@ public class University {
             last5Projects.add(dtiCollaborator.getDateProjects(date));
         }
 
-        //MAKE MATRIX
+        for(Project[] projects : last5Projects){
+            message += projects[0].getLeader().getFullName() + ":   ";
+            for(Project project : projects){
+                
+                if(project != null){
+                    SimpleDateFormat estimateDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+                    String estimateDate = estimateDateFormat.format(project.getEstimatedCloseDate().getTime());
+                    
+                    message += String.format("   %s - %s - %s   ", project.getId(), Priority.priorityToLetter(project.getPriorityLevel()), estimateDate);
+                }
+            }
+            message += "\n";
+        }
 
         return message;
     }

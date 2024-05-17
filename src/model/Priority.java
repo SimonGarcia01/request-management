@@ -81,6 +81,34 @@ public enum Priority {
         return priority;
     }
 
+    //PRIORITY TO A LETTER
+    public static String priorityToLetter(Priority priority){
+        String letter = "";
+
+        switch (priority) {
+            case URGENT:
+                letter = "U";
+                break;
+
+            case HIGH:
+                letter = "H";
+                break;
+            
+            case MEDIUM:
+                letter = "M";
+                break;
+            
+            case LOW:
+                letter = "L";
+                break;
+        
+            default:
+                letter = "X";
+                break;
+        }
+
+        return letter;
+    }
 
     //CONSTRUCTOR
     /**
