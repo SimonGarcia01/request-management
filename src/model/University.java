@@ -343,6 +343,30 @@ public class University {
         return message;
     }
 
+     //DISPLAY PROJECT INFO
+    /**
+     * <p><b>displayProjectInfo</b></p>
+     * <b>Description:</b> Retrieves and displays detailed information of a specified project.
+     * This method retrieves the project with the specified ID using the {@link #searchProject(String)} method,
+     * then calls its {@link Project#toString()} method to obtain its detailed information.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The list of all projects must be initialized and contain projects (there must be no {@code null} or empty array).</li>
+     *      <li>The ID must be a valid String identifier corresponding to a project in the system.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>Returns a string containing detailed information of the specified project.</li>
+     * </ul>
+     * 
+     * @param id The ID of the project for which to display detailed information.
+     * @return A string containing detailed information of the specified project, or {@code null} if the project with the specified ID does not exist.
+     */
+    public String displayProjectInfo(String id){
+        return searchProject(id).toString();
+    }
 
     //CALCULATE EFFICIENCY
 
@@ -1207,6 +1231,20 @@ public class University {
         return projects;
     }
 
+    //SEARCH FROM ALL PROJECTS
+
+    public Project searchProject(String id){
+        ArrayList<Project> allProjects = getAllProjects();
+        Project searchedProject = null;
+        
+        for(Project project : allProjects){
+            if(project.getId().equalsIgnoreCase(id)){
+                searchedProject = project;
+            }
+        }
+        return searchedProject;
+    }
+
     //GET UNCLOSED PROJECTS
     /**
      * <p><b>getUnclosedProjects</b></p>
@@ -1392,31 +1430,6 @@ public class University {
         Calendar classificationDate = project.getClassificationDate();
 
         return enteredDate.getTimeInMillis() > classificationDate.getTimeInMillis();
-    }
-
-    //DISPLAY PROJECT INFO
-    /**
-     * <p><b>displayProjectInfo</b></p>
-     * <b>Description:</b> Retrieves and displays detailed information of a specified project.
-     * This method retrieves the project at the specified index using the {@link #getAllProjects()} method,
-     * then calls its {@link Project#toString()} method to obtain its detailed information.
-     * 
-     * <p><b>Preconditions:</b></p>
-     * <ul>
-     *      <li>The list of all projects must be initialized and contain projects (There must be no {@code null} or empty array)</li>
-     *      <li>{@code intProject} must be a valid index corresponding to a project in the system.</li>
-     * </ul>
-     * 
-     * <p><b>Postconditions:</b></p>
-     * <ul>
-     *      <li>Returns a string containing detailed information of the specified project.</li>
-     * </ul>
-     * 
-     * @param intProject The index of the project for which to display detailed information.
-     * @return A string containing detailed information of the specified project.
-     */
-    public String displayProjectInfo(int intProject){
-        return getAllProjects().get(intProject-1).toString();
     }
 
     //CONSTRUCTOR

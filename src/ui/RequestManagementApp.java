@@ -553,6 +553,9 @@ public class RequestManagementApp{
 
             if(controller.oneMinDateProject(date)){
                 System.out.println(controller.displayProjectMatrix(date));
+                System.out.print("Please enter one of the displayed project codes to access its information: ");
+                String id = sk.nextLine();
+                accessProjectInfo(id, date);
 
             } else {
                 System.out.println("Starting from the selected day onwards, there are no registered projects.");
@@ -567,35 +570,43 @@ public class RequestManagementApp{
     //DISPLAY PROJECT INFO
     /**
      * <p><b>accessProjectInfo</b></p>
-     * <b>Description:</b> Accesses and displays detailed information of a project.
-     *  Before, the system first checks there is at least one project to display and access its information ({@link University#oneMinProject()})
-     *  If the filter is passed, then the it will show all the projects saved in the system ({@link University#displayAllOrUnclosedProjects(int)})
-     * This method prompts the user to select a project and then displays its detailed information({@link University#displayProjectInfo(int)})
-     * 
+     * <b>Description:</b> Accesses and displays detailed information of a project. 
+     * After viewing the project matrix from the {@link #displayProjectMatrix()} method, the user is prompted to enter a project code. 
+     *   If the entered code does not match any of the registered projects ({@link University#searchProject(String)}), a message indicating the nonexistence of the project is shown.
+     * The method continuously prompts the user until a valid project code is entered. It will also print the same matrix ({@link University#displayProjectMatrix(Calendar)}) for the user to double check the code.
+     * Once a valid code is provided, the detailed information of the corresponding project is displayed using the {@link University#displayProjectInfo(String)} method.
+     *
      * <p><b>Preconditions:</b></p>
      * <ul>
      *      <li>At least one project must be registered in the system.</li>
+     *      <li>The entered code must be a 4-letter String.</li>
+     *      <li>This method must be used after the {@link #displayProjectMatrix()} method.</li>
      * </ul>
      * 
      * <p><b>Postconditions:</b></p>
      * <ul>
-     *      <li>If there is at least one registered project, detailed information of the selected project is displayed.</li>
-     *      <li>Otherwise, a message indicating the absence of registered projects is printed.</li>
+     *      <li>The detailed information of the selected project is displayed.</li>
+     *      <li>If the entered code does not match any of the existing projects, a message stating that the project doesn't exist is printed instead and will loop through the matrix again.</li>
      * </ul>
+     *
+     * @param id The ID of the project to access and display detailed information.
+     * @param date The date for which the project matrix is displayed, used for presenting available project codes.
      */
-    public void accessProjectInfo(){
+    public void accessProjectInfo(String id, Calendar date){
         System.out.println("SHOWING DETAILED INFORMATION OF A PROJECT");
+            boolean loop = true;
 
-        if(controller.oneMinProject()){
-            System.out.println(controller.displayAllOrUnclosedOrClosedProjects(1));
-            System.out.print("Enter one of the displayed projects: ");
-            int intProject = sk.nextInt();
-            sk.nextLine();
-
-            System.out.println(controller.displayProjectInfo(intProject));
-        } else {
-            System.out.println("There must be at least one registered project in order to print its information.");
-        }
+            do{
+                if(controller.searchProject(id) != null) {
+                    System.out.println(controller.displayProjectInfo(id));
+                    loop = false;
+                } else {
+                    System.out.println("The entered project code doesn't exist. Please try again.");
+                    System.out.println(controller.displayProjectMatrix(date));
+                    System.out.print("Please enter one of the displayed project codes to access its information: ");
+                    id = sk.nextLine();
+                }
+            }while(loop);
     }
 
     //REVIEW EFFICIENCY OF PROJECTS, COLLABORATORS OR REQUEST
