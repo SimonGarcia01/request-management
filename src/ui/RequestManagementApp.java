@@ -681,11 +681,44 @@ public class RequestManagementApp{
     }
 
     //CREATE BASE DTI COLLABORATORS
+    /**
+     * <p><b>createBaseDtiCollaborators</b></p>
+     * <b>Description:</b> Initializes the system by creating four base DTI collaborators. 
+     * This method delegates the creation process to the controller's {@link University#createBaseDtiCollaborators()} method.
+     *
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The controller must be properly initialized and accessible.</li>
+     * </ul>
+     *
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>Four base DTI collaborators are created and added to the system.</li>
+     * </ul>
+     */
     public void createBaseDtiCollaborators(){
         controller.createBaseDtiCollaborators();
     }
 
     //GENERATE TEST OBJECTS
+    /**
+     * <p><b>generateTestObjects</b></p>
+     * <b>Description:</b> Generates test objects including departments, requests, and projects. 
+     *  This method prints a message indicating the creation of test objects and invokes the controller's {@link University#generateTestObjects()} method to perform the actual generation.
+     *
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The controller must be properly initialized and accessible.</li>
+     *      <li>None of the pregenerated test objects should be added.</li>
+     *      <li>The option must only be chosen once to prevent an error.</li>
+     * </ul>
+     *
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>Test departments, requests, and projects are created and added to the system.</li>
+     *      <li>Prints a message indicating the status of the test object generation process.</li>
+     * </ul>
+     */
     public void generateTestObjects(){
         System.out.println("CREATING TEST OBJECTS:");
         System.out.println(controller.generateTestObjects());

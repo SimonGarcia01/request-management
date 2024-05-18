@@ -353,7 +353,27 @@ public class University {
     }
 
     //CREATE BASE DTI COLLABORATOR
-
+    /**
+     * <p><b>createBaseDtiCollaborators</b></p>
+     * <b>Description:</b> Creates four base DTI collaborators with predefined details and registers them in the system. The collaborators are registered using the {@link University#registerCollaborator(int, String, String, String, String)} method.
+     *
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The system must be able to register new collaborators.</li>
+     * </ul>
+     *
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>Four base DTI collaborators are created and registered in the system with the following details:
+     *          <ul>
+     *              <li>Simon Garcia: ID "1006231911", email "ssimonggarciaazz@gmail.com", phone "911".</li>
+     *              <li>Diana Brand: ID "1006110769", email "diniBr@gmail.com", phone "135".</li>
+     *              <li>Liliana Franco: ID "315523535", email "lfranco@icesi.edu.co", phone "642".</li>
+     *              <li>Alejandro Londoño: ID "1107838593", email "alejandrolonber25@gmail.com", phone "666".</li>
+     *          </ul>
+     *      </li>
+     * </ul>
+     */
     public void createBaseDtiCollaborators(){
         registerCollaborator(1, "Simon Garcia", "1006231911", "ssimonggarciaazz@gmail.com", "911");
         registerCollaborator(1, "Diana Brand", "1006110769", "diniBr@gmail.com", "135");
@@ -362,7 +382,27 @@ public class University {
     }
 
     //GENERATE TEST OBJECTS
-
+    /**
+     * <p><b>generateTestObjects</b></p>
+     * <b>Description:</b> Generates a set of test objects, including departments, requests, and projects. 
+     *  This method creates predefined departments, registers requests, changes their statuses, and creates corresponding projects. 
+     *  The method returns a message indicating the success of the operation.
+     *
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The system must support registering departments, requests, and projects.</li>
+     *      <li>The generated test objects shouldn't be already registered. Must only be used once.</li>
+     * </ul>
+     *
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>Several test departments, requests, and projects are created and registered in the system.</li>
+     *      <li>The statuses of some requests are changed and corresponding projects are created.</li>
+     *      <li>Returns a message indicating the successful creation of test objects.</li>
+     * </ul>
+     *
+     * @return A string message indicating the result of the test object generation.
+     */
     public String generateTestObjects(){
 
         registerDepartment("001", "Transformation and Improvement Office", "AA1", 1);
