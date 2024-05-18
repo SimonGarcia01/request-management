@@ -283,36 +283,6 @@ public class University {
 
     //DISPLAY PROJECT MATRIX
 
-    // public String displayProjectMatrix(Calendar date){
-    //     SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-    //     String formattedDate = dateFormat.format(date.getTime());
-
-    // String message = "\nConsulted date: " + formattedDate + "\n";
-
-    //     ArrayList<Project[]> last5Projects = new ArrayList<>();
-
-    //     for(ImprovementCollaborator dtiCollaborator : getImproveCollaborators()){
-    //         last5Projects.add(dtiCollaborator.getDateProjects(date));
-    //     }
-
-    //     for(Project[] projects : last5Projects){
-    //         message += String.format("%-3s", projects[0].getLeader().getFullName()) ;
-    //         for(Project project : projects){
-                
-    //             if(project != null){
-    //                 SimpleDateFormat estimateDateFormat = new SimpleDateFormat("dd-MM-yyyy");
-    //                 String estimateDate = estimateDateFormat.format(project.getEstimatedCloseDate().getTime());
-                    
-    //                 message += String.format("   %s - %s - %s   ", project.getId(), Priority.priorityToLetter(project.getPriorityLevel()), estimateDate);
-    //             }
-    //         }
-    //         message += "\n";
-    //     }
-
-    //     return message;
-    // }
-
-    
     public String displayProjectMatrix(Calendar date) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         String formattedDate = dateFormat.format(date.getTime());
@@ -327,29 +297,30 @@ public class University {
 
         // Define the fixed widths for each column
         int nameWidth = 20;
-        int codeWidth =7;
-        int priorityWidth = 4;
-        int dateWidth = 16;
-        int separator = 5;
+        int projectWidth = 30; // Width for one project details
 
         for (Project[] projects : last5Projects) {
-            if (projects.length > 0 && projects[0] != null) {
+            if (projects[0] != null) {
                 String leaderName = projects[0].getLeader().getFullName();
-                message += String.format("%-" + nameWidth + "s", leaderName);
+                message += String.format("%-" + nameWidth + "s|", leaderName);
 
-                for (Project project : projects) {
-                    if (project != null) {
+                // Prepare project details
+                for (int i = 0; i < projects.length; i++) {
+                    if (i < projects.length && projects[i] != null) {
+                        Project project = projects[i];
                         SimpleDateFormat estimateDateFormat = new SimpleDateFormat("dd-MM-yyyy");
                         String estimateDate = estimateDateFormat.format(project.getEstimatedCloseDate().getTime());
+                        String projectDetails = project.getId() + " - " + Priority.priorityToLetter(project.getPriorityLevel()) + " - " + estimateDate;
 
-                        message += String.format("%-" + codeWidth + "s-%-" + priorityWidth + "s-%-" + dateWidth + "s", 
-                            project.getId(), Priority.priorityToLetter(project.getPriorityLevel()), estimateDate);
+                        int padding = (projectWidth - projectDetails.length()) / 2;
+                        message += String.format("%" + padding + "s%-" + (projectWidth - padding) + "s|", "", projectDetails);
+                    } else {
+                        message += String.format("%-" + projectWidth + "s|", "");
                     }
-                    message += "| ";
                 }
                 message += "\n";
             }
-        } 
+        }
 
         return message;
     }
