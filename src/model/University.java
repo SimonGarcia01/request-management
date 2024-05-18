@@ -292,7 +292,7 @@ public class University {
         ArrayList<Project[]> last5Projects = new ArrayList<>();
 
         for (ImprovementCollaborator dtiCollaborator : getImproveCollaborators()) {
-            last5Projects.add(dtiCollaborator.getDateProjects(date));
+            last5Projects.add(dtiCollaborator.getOrganizedDateProjects(date));
         }
 
         // Define the fixed widths for each column

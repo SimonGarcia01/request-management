@@ -90,7 +90,7 @@ public class ImprovementCollaborator extends Collaborator implements EfficiencyC
 
     //GET DATE PROJECTS
 
-    public Project[] getDateProjects(Calendar date) {
+    public Project[] getOrganizedDateProjects(Calendar date) {
         Project[] dateProjects = new Project[5];
         int[] selectedIndices = {-1, -1, -1, -1, -1};
         boolean projectsLeft = true;
