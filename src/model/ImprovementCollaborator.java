@@ -89,7 +89,25 @@ public class ImprovementCollaborator extends Collaborator implements EfficiencyC
     }
 
     //GET DATE PROJECTS
-
+    /**
+     * <p><b>getOrganizedDateProjects</b></p>
+     * <b>Description:</b> Retrieves up to 5 projects led by the collaborator, starting from the specified date. 
+     * Projects are selected based on their estimated close date and priority, with the earliest and highest priority projects being preferred.
+     *
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The {@code date} parameter must be a valid and initialized {@code Calendar} object.</li>
+     *      <li>The collaborator must have a list of led projects.</li>
+     * </ul>
+     *
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>Returns an array of up to 5 projects starting from the specified date, ordered by estimated close date and priority.</li>
+     * </ul>
+     *
+     * @param date The {@code Calendar} object representing the date to start retrieving projects from.
+     * @return An array of {@code Project} objects representing the up to 5 most recent projects starting from the specified date.
+     */
     public Project[] getOrganizedDateProjects(Calendar date) {
         Project[] dateProjects = new Project[5];
         int[] selectedIndices = {-1, -1, -1, -1, -1};
@@ -120,6 +138,32 @@ public class ImprovementCollaborator extends Collaborator implements EfficiencyC
         return dateProjects;
     }
 
+    //CHANGE PRIORITY TO A SINGLE DIGIT FOR CLASSIFICATION
+    /**
+     * <p><b>getPriorityValue</b></p>
+     * <b>Description:</b> Converts a {@code Priority} enum to its corresponding integer value. 
+     * The priority values are defined as follows:
+     * <ul>
+     *      <li>{@code URGENT} - 1</li>
+     *      <li>{@code HIGH} - 2</li>
+     *      <li>{@code MEDIUM} - 3</li>
+     *      <li>{@code LOW} - 4</li>
+     * </ul>
+     * If the priority is not recognized, a default value of 5 is returned.
+     *
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The {@code priority} parameter must be a valid {@code Priority} enum value.</li>
+     * </ul>
+     *
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>Returns the integer value corresponding to the specified priority.</li>
+     * </ul>
+     *
+     * @param priority The {@code Priority} enum value to convert.
+     * @return An integer representing the priority value.
+     */
     public int getPriorityValue(Priority priority) {
         switch (priority) {
             case URGENT: return 1;

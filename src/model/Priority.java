@@ -82,6 +82,30 @@ public enum Priority {
     }
 
     //PRIORITY TO A LETTER
+    /**
+     * <p><b>priorityToLetter</b></p>
+     * <b>Description:</b> Converts a {@code Priority} enum to its corresponding letter representation. The letter values are defined as follows:
+     * <ul>
+     *      <li>{@code URGENT} - "U"</li>
+     *      <li>{@code HIGH} - "H"</li>
+     *      <li>{@code MEDIUM} - "M"</li>
+     *      <li>{@code LOW} - "L"</li>
+     * </ul>
+     * If the priority is not recognized, a default value of "X" is returned.
+     *
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The {@code priority} parameter must be a valid {@code Priority} enum value.</li>
+     * </ul>
+     *
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>Returns the letter representation corresponding to the specified priority.</li>
+     * </ul>
+     *
+     * @param priority The {@code Priority} enum value to convert.
+     * @return A string representing the letter value of the priority.
+     */
     public static String priorityToLetter(Priority priority){
         String letter = "";
 
