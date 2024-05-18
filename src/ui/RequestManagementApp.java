@@ -515,7 +515,27 @@ public class RequestManagementApp{
     }
 
     //DISPLAY MATRIX
-    
+    /**
+     * <p><b>displayProjectMatrix</b></p>
+     * <b>Description:</b> Displays the project matrix for a selected date, showing the 5 most recent projects assigned to each collaborator. 
+     * The method prompts the user to enter a date, validates the date format, and retrieves project information starting from the specified date.
+     * If there are no projects ({@link University#oneMinProject()}) or no projects starting from the specified date ({@link University#oneMinDateProject(Calendar)}), appropriate messages are displayed.
+     *
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>There must be at least one registered project in the system ({@link University#oneMinProject()}).</li>
+     *      <li>The date entered by the user must be in the format {@code dd/MM/yyyy}.</li>
+     *      <li>The date entered must have projects registered from that date onwards ({@link University#oneMinDateProject(Calendar)}).</li>
+     * </ul>
+     *
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>If the date is valid and there are projects from that date onwards, the project matrix is displayed.</li>
+     *      <li>If the date is invalid or there are no projects from that date onwards, an appropriate message is displayed.</li>
+     * </ul>
+     *
+     * @throws ParseException if the entered date is not in the format {@code dd/MM/yyyy}.
+     */
     public void displayProjectMatrix(){
         System.out.println("DISPLAYING THE PROJECT MATRIX OF A SELECTED DATE: ");
 

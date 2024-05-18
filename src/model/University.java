@@ -282,7 +282,25 @@ public class University {
     }
 
     //DISPLAY PROJECT MATRIX
-
+    /**
+     * <p><b>displayProjectMatrix</b></p>
+     * <b>Description:</b> Generates and returns a formatted string representation of the project matrix for a specified date. 
+     * The project matrix includes the 5 most recent projects ordered by priority and the estimated close date ({@link ImprovementCollaborator#getOrganizedDateProjects(Calendar)})assigned to each collaborator, displaying project details in a tabular format.
+     *
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The {@code date} parameter must be a valid and initialized {@code Calendar} object.</li>
+     *      <li>There must be at least one collaborator and one project assigned to them in the system.</li>
+     * </ul>
+     *
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>Returns a formatted string containing the project matrix for the specified date.</li>
+     * </ul>
+     *
+     * @param date The {@code Calendar} object representing the date to generate the project matrix for.
+     * @return A string representation of the project matrix for the specified date.
+     */
     public String displayProjectMatrix(Calendar date) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         String formattedDate = dateFormat.format(date.getTime());
@@ -1095,7 +1113,24 @@ public class University {
     }
 
     //ONE MIN PROJECT BASED ON DATE
-
+    /**
+     * <p><b>oneMinDateProject</b></p>
+     * <b>Description:</b> Checks if there is at least one project with a classification date on or after the specified date. 
+     * This method uses {@link #getDateProject(Calendar)} to retrieve the projects and checks if the resulting list is not empty.
+     *
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The {@code date} parameter must be a valid and initialized {@code Calendar} object.</li>
+     * </ul>
+     *
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>Returns {@code true} if there is at least one project with a classification date on or after the specified date; otherwise, returns {@code false}.</li>
+     * </ul>
+     *
+     * @param date The {@code Calendar} object representing the date to check projects against.
+     * @return {@code true} if there is at least one project with a classification date on or after the specified date; {@code false} otherwise.
+     */
     public boolean oneMinDateProject(Calendar date){
         if(!getDateProject(date).isEmpty()){
             return true;
@@ -1180,7 +1215,24 @@ public class University {
     }
 
     //GET PROJECTS BASED ON DATE
-
+    /**
+     * <p><b>getDateProject</b></p>
+     * <b>Description:</b> Retrieves a list of projects whose classification dates are on or after the specified date. 
+     * The method iterates through all projects ({@link University#getAllProjects()}) and filters them based on the provided date.
+     *
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The {@code date} parameter must be a Calendar date.</li>
+     * </ul>
+     *
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>Returns a list of projects classified on or after the specified date.</li>
+     * </ul>
+     *
+     * @param date The {@code Calendar} object representing the date to filter projects by.
+     * @return An {@code ArrayList<Project>} containing the projects whose classification dates are on or after the specified date.
+     */
     public ArrayList<Project> getDateProject(Calendar date){
         ArrayList<Project> dateProjects = new ArrayList<>();
         
