@@ -90,18 +90,44 @@ public class ImprovementCollaborator extends Collaborator implements EfficiencyC
 
     //GET DATE PROJECTS
 
-    public Project[] getDateProjects(Calendar date){
+    public Project[] getDateProjects(Calendar date) {
         Project[] dateProjects = new Project[5];
-        int counter = 0;
+        int[] selectedIndices = {-1, -1, -1, -1, -1};
+        boolean projectsLeft = true;
 
-        for(int n= 0; n < ledProjects.size() && counter != 5; n++){
-            if(ledProjects.get(n).getClassificationDate().compareTo(date)>=0){
-                dateProjects[counter] = (ledProjects.get(n));
-                counter ++;
+        for (int ranking = 0; ranking < 5 && projectsLeft; ranking++) {
+            Project bestProject = null;
+            int bestIndex = -1;
+    
+            for (int n = 0; n < ledProjects.size(); n++) {
+                if (selectedIndices[0] != n && selectedIndices[1] != n && selectedIndices[2] != n && selectedIndices[3] != n && selectedIndices[4] != n) {
+                    Project currentProject = ledProjects.get(n);
+                    if (currentProject.getEstimatedCloseDate().compareTo(date) >= 0 && (bestProject == null || (currentProject.getEstimatedCloseDate().compareTo(bestProject.getEstimatedCloseDate()) <= 0 && getPriorityValue(currentProject.getPriorityLevel()) < getPriorityValue(bestProject.getPriorityLevel())))) {
+                        bestProject = currentProject;
+                        bestIndex = n;
+                    }
+                }
+            }
+            
+            if(bestProject != null){
+                dateProjects[ranking] = bestProject;
+                selectedIndices[ranking] = bestIndex;
+            } else {
+                projectsLeft = false;
             }
         }
-
+    
         return dateProjects;
+    }
+
+    public int getPriorityValue(Priority priority) {
+        switch (priority) {
+            case URGENT: return 1;
+            case HIGH: return 2;
+            case MEDIUM: return 3;
+            case LOW: return 4;
+            default: return 5;
+        }
     }
     
     //SEARCH PROJECT

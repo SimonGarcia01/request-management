@@ -515,6 +515,7 @@ public class RequestManagementApp{
     }
 
     //DISPLAY MATRIX
+    
     public void displayProjectMatrix(){
         System.out.println("DISPLAYING THE PROJECT MATRIX OF A SELECTED DATE: ");
 
@@ -661,10 +662,7 @@ public class RequestManagementApp{
 
     //CREATE BASE DTI COLLABORATORS
     public void createBaseDtiCollaborators(){
-        controller.registerCollaborator(1, "Simon Garcia", "1006231911", "ssimonggarciaazz@gmail.com", "911");
-        controller.registerCollaborator(1, "Diana Brand", "1006110769", "diniBr@gmail.com", "135");
-        controller.registerCollaborator(1, "Liliana Franco", "315523535", "lfranco@icesi.edu.co", "642");
-        controller.registerCollaborator(1, "Alejandro Londoño", "1107838593", "alejandrolonber25@gmail.com", "666");
+        controller.createBaseDtiCollaborators();
     }
 
     //GENERATE TEST OBJECTS

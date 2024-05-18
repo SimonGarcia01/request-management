@@ -334,6 +334,15 @@ public class University {
         return message;
     }
 
+    //CREATE BASE DTI COLLABORATOR
+
+    public void createBaseDtiCollaborators(){
+        registerCollaborator(1, "Simon Garcia", "1006231911", "ssimonggarciaazz@gmail.com", "911");
+        registerCollaborator(1, "Diana Brand", "1006110769", "diniBr@gmail.com", "135");
+        registerCollaborator(1, "Liliana Franco", "315523535", "lfranco@icesi.edu.co", "642");
+        registerCollaborator(1, "Alejandro Londoño", "1107838593", "alejandrolonber25@gmail.com", "666");
+    }
+
     //GENERATE TEST OBJECTS
 
     public String generateTestObjects(){
@@ -347,6 +356,7 @@ public class University {
         registerRequest("Active learning", "Include more online classes", 1, 4);
         registerRequest("Leaking sink", "The bathroom sink is leaking", 2, 3);
         registerRequest("No parking space", "Add more parking spaces", 1, 2);
+        registerRequest("Trashcan on fire", "Must put out the fire", 2, 2);
 
         changeRequestStatus(1, 1, 2);
         createProject("Improve Elevator", 1, 1, "001", "Improve Elevator", "111");
@@ -365,6 +375,9 @@ public class University {
 
         changeRequestStatus(1, 1, 2);
         createProject("No parking space", 3, 3, "001", "No parking space", "999");
+
+        changeRequestStatus(1, 1, 2);
+        createProject("Trashcan on fire", 1, 2, "002", "Trashcan on fire", "WIU WIU WIU!");
 
         return "The test objects have been created successfully.";
     }
