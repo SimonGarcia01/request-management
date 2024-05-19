@@ -136,6 +136,7 @@ public class RequestManagementApp{
      *           <li>Number of received and managed requests</li>
      *       </ul>
      *   </li>
+     *   <li>Generate test objects</li>
      *   <li>Exit Program</li>
      * </ol>
      * 
@@ -470,7 +471,7 @@ public class RequestManagementApp{
      * <p><b>closeProject</b></p>
      * <b>Description:</b> Closes a project by setting its close date.
      *  This method checks if there is at least one unclosed project ({@link University#oneMinUnclosedProject()}).
-     *  If there are unclosed projects, it displays them ({@link University#displayAllOrUnclosedProjects(int)}).
+     *  If there are unclosed projects, it displays them ({@link University#displayAllOrUnclosedOrClosedProjects(int)}).
      *  The user selects one of the displayed projects, and the method prompts for the close date, ensuring it's after the registration date.
      *  The close date is parsed from user input and set for the selected project using {@link University#closeProject(int, Calendar)}.
      * 
@@ -533,8 +534,6 @@ public class RequestManagementApp{
      *      <li>If the date is valid and there are projects from that date onwards, the project matrix is displayed.</li>
      *      <li>If the date is invalid or there are no projects from that date onwards, an appropriate message is displayed.</li>
      * </ul>
-     *
-     * @throws ParseException if the entered date is not in the format {@code dd/MM/yyyy}.
      */
     public void displayProjectMatrix(){
         System.out.println("DISPLAYING THE PROJECT MATRIX OF A SELECTED DATE: ");
