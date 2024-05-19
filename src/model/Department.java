@@ -217,20 +217,6 @@ public class Department {
         return pendingRequests;
     }
 
-    //GET CLASSIFIED REQUESTS ONLY
-    
-    public ArrayList<Request> getClassifiedRequests(){
-        ArrayList<Request> pendingRequests = new ArrayList<>();
-
-        for(Request request : requests){
-            if(request.getStatus() == StatusType.intToStatus(1)){
-                pendingRequests.add(request);
-            }
-        }
-
-        return pendingRequests;
-    }
-
     //GET STRING WITH ALL STATUS TYPES
     /**
      * <p><b>displayStatusTypes</b></p>

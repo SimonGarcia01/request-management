@@ -19,8 +19,30 @@ public class Request {
     //Methods
 
     //Calculate Efficiency
+    /**
+     * Calculates and returns the efficiency of the request based on its registration and classification dates.
+     * Efficiency is determined by the time taken for classification relative to a predefined time limit after registration.
+     * 
+     * <p><b>Description:</b></p>
+     * This method calculates the efficiency of a request by measuring the time between its registration and classification dates.
+     * It compares this time difference to a predefined time limit, typically set at 20 days, to determine efficiency.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The registration and classification dates of the request must be initialized.</li>
+     *      <li>The registration date must be earlier than the classification date.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>Returns the efficiency of the request as a percentage.</li>
+     * </ul>
+     * 
+     * @return The efficiency of the request as a percentage.
+     */
     public double calculateEfficiency(){
 
+        //ERASE THIS AFTER CHECKING
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
             try {
@@ -29,7 +51,7 @@ public class Request {
                 System.out.println("The format was incorrect, use: dd/MM/yyyy.");
             }
 
-        double dateDifference = ((double)(classificationDate.getTimeInMillis() - (registrationDate.getTimeInMillis()+20)));
+        double dateDifference = ((double)(classificationDate.getTimeInMillis() - (registrationDate.getTimeInMillis()+(20*(1000 * 60 * 60 * 24)))));
 
         double differenceInDays = dateDifference / (1000 * 60 * 60 * 24);
 

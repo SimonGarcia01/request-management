@@ -136,6 +136,21 @@ public abstract class Project implements EfficiencyCalculable{
     }
 
     //Calculate Efficiency
+    /**
+     * Calculates and returns the efficiency of the project based on the deviation between the estimated close date and the actual close date.
+     * The efficiency is calculated using the following formula:
+     * <pre>
+     *     Efficiency = 1 - (Difference in days / 100)
+     * </pre>
+     * Where:
+     * <ul>
+     *     <li>{@code Difference in days} is the  difference in days between the estimated close date and the actual close date.</li>
+     *     <li>{@code Efficiency} represents the efficiency of the project, expressed as a percentage.</li>
+     * </ul>
+     * A higher efficiency value indicates that the project was completed closer to its estimated close date, while a lower efficiency value indicates a greater deviation from the estimated close date.
+     *
+     * @return The efficiency of the project, expressed as a percentage.
+     */
     public double calculateEfficiency(){
         double dateDifference = (double)(endDate.getTimeInMillis() - estimatedCloseDate.getTimeInMillis());
 

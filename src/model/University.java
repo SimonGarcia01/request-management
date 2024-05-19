@@ -369,7 +369,31 @@ public class University {
     }
 
     //CALCULATE EFFICIENCY
-
+    /**
+     * <p><b>calculateEfficiency</b></p>
+     * <b>Description:</b> Calculates and returns the efficiency of a selected DTI collaborator, project or request based on the specified efficiency type.
+     * This method calculates the efficiency based on the efficiency type specified by {@code intEfficiency}. 
+     *       *  If {@code intEfficiency} is 1, it calculates the efficiency of a DTI collaborator selected by index {@code intSelection} from the list of collaborators using the {@link #getLeaderWProjects()} method. 
+     *  If {@code intEfficiency} is 2, it calculates the efficiency of a closed project selected by index {@code intSelection} from the list of closed projects using the {@link #getClosedProjects()} method. 
+     * If {@code intEfficiency} is 3, it calculates the efficiency of a classified request selected by index {@code intSelection} from the list of classified requests using the {@link #getClassifiedRequests()} method.
+     *
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The list of closed projects must be initialized and contain closed projects.</li>
+     *      <li>The list of classified requests must be initialized and contain classified requests.</li>
+     *      <li>{@code intSelection} must be a valid index corresponding to a project or request in the system.</li>
+     *      <li>{@code intEfficiency} must be one of the following values: 1 (for project efficiency), 2 (for project efficiency), or 3 (for request efficiency).</li>
+     * </ul>
+     *
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>Returns a message containing the calculated efficiency of the selected project or request.</li>
+     * </ul>
+     *
+     * @param intEfficiency The type of efficiency to calculate (1 for project efficiency, 2 for project efficiency, 3 for request efficiency).
+     * @param intSelection The index of the selected project or request for which to calculate efficiency.
+     * @return A message containing the calculated efficiency of the selected project or request.
+     */
     public String calculateEfficiency(int intEfficiency, int intSelection){
         String message = "The efficiency of the selected ";
 
@@ -391,7 +415,7 @@ public class University {
         }
 
         return message;
-    }
+    } 
 
     //CREATE BASE DTI COLLABORATOR
     /**
@@ -480,7 +504,6 @@ public class University {
 
         return "The test objects have been created successfully.";
     }
-
 
 
     //General Methods ------------------------------------------------------------------------------------------
@@ -652,6 +675,18 @@ public class University {
         return false;
     }
 
+    //GET LEADERS WITH PROJECTS ???
+    public ArrayList<ImprovementCollaborator> getLeaderWProjects(){
+        ArrayList<ImprovementCollaborator> leaders = getImproveCollaborators();
+        ArrayList<ImprovementCollaborator> leadersWProjects = new ArrayList<>();
+
+        for(ImprovementCollaborator leader : leaders){
+            //PREGUNTARRRR
+        }
+
+        return leadersWProjects;
+    }
+    
     //ONE MIN LEADER WITH PROJECT??????????
 
     public boolean oneMinLeaderWProjects(){
@@ -852,6 +887,7 @@ public class University {
         return departments.get(intDepartment-1);
     }
 
+    //CHECK IF THE ENTERED REQUEST HAS A DUPLICATE IN THE DEPARTMENT
     /**
      * <p><b>isDuplicateRequest</b></p>
      * <b>Description:</b> Checks if there is a duplicate request with the same subject in the specified department.
@@ -917,7 +953,24 @@ public class University {
     }
 
     //GET ALL REQUESTS
-
+    /**
+     * <p><b>getAllRequests</b></p>
+     * <b>Description:</b> Retrieves a list of all requests from all departments in the system. 
+     * This method iterates through each department and retrieves the requests associated with each one using the {@link Department#getRequests()} method. 
+     * The requests from all departments are then collected into a single list.
+     *
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The list of departments must be initialized and contain department objects.</li>
+     * </ul>
+     *
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>Returns a list containing all requests from all departments in the system.</li>
+     * </ul>
+     *
+     * @return A list containing all requests from all departments in the system.
+     */
     public ArrayList<Request>  getAllRequests(){
         ArrayList<Request> allRequests = new ArrayList<>();
 
@@ -929,7 +982,24 @@ public class University {
     }
 
     //GET CLASSIFIED REQUESTS
-
+    /**
+     * <p><b>getClassifiedRequests</b></p>
+     * <b>Description:</b> Retrieves a list of all classified requests. 
+     *  A request is considered classified if its classification date is not {@code null}. 
+     * This method iterates through all requests ({@link #getAllRequests()}) and collects those that have a classification date.
+     *
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The list of all requests must be initialized.</li>
+     * </ul>
+     *
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>Returns an ArrayList containing all classified requests.</li>
+     * </ul>
+     *
+     * @return An ArrayList of classified requests.
+     */
     public ArrayList<Request> getClassifiedRequests(){
         ArrayList<Request> classifiedRequests = new ArrayList<>();
 
@@ -943,7 +1013,25 @@ public class University {
     }
 
     //ONE MIN REQUEST
-
+    /**
+     * <p><b>oneMinRequest</b></p>
+     * <b>Description:</b> Checks if there is at least one request registered in the system. 
+     *  It gets all the requests ({@link #getAllRequests()}) and checks if its empty or not.
+     * This method returns {@code true} if the list of all requests is not empty, indicating that there is at least one registered request.
+     *
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The list of all requests must be initialized.</li>
+     * </ul>
+     *
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>Returns {@code true} if there is at least one registered request in the system.</li>
+     *      <li>Returns {@code false} if there are no registered requests in the system.</li>
+     * </ul>
+     *
+     * @return {@code true} if there is at least one request registered, {@code false} otherwise.
+     */
     public boolean oneMinRequest(){
         if(!getAllRequests().isEmpty()){
             return true;
@@ -953,7 +1041,24 @@ public class University {
     }
 
     //ONE MIN CLASSIFIED REQUEST
-
+    /**
+     * <p><b>oneMinClassifiedRequest</b></p>
+     * <b>Description:</b> Checks if there is at least one classified request in the system. 
+     * A request is considered classified if its classification date is not {@code null}. 
+     * This method utilizes {@link #getClassifiedRequests()} to verify the presence of classified requests.
+     *
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The list of all requests must be initialized.</li>
+     * </ul>
+     *
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>Returns {@code true} if there is at least one classified request; otherwise, returns {@code false}.</li>
+     * </ul>
+     *
+     * @return {@code true} if there is at least one classified request; otherwise, {@code false}.
+     */
     public boolean oneMinClassifiedRequest(){
         if(!getClassifiedRequests().isEmpty()){
             return true;
@@ -963,7 +1068,24 @@ public class University {
     }
 
     //DISPLAY CLASSIFIED REQUESTS
-    
+    /**
+     * <p><b>displayClassifiedRequests</b></p>
+     * <b>Description:</b> Retrieves and displays a list of all classified requests. 
+     * A request is considered classified if its classification date is not {@code null}. 
+     * This method utilizes {@link #getClassifiedRequests()} to fetch the list of classified requests and then formats them into a readable string.
+     *
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The list of all requests must be initialized.</li>
+     * </ul>
+     *
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>Returns a string containing the subject and department details of each classified request.</li>
+     * </ul>
+     *
+     * @return A string listing the subject and department details of each classified request.
+     */    
     public String displayClassifiedRequests(){
         String message = "Available requests:";
 
@@ -1131,7 +1253,24 @@ public class University {
     }
 
     //ONE MIN CLOSED PROJECT
-
+    /**
+     * <p><b>oneMinClosedProject</b></p>
+     * <b>Description:</b> Checks if there is at least one closed project in the system. 
+     * A project is considered closed if it has been completed and marked as closed. 
+     *  This method utilizes {@link #getClosedProjects()} to verify the presence of closed projects.
+     *
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The list of all projects must be initialized.</li>
+     * </ul>
+     *
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>Returns {@code true} if there is at least one closed project; otherwise, returns {@code false}.</li>
+     * </ul>
+     *
+     * @return {@code true} if there is at least one closed project; otherwise, {@code false}.
+     */
     public boolean oneMinClosedProject(){
         
         if(!getClosedProjects().isEmpty()) {
@@ -1314,7 +1453,24 @@ public class University {
     }
 
     //GET CLOSED PROJECTS
-    
+    /**
+     * <p><b>getClosedProjects</b></p>
+     * <b>Description:</b> Retrieves a list of all closed projects in the system. 
+     * A project is considered closed if it has been completed and marked as closed, indicated by a non-null {@code end date}. 
+     * This method iterates through all projects ({@link #getAllProjects()}), checks if each project has an end date, and adds it to the list of closed projects if it does.
+     *
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The list of all projects must be initialized.</li>
+     * </ul>
+     *
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>Returns a list containing all closed projects in the system.</li>
+     * </ul>
+     *
+     * @return A list containing all closed projects in the system.
+     */
     public ArrayList<Project> getClosedProjects(){
         ArrayList<Project> allProjects = getAllProjects();
         ArrayList<Project> closedProjects = new ArrayList<>();

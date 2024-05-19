@@ -610,7 +610,26 @@ public class RequestManagementApp{
     }
 
     //REVIEW EFFICIENCY OF PROJECTS, COLLABORATORS OR REQUEST
-
+    /**
+     * <p><b>reviewEfficiencies</b></p>
+     * <b>Description:</b> Prompts the user to review the efficiency of a collaborator, project, or request. 
+     *  The method first checks if there is at least one registered leader, project, and request. 
+     * If all conditions are met, it displays the available options for reviewing efficiencies and processes the user's selection.
+     *  The method will then call the methods to review get the necessary info que see the efficiencies ({@link #reviewLeaderEfficiency(int)}, {@link #reviewProjectEfficiency(int)} and {@link #reviewRequestEfficiency(int)}).
+     *
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>At least one leader, project, and request must be registered in the system.</li>
+     *      <li>{@code intEfficiency} must be an int between 1 and 3.</li>
+     * </ul>
+     *
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>If there is at least one registered leader, project, and request, the method prompts the user to select an option to review efficiencies.</li>
+     *      <li>Depending on the user's selection, it calls the corresponding method to review the efficiency of a collaborator, project, or request.</li>
+     *      <li>If the precondition is not met, it prints a message indicating the absence of registered leaders, projects, or requests.</li>
+     * </ul>
+     */
     public void reviewEfficiencies(){
         System.out.println("REVIEWING EFFICIENCY OF A COLLABORATOR, PROJECT OR REQUEST:");
 
@@ -658,7 +677,27 @@ public class RequestManagementApp{
     }
 
     //REVIEW PROJECT EFFICIENCY
-
+    /**
+     * <p><b>reviewProjectEfficiency</b></p>
+     * <b>Description:</b> Reviews and displays the efficiency of a selected project. 
+     * This method first checks if there is at least one closed project available ({@link University#oneMinClosedProject()}). 
+     * If this condition is met, it displays all closed projects and prompts the user to select one ({@link University#displayAllOrUnclosedOrClosedProjects(int)}). 
+     * The efficiency of the selected project is then calculated and displayed.
+     *
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>At least one project must be closed in the system.</li>
+     *      <li>{@code intEfficiency} and {@code intProject} must be ints representing a displayed option. </li>
+     * </ul>
+     *
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>If there is at least one closed project, the efficiency of the selected project is displayed.</li>
+     *      <li>If no closed projects are available, a message indicating this is printed.</li>
+     * </ul>
+     *
+     * @param intEfficiency The type of efficiency to be calculated (although this parameter is not directly used in the method body, it is passed to the {@code calculateEfficiency} method).
+     */
     public void reviewProjectEfficiency(int intEfficiency){
         System.out.println("REVIEWING A PROJECT'S EFFICIENCY:");
         if(controller.oneMinClosedProject()){
@@ -676,7 +715,27 @@ public class RequestManagementApp{
     }
 
     //REVIEW REQUEST EFFICIENCY
-
+    /**
+     * <p><b>reviewRequestEfficiency</b></p>
+     * <b>Description:</b> Reviews and displays the efficiency of a selected request. 
+     *  This method first checks if there is at least one classified request available ({@link University#oneMinClassifiedRequest()}).
+     * If this condition is met, it displays all classified requests and prompts the user to select one({@link University#displayClassifiedRequests()}). 
+     * The efficiency of the selected request is then calculated and displayed.
+     *
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>At least one request must be classified in the system.</li>
+     *      <li>{@code intEfficiency} and {@code intRequest} must be ints representing a displayed option. </li>
+     * </ul>
+     *
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>If there is at least one classified request, the efficiency of the selected request is displayed.</li>
+     *      <li>If no classified requests are available, a message indicating this is printed.</li>
+     * </ul>
+     *
+     * @param intEfficiency The type of efficiency to be calculated (although this parameter is not directly used in the method body, it is passed to the {@code calculateEfficiency} method).
+     */
     public void reviewRequestEfficiency(int intEfficiency){
         System.out.println("REVIEWING A REQUEST'S EFFICIENCY: ");
         if(controller.oneMinClassifiedRequest()){
