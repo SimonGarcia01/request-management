@@ -371,7 +371,24 @@ public class University {
     //CALCULATE EFFICIENCY
 
     public String calculateEfficiency(int intEfficiency, int intSelection){
-        String message = "";
+        String message = "The efficiency of the selected ";
+
+        switch(intEfficiency){
+            case 1:
+            message += String.format("project was: %.2f%%",getClosedProjects().get(intSelection-1).calculateEfficiency());
+                break;
+
+            case 2:
+                message += String.format("project was: %.2f%%",getClosedProjects().get(intSelection-1).calculateEfficiency());
+                break;
+
+            case 3:
+                message += String.format("request was: %.2f%%", getClassifiedRequests().get(intSelection-1).calculateEfficiency());
+                break;
+        
+            default:
+                break;
+        }
 
         return message;
     }
@@ -635,7 +652,7 @@ public class University {
         return false;
     }
 
-    //ONE MIN LEADER WITH PROJECT()
+    //ONE MIN LEADER WITH PROJECT??????????
 
     public boolean oneMinLeaderWProjects(){
 
@@ -835,7 +852,6 @@ public class University {
         return departments.get(intDepartment-1);
     }
 
-    //SEARCH REQUEST
     /**
      * <p><b>isDuplicateRequest</b></p>
      * <b>Description:</b> Checks if there is a duplicate request with the same subject in the specified department.
@@ -1232,7 +1248,27 @@ public class University {
     }
 
     //SEARCH FROM ALL PROJECTS
-
+    /**
+     * <p><b>searchProject</b></p>
+     * <b>Description:</b> Searches for a project by its ID in the list of all projects.
+     * This method iterates through all projects retrieved using the {@link #getAllProjects()} method
+     * and returns the project that matches the specified ID.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The list of all projects must be initialized and contain projects (there must be no {@code null} or empty array).</li>
+     *      <li>The {@code id} parameter must be a non-null string representing the ID of the project.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>If a project with the specified ID is found, it is returned.</li>
+     *      <li>If no project with the specified ID is found, {@code null} is returned.</li>
+     * </ul>
+     * 
+     * @param id The ID of the project to search for.
+     * @return The project with the specified ID, or {@code null} if no such project is found.
+     */
     public Project searchProject(String id){
         ArrayList<Project> allProjects = getAllProjects();
         Project searchedProject = null;

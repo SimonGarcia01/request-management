@@ -1,5 +1,6 @@
 package model;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -16,6 +17,26 @@ public class Request {
     private Collaborator responsibleCollaborator;
 
     //Methods
+
+    //Calculate Efficiency
+    public double calculateEfficiency(){
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+            try {
+                classificationDate.setTime(sdf.parse("19/05/2025"));
+            } catch (ParseException e) {
+                System.out.println("The format was incorrect, use: dd/MM/yyyy.");
+            }
+
+        double dateDifference = ((double)(classificationDate.getTimeInMillis() - (registrationDate.getTimeInMillis()+20)));
+
+        double differenceInDays = dateDifference / (1000 * 60 * 60 * 24);
+
+        double efficiency = 1- (differenceInDays/100);
+
+        return efficiency;
+    }
     
     //DISPLAY STATUS TYPES
     /**
@@ -48,7 +69,24 @@ public class Request {
     }
 
     //TOSTRING
-    
+    /**
+     * <p><b>toString</b></p>
+     * <b>Description:</b> Generates a string representation of the request, including its details such as subject, description, status, registration date, classification date, responsible department, and responsible collaborator.
+     * This method formats the registration and classification dates using the {@link SimpleDateFormat} class and includes conditional formatting for the classification date if it is {@code null}.
+     *
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The {@code registrationDate} must be initialized as a {@code Calendar} object.</li>
+     *      <li>The {@code status}, {@code responsibleDepartment}, and {@code responsibleCollaborator} must be initialized and contain valid information.</li>
+     * </ul>
+     *
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>Returns a string representation of the request, including its detailed information.</li>
+     * </ul>
+     *
+     * @return A string representation of the request, including its details.
+     */
     @Override
     public String toString (){
         SimpleDateFormat dateFormatRegistration = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
@@ -59,13 +97,6 @@ public class Request {
 
         return String.format("\n\t\tSubject: %s\n\t\tDescription: %s\n\t\tStatus: %s\n\t\tRegistration Date: %s\n\t\tClassification Date: %s\n\t\tResponsible Department: \n\t\t\tName: %s\n\t\t\tInternal Code: %s\n\t\tResponsible Collaborator: \n\t\t\tFull Name: %s\n\t\t\tID: %s",
             subject, description, status.getDescription(), formattedDateRegistration, formattedDateClassification, responsibleDepartment.getName(), responsibleDepartment.getInternalCode(), responsibleCollaborator.getFullName(), responsibleCollaborator.getId());
-    }
-
-    //Calculate Efficiency
-    public double calculateEfficiency(){
-        double efficiency = -1;
-
-        return efficiency;
     }
 
     //CONSTRUCTOR

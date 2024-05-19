@@ -664,6 +664,7 @@ public class RequestManagementApp{
         if(controller.oneMinClosedProject()){
 
             System.out.println(controller.displayAllOrUnclosedOrClosedProjects(3));
+            System.out.print("Choose one of the displayed options: ");
             int intProject = sk.nextInt();
             sk.nextLine();
 

@@ -137,7 +137,11 @@ public abstract class Project implements EfficiencyCalculable{
 
     //Calculate Efficiency
     public double calculateEfficiency(){
-        double efficiency = -1;
+        double dateDifference = (double)(endDate.getTimeInMillis() - estimatedCloseDate.getTimeInMillis());
+
+        double differenceInDays =  dateDifference / (1000 * 60 * 60 * 24);
+
+        double efficiency = 1 - (differenceInDays/100);
 
         return efficiency;
     }
