@@ -54,7 +54,7 @@ public class RequestManagementApp{
                 case 8: //Consult information of projects organized by priority and type
                 //Consult the number of projects led by every DTI member
                 //Consult the number of received and managed request in a month
-                    objMain.registerCollaborator();
+                    objMain.generalConsultations();
                     break;
                 
                 case 9: //Generate test objects
@@ -748,6 +748,73 @@ public class RequestManagementApp{
         } else {
             System.out.println("There must be at least one request with a date of classification to calculate its efficiency.");
         }
+    }
+
+    //GENERAL CONSULTATION
+
+    public void generalConsultations(){
+        System.out.println("GENERAL CONSULTATION MENU: ");
+        if(controller.oneMinLeader() && controller.oneMinProject() && controller.oneMinRequest()){
+            
+            System.out.println("Available consultations:\n\t1. Number of projects by type and priority\n\t2. Number of projects led by every DTI collaborator\n\t3. Number of received and managed requests in a determined month");
+            System.out.print("Enter one of the displayed options: ");
+            int intConsultation = sk.nextInt();
+            sk.nextLine();
+
+            switch(intConsultation) {
+                case 1:
+                    consultProjectsTypePriority();
+                    break;
+                
+                case 2:
+                    consultLedProjects();
+                    break;
+                    
+                case 3:
+                    consultRequestsInAMonth();
+                    break;
+            
+                default:
+                    System.out.println("Please enter one of the displayed options.");
+                    break;
+            }
+
+        } else {
+            System.out.println("There must be at least one registered leader, project and request to enter this option.");
+        }
+    }
+
+    //CONSULT NUMBER OF PROJECT TYPE AND PRIORITY
+
+    public void consultProjectsTypePriority(){
+        System.out.println("CONSULTING THE NUMBER OF PROJECTS BY TYPE AND PRIORITY:");
+        System.out.println(controller.consultProjectsTypePriority());
+    }
+
+    //CONSULT LED PROJECTS
+
+    public void consultLedProjects(){
+        System.out.println("CONSULTING THE NUMBER OF LED PROJECTS BY EVERY DTI COLLABORATOR:");
+        System.out.println(controller.consultLedProjects());
+    }
+
+    //CONSULT REQUESTS IN A MONTH
+
+    public void consultRequestsInAMonth(){
+        System.out.println("CONSULTING THE NUMBER OF RECEIVED AND MANAGED REQUEST IN A MONTH:");
+        
+        System.out.print("Please enter the month an year which you want to see the request count (MM/yyyy):");
+        String dateString= "01/"+ sk.nextLine();
+        Calendar date = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            date.setTime(sdf.parse(dateString));
+        } catch (ParseException e) {
+            System.out.println("The format was incorrect, use: MM/yyyy.");
+            return;
+        }
+
+        System.out.println(controller.consultRequestsInAMonth(date));
     }
 
     //CREATE BASE DTI COLLABORATORS

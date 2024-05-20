@@ -417,6 +417,68 @@ public class University {
         return message;
     } 
 
+    //CONSULT NUMBER OF PROJECTS BY TYPE AND PRIORITY
+    
+    public String consultProjectsTypePriority(){
+        int improvementU = 0;
+        int improvementH = 0;
+        int improvementM = 0;
+        int improvementL = 0;
+
+        int knowledgeU = 0;
+        int knowledgeH = 0;
+        int knowledgeM = 0;
+        int knowledgeL = 0;
+
+        for(Project project : getAllProjects()){
+            if(project instanceof Improvement){
+                if(Priority.priorityToLetter(project.getPriorityLevel()).equals("U")){
+                    improvementU++;
+                } else if(Priority.priorityToLetter(project.getPriorityLevel()).equals("H")){
+                    improvementH++;
+                } else if(Priority.priorityToLetter(project.getPriorityLevel()).equals("M")){
+                    improvementM++;
+                } else  {
+                    improvementL++;
+                } 
+            } else if(project instanceof Knowledge) {
+                if(Priority.priorityToLetter(project.getPriorityLevel()).equals("U")){
+                    knowledgeU++;
+                } else if(Priority.priorityToLetter(project.getPriorityLevel()).equals("H")){
+                    knowledgeH++;
+                } else if(Priority.priorityToLetter(project.getPriorityLevel()).equals("M")){
+                    knowledgeM++;
+                } else  {
+                    knowledgeL++;
+                } 
+            }
+        }
+
+        String message = "Number of projects by type and priority:";
+
+        message += String.format("\n\tTransformation and Improvement Projects:\n\t\tUrgent: %d\n\t\tHigh: %d\n\t\tMedium: %d\n\t\tLow: %d", improvementU, improvementH, improvementM, improvementL);
+
+        message += String.format("\n\tKnowledge Management Projects:\n\t\tUrgent: %d\n\t\tHigh: %d\n\t\tMedium: %d\n\t\tLow: %d", knowledgeU, knowledgeH, knowledgeM, knowledgeL);
+
+        return message;
+    }
+
+    //CONSULT NUMBER OF PROJECTS LED BY EVERY DTI COLLABORATOR
+
+    public String consultLedProjects(){
+        String message = "Number of projects led by every DTI collaborator:";
+
+        return message;
+    }
+
+    //CONSULT NUMBER OF RECIEVED AND MANAGED REQUESTS IN A MONTH
+
+    public String consultRequestsInAMonth(Calendar date){
+        String message = "";
+
+        return message;
+    }
+
     //CREATE BASE DTI COLLABORATOR
     /**
      * <p><b>createBaseDtiCollaborators</b></p>
