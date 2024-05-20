@@ -751,7 +751,31 @@ public class RequestManagementApp{
     }
 
     //GENERAL CONSULTATION
-
+    /**
+     * <p><b>generalConsultations</b></p>
+     * <b>Description:</b> Displays a menu for general consultations and executes the selected option.
+     * This method checks if there is at least one registered leader({@link University#oneMinLeader()}), project({@link University#oneMinProject()}), and request ({@link University#oneMinRequest()}) in the system.
+     * If this condition is met, it presents the user with a list of available consultations.
+     * The user can select a consultation to execute, and the appropriate method is called based on the user's selection.
+     *  The consultation options are: 
+     *  <ol>
+     *      <li>Consult the number of registered projects, ordered by type and priority ({@link #consultProjectsTypePriority()}).</li>
+     *      <li>Consult the number that each DTI collaborator has led {@link  #consultLedProjects()}). </li>
+     *      <li>Consult the number of received and managed requests in a given month {@link #consultRequestsInAMonth()}).</li>
+     * </ol>
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>At least one leader, project, and request must be registered in the system.</li>
+     *      <li>{@code intConsultation} must be an int between 1 and 3.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>If the preconditions are met, the selected consultation is executed.</li>
+     *      <li>If the preconditions are not met, an error message is displayed.</li>
+     * </ul>
+     */
     public void generalConsultations(){
         System.out.println("GENERAL CONSULTATION MENU: ");
         if(controller.oneMinLeader() && controller.oneMinProject() && controller.oneMinRequest()){
@@ -778,28 +802,71 @@ public class RequestManagementApp{
                     System.out.println("Please enter one of the displayed options.");
                     break;
             }
-
         } else {
             System.out.println("There must be at least one registered leader, project and request to enter this option.");
         }
     }
 
     //CONSULT NUMBER OF PROJECT TYPE AND PRIORITY
-
+    /**
+     * <p><b>consultProjectsTypePriority</b></p>
+     * <b>Description:</b> Consults and displays the number of projects categorized by type and priority.
+     * This method prints a header message indicating the nature of the consultation and then calls the corresponding method ({@link University#consultProjectsTypePriority()}) from the controller to retrieve and display the required information.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The system must have projects registered with defined types and priorities.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>Displays a summary of the number of projects by type and priority.</li>
+     * </ul>
+     */
     public void consultProjectsTypePriority(){
         System.out.println("CONSULTING THE NUMBER OF PROJECTS BY TYPE AND PRIORITY:");
         System.out.println(controller.consultProjectsTypePriority());
     }
 
     //CONSULT LED PROJECTS
-
+    /**
+     * <p><b>consultLedProjects</b></p>
+     * <b>Description:</b> Consults and displays the number of projects led by each DTI collaborator.
+     * This method prints a header message indicating the nature of the consultation and then calls the corresponding method ({@link University#consultLedProjects()}) from the controller to retrieve and display the required information.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The system must have registered projects and DTI collaborators assigned as leaders.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>Displays a summary of the number of projects led by each DTI collaborator.</li>
+     * </ul>
+     */
     public void consultLedProjects(){
         System.out.println("CONSULTING THE NUMBER OF LED PROJECTS BY EVERY DTI COLLABORATOR:");
         System.out.println(controller.consultLedProjects());
     }
 
     //CONSULT REQUESTS IN A MONTH
-
+    /**
+     * <p><b>consultRequestsInAMonth</b></p>
+     * <b>Description:</b> Consults and displays the number of received and managed requests in a specified month.
+     * This method prompts the user to enter a month and year in the format "MM/yyyy" and then parses this input to create a `Calendar` object representing the first day of that month. 
+     * It then calls the corresponding method ({@link University#consultRequestsInAMonth(Calendar)}) from the controller to retrieve and display the required information.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The input date must be in the format "MM/yyyy".</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>Displays the number of received and managed requests in the specified month.</li>
+     *      <li>If the input format is incorrect, an error message is displayed and the method terminates.</li>
+     * </ul>
+     */
     public void consultRequestsInAMonth(){
         System.out.println("CONSULTING THE NUMBER OF RECEIVED AND MANAGED REQUEST IN A MONTH:");
         

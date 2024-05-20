@@ -89,6 +89,23 @@ public class ImprovementCollaborator extends Collaborator implements EfficiencyC
     }
 
     //COUNT PROJECTS
+    /**
+     * <p><b>countProjects</b></p>
+     * <b>Description:</b> Counts and returns the number of projects led by this collaborator.
+     * This method simply returns the size of the `ledProjects` list, which contains all projects led by the collaborator.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The collaborator must have a list of led projects initialized.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>Returns the number of projects led by the collaborator.</li>
+     * </ul>
+     * 
+     * @return The number of projects led by the collaborator.
+     */
     public int countProjects(){
         return ledProjects.size();
     }

@@ -418,7 +418,23 @@ public class University {
     } 
 
     //CONSULT NUMBER OF PROJECTS BY TYPE AND PRIORITY
-    
+    /**
+     * <p><b>consultProjectsTypePriority</b></p>
+     * <b>Description:</b> Consults and displays the number of projects categorized by type (Improvement or Knowledge) and priority level (Urgent, High, Medium, Low). 
+     * This method iterates through all projects ({@link #getAllProjects()}), counts the number of projects for each type and priority level, and formats this information into a user-friendly message.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The system must have projects registered with defined types and priorities.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>Returns a string summarizing the number of projects by type and priority.</li>
+     * </ul>
+     * 
+     * @return A string containing the number of projects categorized by type and priority.
+     */
     public String consultProjectsTypePriority(){
         int improvementU = 0;
         int improvementH = 0;
@@ -464,7 +480,23 @@ public class University {
     }
 
     //CONSULT NUMBER OF PROJECTS LED BY EVERY DTI COLLABORATOR
-
+    /**
+     * <p><b>consultLedProjects</b></p>
+     * <b>Description:</b> Consults and displays the number of projects led by each DTI collaborator.
+     * This method iterates through all DTI collaborators ({@link #getImproveCollaborators()}) and constructs a message detailing the full name, ID, and number of led projects for each collaborator({@link ImprovementCollaborator#countProjects()}).
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The system must have DTI collaborators registered with associated projects.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>Returns a string summarizing the number of projects led by each DTI collaborator.</li>
+     * </ul>
+     * 
+     * @return A string containing the number of projects led by each DTI collaborator.
+     */
     public String consultLedProjects(){
         String message = "Number of projects led by every DTI collaborator:";
 
@@ -476,7 +508,26 @@ public class University {
     }
 
     //CONSULT NUMBER OF RECIEVED AND MANAGED REQUESTS IN A MONTH
-
+    /**
+     * <p><b>consultRequestsInAMonth</b></p>
+     * <b>Description:</b> Consults and displays the number of received and managed requests in a specified month.
+     * This method takes a `Calendar` object representing the first day of the month for which the consultation is made.
+     * It iterates through all requests ({@link #getAllRequests()}) to count how many were received and managed within that month.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The input date must be a valid `Calendar` object representing the first day of the month.</li>
+     *      <li>The system must have requests with registration and classification dates.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>Returns a string summarizing the number of received and managed requests during the specified month.</li>
+     * </ul>
+     * 
+     * @param date The `Calendar` object representing the first day of the month for the consultation.
+     * @return A string containing the number of received and managed requests during the specified month.
+     */
     public String consultRequestsInAMonth(Calendar date){
         String message = "Requests during during the selected month: ";
 
