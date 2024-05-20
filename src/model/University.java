@@ -1,6 +1,5 @@
 package model;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -480,16 +479,6 @@ public class University {
 
     public String consultRequestsInAMonth(Calendar date){
         String message = "Requests during during the selected month: ";
-
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-
-            try {
-                getAllRequests().get(0).getClassificationDate().setTime(sdf.parse("19/05/2025"));
-            } catch (ParseException e) {
-                System.out.println("The format was incorrect, use: dd/MM/yyyy.");
-            }
-
-
 
         ArrayList<Request> allRequests = getAllRequests();
 
