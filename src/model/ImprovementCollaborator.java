@@ -88,6 +88,11 @@ public class ImprovementCollaborator extends Collaborator implements EfficiencyC
         return "The transformation and improvement project has been registered successfully.";
     }
 
+    //COUNT PROJECTS
+    public int countProjects(){
+        return ledProjects.size();
+    }
+
     //GET DATE PROJECTS
     /**
      * <p><b>getOrganizedDateProjects</b></p>

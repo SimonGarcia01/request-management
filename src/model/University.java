@@ -468,6 +468,10 @@ public class University {
     public String consultLedProjects(){
         String message = "Number of projects led by every DTI collaborator:";
 
+        for(ImprovementCollaborator dtiCollaborator : getImproveCollaborators()){
+            message += String.format("\n\tFull Name: %s - ID: %s - Number of led projects: %d", dtiCollaborator.getFullName(), dtiCollaborator.getId(), dtiCollaborator.countProjects());
+        }
+
         return message;
     }
 
