@@ -1,5 +1,6 @@
 package model;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -478,7 +479,40 @@ public class University {
     //CONSULT NUMBER OF RECIEVED AND MANAGED REQUESTS IN A MONTH
 
     public String consultRequestsInAMonth(Calendar date){
-        String message = "";
+        String message = "Requests during during the selected month: ";
+
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+            try {
+                getAllRequests().get(0).getClassificationDate().setTime(sdf.parse("19/05/2025"));
+            } catch (ParseException e) {
+                System.out.println("The format was incorrect, use: dd/MM/yyyy.");
+            }
+
+
+
+        ArrayList<Request> allRequests = getAllRequests();
+
+        int receivedRequests = 0;
+        int managedRequest = 0;
+
+        Calendar limitDate = (Calendar) date.clone();
+
+        limitDate.add(Calendar.DAY_OF_MONTH,30);
+
+        for(Request request : allRequests) {
+            if(request.getRegistrationDate().compareTo(date)>=0 && request.getRegistrationDate().compareTo(limitDate) <0){
+                receivedRequests ++;
+            }
+
+            if(request.getClassificationDate().compareTo(date)>=0 && request.getClassificationDate().compareTo(limitDate) <0)
+            managedRequest++;
+        }
+
+
+        message += "\n\tNumber of received requests: " + receivedRequests;
+
+        message += "\n\tNumber of managed requests: " + managedRequest;
 
         return message;
     }
