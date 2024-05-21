@@ -42,15 +42,6 @@ public class Request {
      */
     public double calculateEfficiency(){
 
-        //ERASE THIS AFTER CHECKING
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-
-            try {
-                classificationDate.setTime(sdf.parse("19/05/2025"));
-            } catch (ParseException e) {
-                System.out.println("The format was incorrect, use: dd/MM/yyyy.");
-            }
-
         double dateDifference = ((double)(classificationDate.getTimeInMillis() - (registrationDate.getTimeInMillis()+(20*(1000 * 60 * 60 * 24)))));
 
         double differenceInDays = dateDifference / (1000 * 60 * 60 * 24);
