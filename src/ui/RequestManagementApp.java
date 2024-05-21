@@ -667,6 +667,7 @@ public class RequestManagementApp{
         System.out.println("REVIEWING A LEADER'S EFFICIENCY:");
         if(controller.oneMinLeaderWProjects()){
             System.out.println(controller.displayLeadersWProjects());
+            System.out.print("Please enter one of the displayed options: ");
             int intLeader = sk.nextInt();
             sk.nextLine();
             System.out.println(controller.calculateEfficiency(intEfficiency, intLeader));

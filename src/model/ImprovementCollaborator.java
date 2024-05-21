@@ -88,6 +88,45 @@ public class ImprovementCollaborator extends Collaborator implements EfficiencyC
         return "The transformation and improvement project has been registered successfully.";
     }
 
+    //Calculate Efficiency
+    public double calculateEfficiency(){
+
+        ArrayList<Project> closedDateProjects = getClosedDateProject(null)
+
+        double efficiency = 0;
+
+        return efficiency;
+    }
+
+    //GET CLOSED PROJECTS FROM A SELECTED MONTH
+    public ArrayList<Project> getClosedDateProject(Calendar date){
+        ArrayList<Project> closedProjects = new ArrayList<>();
+        
+        for(Project project : ledProjects){
+            if(project.getEndDate().compareTo(date)>=0){
+                closedProjects.add(project);
+            }
+
+        }
+
+        return closedProjects;
+    }
+
+    //GET DATE PROJECTS
+
+    public ArrayList<Project> getDateProject(Calendar date){
+        ArrayList<Project> dateProjects = new ArrayList<>();
+        
+        for(Project project : ledProjects){
+            if(project.getClassificationDate().compareTo(date)>=0){
+                dateProjects.add(project);
+            }
+
+        }
+
+        return dateProjects;
+    }
+
     //COUNT PROJECTS
     /**
      * <p><b>countProjects</b></p>
@@ -305,13 +344,6 @@ public class ImprovementCollaborator extends Collaborator implements EfficiencyC
         }while(searchProject(code)!=null);
         
         return code;
-    }
-
-    //Calculate Efficiency
-    public double calculateEfficiency(){
-        double efficiency = -1;
-
-        return efficiency;
     }
 
     //CONSTRUCTOR

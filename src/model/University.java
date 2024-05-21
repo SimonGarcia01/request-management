@@ -399,7 +399,7 @@ public class University {
 
         switch(intEfficiency){
             case 1:
-            message += String.format("project was: %.2f%%",getClosedProjects().get(intSelection-1).calculateEfficiency());
+            message += String.format("DTI collaborator was: %.2f%%", getLeaderWProjects().get(intEfficiency-1).calculateEfficiency());
                 break;
 
             case 2:
@@ -815,35 +815,43 @@ public class University {
         return false;
     }
 
-    //GET LEADERS WITH PROJECTS ???
+    //GET LEADERS WITH PROJECTS
+
     public ArrayList<ImprovementCollaborator> getLeaderWProjects(){
         ArrayList<ImprovementCollaborator> leaders = getImproveCollaborators();
         ArrayList<ImprovementCollaborator> leadersWProjects = new ArrayList<>();
 
         for(ImprovementCollaborator leader : leaders){
-            //PREGUNTARRRR
+            if(leader.getLedProjects().size() != 0){
+                leadersWProjects.add(leader);
+            }
         }
 
         return leadersWProjects;
     }
     
-    //ONE MIN LEADER WITH PROJECT??????????
+    //ONE MIN LEADER WITH PROJECT
 
     public boolean oneMinLeaderWProjects(){
-
-        ArrayList<ImprovementCollaborator> dtiCollaborators = getImproveCollaborators();
-
-        for(ImprovementCollaborator dtiCollaborator : dtiCollaborators){
-            //CONTINUAR LUEGO DE PREGUNTA
+        if(!getLeaderWProjects().isEmpty()){
+            return true;
         }
+
 
         return false;
     }
 
-    //DISPLAY LEADERS WITH PROJECTS IN MONTH???
+    //DISPLAY LEADERS WITH PROJECTS
 
     public String displayLeadersWProjects(){
-        String message = "Available leaders:";
+        String message = "Available leaders with projects: ";
+
+        ArrayList<ImprovementCollaborator> leaders = getLeaderWProjects();
+
+        for(int n = 0; n < leaders.size(); n++){
+                message += String.format("\n\t%d. Full name: %s - ID: %s", (n+1), leaders.get(n).getFullName(), 
+                leaders.get(n).getId());
+            }
 
         return message;
     }
@@ -1645,12 +1653,10 @@ public class University {
      */
     public ArrayList<Project> getDateProject(Calendar date){
         ArrayList<Project> dateProjects = new ArrayList<>();
-        
-        for(Project project : getAllProjects()){
-            if(project.getClassificationDate().compareTo(date)>=0){
-                dateProjects.add(project);
-            }
+        ArrayList<ImprovementCollaborator> dtiCollaborators = getImproveCollaborators();
 
+        for(ImprovementCollaborator dtiCollaborator : dtiCollaborators){
+            dateProjects.addAll(dtiCollaborator.getDateProject(date));
         }
 
         return dateProjects;
