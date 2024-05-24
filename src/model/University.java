@@ -415,7 +415,7 @@ public class University {
 
     //CALCULATE EFFICIENCY OF A LEADER
 
-    public String calculateLeaderEfficiency(Calendar date, int intSelection){
+    public String reviewLeaderEfficiency(Calendar date, int intSelection){
         return String.format("The efficiency of the selected leader was: %.2f%%", getLeaderWProjects().get(intSelection - 1).calculateEfficiency(date));
     }
 

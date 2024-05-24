@@ -683,7 +683,7 @@ public class RequestManagementApp{
                 return;
             }
 
-            System.out.println(controller.calculateLeaderEfficiency(date, intLeader));
+            System.out.println(controller.reviewLeaderEfficiency(date, intLeader));
         } else {
             System.out.println("There must be at least one DTI collaborator with one assigned project to calculate its efficiency.");
         }
