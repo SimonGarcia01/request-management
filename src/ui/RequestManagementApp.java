@@ -661,6 +661,7 @@ public class RequestManagementApp{
         }
     }
 
+    
     //REVIEW LEADER EFFICIENCY
 
     public void reviewLeaderEfficiency(int intEfficiency){
@@ -670,7 +671,19 @@ public class RequestManagementApp{
             System.out.print("Please enter one of the displayed options: ");
             int intLeader = sk.nextInt();
             sk.nextLine();
-            System.out.println(controller.calculateEfficiency(intEfficiency, intLeader));
+
+            System.out.print("Please enter the month an year which you want to see the efficiency of the selected collaborator (MM/yyyy):");
+            String dateString= "01/"+ sk.nextLine();
+            Calendar date = Calendar.getInstance();
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            try {
+                date.setTime(sdf.parse(dateString));
+            } catch (ParseException e) {
+                System.out.println("The format was incorrect, use: MM/yyyy.");
+                return;
+            }
+
+            System.out.println(controller.calculateLeaderEfficiency(date, intLeader));
         } else {
             System.out.println("There must be at least one DTI collaborator with one assigned project to calculate its efficiency.");
         }

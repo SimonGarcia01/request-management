@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Calendar;
 
-public class ImprovementCollaborator extends Collaborator implements EfficiencyCalculable {
+public class ImprovementCollaborator extends Collaborator {
     //Attributes
 
     //Relations
@@ -89,27 +89,24 @@ public class ImprovementCollaborator extends Collaborator implements EfficiencyC
     }
 
     //Calculate Efficiency
-    public double calculateEfficiency(){
 
-        ArrayList<Project> closedDateProjects = getClosedDateProject(null)
+    public double calculateEfficiency(Calendar date){
 
-        double efficiency = 0;
+        double closedProjectCounter = 0;
 
-        return efficiency;
-    }
+        Calendar limitDate = (Calendar) date.clone();
 
-    //GET CLOSED PROJECTS FROM A SELECTED MONTH
-    public ArrayList<Project> getClosedDateProject(Calendar date){
-        ArrayList<Project> closedProjects = new ArrayList<>();
-        
-        for(Project project : ledProjects){
-            if(project.getEndDate().compareTo(date)>=0){
-                closedProjects.add(project);
+        limitDate.add(Calendar.DAY_OF_MONTH,30);
+
+        for(Project project : ledProjects) {
+            if(project.getEndDate() != null && project.getEndDate().compareTo(date)>=0 && project.getEndDate().compareTo(limitDate) <0){
+                closedProjectCounter ++;
             }
-
         }
 
-        return closedProjects;
+        double efficiency = (closedProjectCounter/ledProjects.size())*100;
+
+        return efficiency;
     }
 
     //GET DATE PROJECTS

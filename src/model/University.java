@@ -368,7 +368,7 @@ public class University {
         return searchProject(id).toString();
     }
 
-    //CALCULATE EFFICIENCY
+    //CALCULATE EFFICIENCY OF PROJECT AND REQUEST
     /**
      * <p><b>calculateEfficiency</b></p>
      * <b>Description:</b> Calculates and returns the efficiency of a selected DTI collaborator, project or request based on the specified efficiency type.
@@ -399,14 +399,10 @@ public class University {
 
         switch(intEfficiency){
             case 1:
-            message += String.format("DTI collaborator was: %.2f%%", getLeaderWProjects().get(intEfficiency-1).calculateEfficiency());
-                break;
-
-            case 2:
                 message += String.format("project was: %.2f%%",getClosedProjects().get(intSelection-1).calculateEfficiency());
                 break;
 
-            case 3:
+            case 2:
                 message += String.format("request was: %.2f%%", getClassifiedRequests().get(intSelection-1).calculateEfficiency());
                 break;
         
@@ -416,6 +412,12 @@ public class University {
 
         return message;
     } 
+
+    //CALCULATE EFFICIENCY OF A LEADER
+
+    public String calculateLeaderEfficiency(Calendar date, int intSelection){
+        return String.format("The efficiency of the selected leader was: %.2f%%", getLeaderWProjects().get(intSelection - 1).calculateEfficiency(date));
+    }
 
     //CONSULT NUMBER OF PROJECTS BY TYPE AND PRIORITY
     /**
