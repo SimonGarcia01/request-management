@@ -371,18 +371,17 @@ public class University {
     //CALCULATE EFFICIENCY OF PROJECT AND REQUEST
     /**
      * <p><b>calculateEfficiency</b></p>
-     * <b>Description:</b> Calculates and returns the efficiency of a selected DTI collaborator, project or request based on the specified efficiency type.
+     * <b>Description:</b> Calculates and returns the efficiency of a selected project or request based on the specified efficiency type.
      * This method calculates the efficiency based on the efficiency type specified by {@code intEfficiency}. 
-     *       *  If {@code intEfficiency} is 1, it calculates the efficiency of a DTI collaborator selected by index {@code intSelection} from the list of collaborators using the {@link #getLeaderWProjects()} method. 
-     *  If {@code intEfficiency} is 2, it calculates the efficiency of a closed project selected by index {@code intSelection} from the list of closed projects using the {@link #getClosedProjects()} method. 
-     * If {@code intEfficiency} is 3, it calculates the efficiency of a classified request selected by index {@code intSelection} from the list of classified requests using the {@link #getClassifiedRequests()} method.
+     *  If {@code intEfficiency} is 1, it calculates the efficiency of a closed project selected by index {@code intSelection} from the list of closed projects using the {@link #getClosedProjects()} method. 
+     * If {@code intEfficiency} is 2, it calculates the efficiency of a classified request selected by index {@code intSelection} from the list of classified requests using the {@link #getClassifiedRequests()} method.
      *
      * <p><b>Preconditions:</b></p>
      * <ul>
      *      <li>The list of closed projects must be initialized and contain closed projects.</li>
      *      <li>The list of classified requests must be initialized and contain classified requests.</li>
      *      <li>{@code intSelection} must be a valid index corresponding to a project or request in the system.</li>
-     *      <li>{@code intEfficiency} must be one of the following values: 1 (for project efficiency), 2 (for project efficiency), or 3 (for request efficiency).</li>
+     *      <li>{@code intEfficiency} must be one of the following values: 1 (for project efficiency), or 2(for request efficiency).</li>
      * </ul>
      *
      * <p><b>Postconditions:</b></p>
@@ -414,7 +413,27 @@ public class University {
     } 
 
     //CALCULATE EFFICIENCY OF A LEADER
-
+    /**
+     * <p><b>reviewLeaderEfficiency</b></p>
+     * <b>Description:</b> Reviews and returns a leader's efficiency for a specified month.
+     * This method takes a `Calendar` object representing the month for which the efficiency is to be reviewed and the index of the selected leader. 
+     *  It retrieves the leader from the list of leaders with projects ({@link #getLeaderWProjects()}) and calls the `{@link ImprovementCollaborator#calculateEfficiency(Calendar)} method on that leader to obtain their efficiency for the specified month.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The input date must be a valid `Calendar` object representing the first day of the month.</li>
+     *      <li>The intSelection must be a valid index within the range of the list of leaders with projects.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>Returns a string summarizing the efficiency of the selected leader for the specified month.</li>
+     * </ul>
+     * 
+     * @param date The `Calendar` object representing the month for the consultation.
+     * @param intSelection The index of the selected leader in the list of leaders with projects.
+     * @return A string containing the efficiency of the selected leader for the specified month.
+     */
     public String reviewLeaderEfficiency(Calendar date, int intSelection){
         return String.format("The efficiency of the selected leader was: %.2f%%", getLeaderWProjects().get(intSelection - 1).calculateEfficiency(date));
     }
@@ -818,7 +837,24 @@ public class University {
     }
 
     //GET LEADERS WITH PROJECTS
-
+    /**
+     * <p><b>getLeaderWProjects</b></p>
+     * <b>Description:</b> Retrieves a list of DTI collaborators who have at least one project assigned to them.
+     * This method iterates through the list of all collaborators and checks if each collaborator has any projects 
+     * in their `ledProjects` list. Collaborators with at least one project are added to a new list which is then returned.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The system must have registered DTI collaborators.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>Returns a list of DTI collaborators who have at least one assigned project.</li>
+     * </ul>
+     * 
+     * @return A list of `ImprovementCollaborator` objects who have at least one assigned project.
+     */
     public ArrayList<ImprovementCollaborator> getLeaderWProjects(){
         ArrayList<ImprovementCollaborator> leaders = getImproveCollaborators();
         ArrayList<ImprovementCollaborator> leadersWProjects = new ArrayList<>();
@@ -833,18 +869,52 @@ public class University {
     }
     
     //ONE MIN LEADER WITH PROJECT
-
+    /**
+     * <p><b>oneMinLeaderWProjects</b></p>
+     * <b>Description:</b> Checks if there is at least one DTI collaborator with at least one project assigned.
+     * This method calls {@link #getLeaderWProjects()} to retrieve the list of collaborators with projects and returns 
+     * `true` if this list is not empty, indicating that there is at least one such collaborator.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The system must have registered DTI collaborators and projects.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>Returns `true` if there is at least one DTI collaborator with an assigned project, otherwise returns `false`.</li>
+     * </ul>
+     * 
+     * @return `true` if there is at least one DTI collaborator with an assigned project, otherwise `false`.
+     */
     public boolean oneMinLeaderWProjects(){
         if(!getLeaderWProjects().isEmpty()){
             return true;
         }
 
-
         return false;
     }
 
     //DISPLAY LEADERS WITH PROJECTS
-
+    /**
+     * <p><b>displayLeadersWProjects</b></p>
+     * <b>Description:</b> Displays a list of DTI collaborators who have at least one project assigned to them.
+     * This method retrieves the list of such collaborators using  {@link #getLeaderWProjects()} , formats the information 
+     * into a user-friendly message, and returns it. Each collaborator is displayed with their full name, ID, 
+     * and a sequential number.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The system must have registered DTI collaborators with projects.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>Returns a string listing the DTI collaborators who have at least one project.</li>
+     * </ul>
+     * 
+     * @return A string containing a formatted list of DTI collaborators with projects.
+     */
     public String displayLeadersWProjects(){
         String message = "Available leaders with projects: ";
 

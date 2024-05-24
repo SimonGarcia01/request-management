@@ -89,7 +89,26 @@ public class ImprovementCollaborator extends Collaborator {
     }
 
     //Calculate Efficiency
-
+    /**
+     * <p><b>calculateEfficiency</b></p>
+     * <b>Description:</b> Calculates and returns the efficiency of the collaborator based on the number of projects 
+     * closed within a specified month. The efficiency is calculated as the percentage of projects that were closed 
+     * within the given month out of the total projects led by the collaborator.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The input date must be a valid `Calendar` object representing the first day of the month.</li>
+     *      <li>The collaborator must have a list of led projects initialized.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>Returns the efficiency as a percentage of projects closed within the specified month.</li>
+     * </ul>
+     * 
+     * @param date The `Calendar` object representing the first day of the month for which efficiency is to be calculated.
+     * @return The efficiency of the collaborator as a percentage.
+     */
     public double calculateEfficiency(Calendar date){
 
         double closedProjectCounter = 0;
@@ -110,7 +129,27 @@ public class ImprovementCollaborator extends Collaborator {
     }
 
     //GET DATE PROJECTS
-
+    /**
+     * <p><b>getDateProject</b></p>
+     * <b>Description:</b> Retrieves a list of projects that were classified on or after the specified date.
+     * This method iterates through the list of projects led by the collaborator and checks if each project's 
+     * classification date is on or after the given date. Projects meeting this criterion are added to a new list 
+     * which is then returned.
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>The input date must be a valid `Calendar` object representing the comparison date.</li>
+     *      <li>The collaborator must have a list of led projects initialized.</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>Returns a list of projects classified on or after the specified date.</li>
+     * </ul>
+     * 
+     * @param date The `Calendar` object representing the date to compare the projects' classification dates against.
+     * @return A list of `Project` objects classified on or after the specified date.
+     */
     public ArrayList<Project> getDateProject(Calendar date){
         ArrayList<Project> dateProjects = new ArrayList<>();
         

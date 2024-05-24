@@ -663,7 +663,27 @@ public class RequestManagementApp{
 
     
     //REVIEW LEADER EFFICIENCY
-
+    /**
+     * <p><b>reviewLeaderEfficiency</b></p>
+     * <b>Description:</b> Reviews and displays a leader's efficiency for a specified month.
+     * This method checks if there is at least one DTI collaborator with assigned projects({@link University#oneMinLeaderWProjects()}). 
+     * If this condition is met,  it displays the list of such collaborators and prompts the user to select one({@link University#displayLeadersWProjects()}). 
+     * The user is then prompted to enter a month and year in the format "MM/yyyy" to review the efficiency for that period. 
+     * The method calls the corresponding controller method to calculate and display the leader's efficiency({@link University#reviewLeaderEfficiency(Calendar, int)}).
+     * 
+     * <p><b>Preconditions:</b></p>
+     * <ul>
+     *      <li>There must be at least one DTI collaborator with at least one assigned project.</li>
+     *      <li>The input date must be in the format "MM/yyyy".</li>
+     * </ul>
+     * 
+     * <p><b>Postconditions:</b></p>
+     * <ul>
+     *      <li>Displays the efficiency of the selected leader for the specified month.</li>
+     *      <li>If the input format is incorrect, an error message is displayed and the method terminates.</li>
+     * </ul>
+     * @param intEfficiency The type of efficiency to be calculated (although this parameter is not directly used in the method body, it is passed to the {@code calculateEfficiency} method).
+     */
     public void reviewLeaderEfficiency(int intEfficiency){
         System.out.println("REVIEWING A LEADER'S EFFICIENCY:");
         if(controller.oneMinLeaderWProjects()){
